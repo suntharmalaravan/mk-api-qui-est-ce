@@ -21,7 +21,12 @@ export class AuthService {
   async login(loginDto: LoginDto) {
     const user = await this.userService.findOneUsername(loginDto.username);
     if (user != null) {
-      if (await bcrypt.compare(user.password, loginDto.password)) {
+      const passwordMatch = await bcrypt.compare(
+        loginDto.password,
+        user.password,
+      );
+      if (passwordMatch) {
+        return { token: 'ok' };
       } else throw new BadRequestException('invalid password');
     } else throw new BadRequestException('invalid username');
   }

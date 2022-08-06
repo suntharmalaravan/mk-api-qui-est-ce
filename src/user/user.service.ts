@@ -25,7 +25,7 @@ export class UserService {
 
   findOneUsername(username: string) {
     const user = this.userRepository.findOne({
-      select: { id: true, username: true },
+      select: { id: true, username: true, password: true },
       where: { username },
     });
     return user;
@@ -36,6 +36,6 @@ export class UserService {
   }
 
   remove(id: number) {
-    console.log(this.userRepository.delete({ id }));
+    return this.userRepository.delete({ id });
   }
 }
