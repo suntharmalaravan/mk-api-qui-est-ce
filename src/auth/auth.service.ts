@@ -1,26 +1,28 @@
-import { Injectable } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { CreateUserDto } from '../user/dto/create-user.dto';
+import { UserService } from '../user/user.service';
+import { LoginDto } from './dto/login.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  create(createAuthDto: CreateAuthDto) {
-    return 'This action adds a new auth';
+  constructor(private userService: UserService) {}
+  async register(createUserDto: CreateUserDto) {
+    const ifUserExists =
+      (await this.userService.findOneUsername(createUserDto.username)) != null;
+    if (ifUserExists == false) {
+      createUserDto.password = await bcrypt.hash(createUserDto.password, 12);
+      console.log(createUserDto);
+      return this.userService.create(createUserDto);
+    } else
+      throw new BadRequestException('user exists already with this username');
   }
 
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+  async login(loginDto: LoginDto) {
+    const user = await this.userService.findOneUsername(loginDto.username);
+    if (user != null) {
+      if (await bcrypt.compare(user.password, loginDto.password)) {
+      } else throw new BadRequestException('invalid password');
+    } else throw new BadRequestException('invalid username');
   }
 }

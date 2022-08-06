@@ -1,35 +1,31 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { User } from '../user/entities/user.entity';
-import { AuthService } from './auth.service';
 import { Repository } from 'typeorm';
-import { UserService } from '../user/user.service';
-describe('AuthService', () => {
-  let service: AuthService;
+import { User } from './entities/user.entity';
+import { UserService } from './user.service';
+const testUser = new User('testUser', 'testingPassword');
+describe('UserService', () => {
+  let service: UserService;
   let repo: Repository<User>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UserService,
-        AuthService,
         {
           provide: getRepositoryToken(User),
           useValue: {
-            register: jest.fn().mockReturnValue({
-              name: 'testUser',
-              password: 'testingPassword',
-              score: 0,
-              title: 'debutant',
-              id: 1,
-            }),
-            login: jest.fn().mockReturnValue({ token: 'ok' }),
+            findOne: jest.fn().mockResolvedValue(testUser),
+            findOneUsername: jest.fn().mockResolvedValue(testUser),
+            create: jest.fn().mockReturnValue(testUser),
+            delete: jest.fn().mockResolvedValue(true),
+            update: jest.fn().mockResolvedValue(true),
           },
         },
       ],
     }).compile();
 
-    service = module.get<AuthService>(AuthService);
+    service = module.get<UserService>(UserService);
     repo = module.get<Repository<User>>(getRepositoryToken(User));
   });
 
