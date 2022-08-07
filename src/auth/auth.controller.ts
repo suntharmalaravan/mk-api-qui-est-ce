@@ -2,10 +2,14 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Controller()
 export default class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private jwtService: JwtService,
+  ) {}
 
   @Post('register')
   register(@Body() createUserDto: CreateUserDto) {
@@ -14,6 +18,12 @@ export default class AuthController {
 
   @Post('login')
   async login(@Body() loginDto: LoginDto) {
-    return this.authService.login(loginDto);
+    const userLogged = await this.authService.login(loginDto);
+    return {
+      accessToken: await this.jwtService.signAsync({
+        id: userLogged.id,
+        username: userLogged.username,
+      }),
+    };
   }
 }
