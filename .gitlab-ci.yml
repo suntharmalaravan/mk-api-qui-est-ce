@@ -18,7 +18,6 @@
 image: node:latest
 stages:          # List of stages for jobs, and their order of execution
   - build
-  - test
   - deploy
 
 build-job:       # This job runs in the build stage, which runs first.
@@ -26,16 +25,6 @@ build-job:       # This job runs in the build stage, which runs first.
   script:
     - npm install -g @nestjs/cli
     - npm install
-
-unit-test-job:   # This job runs in the test stage.
-  stage: test    # It only starts when the job in the build stage completes successfully.
-  script:
-    - jest
-
-lint-test-job:   # This job also runs in the test stage.
-  stage: test    # It can run at the same time as unit-test-job (in parallel).
-  script:
-    - npm lint
 
 deploy-job:      # This job runs in the deploy stage.
   stage: deploy  # It only runs when *both* jobs in the test stage complete successfully.
