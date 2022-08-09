@@ -6,6 +6,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { typeOrmAsyncConfig } from './config/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
+import { RoomGateway } from './room/room.gateway';
+import { RoomModule } from './room/room.module';
 
 @Module({
   imports: [
@@ -13,8 +15,9 @@ import { ConfigModule } from '@nestjs/config';
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     UserModule,
     AuthModule,
+    RoomModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RoomGateway],
 })
 export class AppModule {}

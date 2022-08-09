@@ -3,6 +3,7 @@ import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
+import { Room } from 'src/room/entities/room.entity';
 import { User } from 'src/user/entities/user.entity';
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
@@ -15,7 +16,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: process.env.DATABASE_username,
       database: process.env.DATABASE_name,
       password: process.env.DATABASE_password,
-      entities: [User],
+      entities: [User, Room],
       synchronize: false,
     };
   },
@@ -28,6 +29,6 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DATABASE_username,
   database: process.env.DATABASE_name,
   password: process.env.DATABASE_password,
-  entities: [User],
+  entities: [User, Room],
   synchronize: false,
 };
