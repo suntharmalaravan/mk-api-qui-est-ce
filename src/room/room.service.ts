@@ -24,9 +24,17 @@ export class RoomService {
     await this.roomRepository.delete(id);
   }
 
+  async findByName(name: string) {
+    const user = await this.roomRepository.findOne({
+      select: { id: true, hostPlayerId: true },
+      where: { name },
+    });
+    return user;
+  }
+
   async addGuest(id: number, roomUpdates: any): Promise<Room> {
     const room = await this.roomRepository.findOne({
-      select: { id: true, guestPlayerId: true, guestCharacterId: true },
+      select: { id: true, guestPlayerId: true, status: true },
       where: { id },
     });
     if (!room) {
@@ -36,7 +44,6 @@ export class RoomService {
       throw new NotAcceptableException('Room is already closed');
     }
     room.guestPlayerId = roomUpdates.guestPlayerId;
-    room.guestCharacterId = roomUpdates.guestCharacterId;
     room.status = 'closed';
     await this.roomRepository.update(id, room);
     return room;

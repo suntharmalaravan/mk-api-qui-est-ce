@@ -1,3 +1,4 @@
+import { NotAcceptableException } from '@nestjs/common';
 import {
   SubscribeMessage,
   WebSocketGateway,
@@ -12,13 +13,16 @@ export class RoomGateway {
   constructor(private readonly roomService: RoomService) {}
   @SubscribeMessage('create')
   async createRoom(socket: Socket, data: any) {
-    socket.join(data.name);
-    const newRoom = await this.roomService.create({
+    const existingRoom = await this.roomService.findByName(data.name);
+    if (existingRoom) {
+      throw new NotAcceptableException('Room with this name already exists');
+    }
+    await this.roomService.create({
       name: data.name,
       status: 'open',
       hostPlayerId: data.userId,
       guestPlayerId: 0,
-      hostCharacterId: data.characterId,
+      hostCharacterId: 0,
       guestCharacterId: 0,
     });
     socket.to(data.name).emit('roomCreated', { room: data.name });
@@ -28,16 +32,15 @@ export class RoomGateway {
   @SubscribeMessage('join')
   async joinRoom(socket: Socket, data: any) {
     socket.join(data.name);
-    const updatedRoom = await this.roomService.addGuest(data.id, {
+    await this.roomService.addGuest(data.id, {
       guestPlayerId: data.userId,
-      guestCharacterId: data.characterId,
     });
     socket.to(data.name).emit('guest joined');
   }
 
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
-    await this.roomService.remove(data.name);
+    await this.roomService.remove(data.id);
     socket.disconnect();
   }
 }
