@@ -8,7 +8,7 @@ import { typeOrmAsyncConfig } from './config/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
 import { RoomGateway } from './room/room.gateway';
 import { RoomModule } from './room/room.module';
-
+import { ImageModule } from './image/image.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -16,6 +16,7 @@ import { RoomModule } from './room/room.module';
     UserModule,
     AuthModule,
     RoomModule,
+    ImageModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoomGateway],
