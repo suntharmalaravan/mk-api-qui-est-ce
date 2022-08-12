@@ -8,11 +8,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { Room, Room as RoomEntity } from './entities/room.entity';
+import { RoomImage as RoomImageEntity } from './entities/roomImage.entity';
 @Injectable()
 export class RoomService {
   constructor(
     @InjectRepository(RoomEntity)
     private readonly roomRepository: Repository<RoomEntity>,
+    @InjectRepository(RoomImageEntity)
+    private readonly roomImageRepository: Repository<RoomImageEntity>,
   ) {}
 
   create(createRoomDto: CreateRoomDto) {
@@ -31,10 +34,49 @@ export class RoomService {
     });
     return user;
   }
+  async findRoomDetailsAndImages(id: number) {
+    return await this.roomRepository.findOne({
+      select: {
+        id: true,
+        name: true,
+        hostCharacterId: true,
+        guestCharacterId: true,
+      },
+      where: { id },
+    });
+  }
+  async findRoomImagesId(id: number) {
+    return await this.roomImageRepository.find({
+      select: { fk_image: true },
+      where: { fk_room: id },
+    });
+  }
+  async chooseCharacter(id: number, player: string, characterId: number) {
+    if (player == 'guest') {
+      const room = await this.roomRepository.findOne({
+        select: { id: true, guestCharacterId: true },
+        where: { id },
+      });
+      room.guestCharacterId = characterId;
+      await this.roomRepository.update(id, room);
+      return room;
+    } else {
+      const room = await this.roomRepository.findOne({
+        select: { id: true, hostCharacterId: true },
+        where: { id },
+      });
+      room.hostCharacterId = characterId;
+      await this.roomRepository.update(id, room);
+      return room;
+    }
+  }
 
   async addGuest(id: number, roomUpdates: any): Promise<Room> {
     const room = await this.roomRepository.findOne({
-      select: { id: true, guestPlayerId: true, status: true },
+      select: {
+        guestPlayerId: true,
+        status: true,
+      },
       where: { id },
     });
     if (!room) {
@@ -45,6 +87,7 @@ export class RoomService {
     }
     room.guestPlayerId = roomUpdates.guestPlayerId;
     room.status = 'closed';
+    console.log(room);
     await this.roomRepository.update(id, room);
     return room;
   }
