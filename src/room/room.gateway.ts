@@ -60,6 +60,11 @@ export class RoomGateway {
     socket.to(data.name).emit('ask', { question: data.question });
   }
 
+  @SubscribeMessage('answer')
+  async answerQuestion(socket: Socket, data: any) {
+    socket.to(data.name).emit('answer', { answer: data.answer });
+  }
+
   @SubscribeMessage('choose')
   async chooseCharacter(socket: Socket, data: any) {
     this.roomService.chooseCharacter(data.id, data.player, data.characterId);
