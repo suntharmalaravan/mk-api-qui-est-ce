@@ -21,4 +21,13 @@ export class ImageService {
       where: { id },
     });
   }
+
+  async getCategories() {
+    const categories = await this.imageRepository
+      .createQueryBuilder('image')
+      .select('category')
+      .distinct(true)
+      .getRawMany();
+    return categories;
+  }
 }

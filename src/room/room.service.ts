@@ -1,5 +1,4 @@
 import {
-  Inject,
   Injectable,
   NotAcceptableException,
   NotFoundException,
@@ -8,14 +7,11 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateRoomDto } from './dto/create-room.dto';
 import { Room, Room as RoomEntity } from './entities/room.entity';
-import { RoomImage as RoomImageEntity } from './entities/roomImage.entity';
 @Injectable()
 export class RoomService {
   constructor(
     @InjectRepository(RoomEntity)
     private readonly roomRepository: Repository<RoomEntity>,
-    @InjectRepository(RoomImageEntity)
-    private readonly roomImageRepository: Repository<RoomImageEntity>,
   ) {}
 
   create(createRoomDto: CreateRoomDto) {
@@ -45,12 +41,7 @@ export class RoomService {
       where: { id },
     });
   }
-  async findRoomImagesId(id: number) {
-    return await this.roomImageRepository.find({
-      select: { fk_image: true },
-      where: { fk_room: id },
-    });
-  }
+
   async chooseCharacter(id: number, player: string, characterId: number) {
     if (player == 'guest') {
       const room = await this.roomRepository.findOne({
@@ -71,13 +62,14 @@ export class RoomService {
     }
   }
 
-  async addGuest(id: number, roomUpdates: any): Promise<Room> {
+  async addGuest(name: string, roomUpdates: any): Promise<Room> {
     const room = await this.roomRepository.findOne({
       select: {
+        id: true,
         guestPlayerId: true,
         status: true,
       },
-      where: { id },
+      where: { name },
     });
     if (!room) {
       throw new NotFoundException('Room is not found');
@@ -87,8 +79,7 @@ export class RoomService {
     }
     room.guestPlayerId = roomUpdates.guestPlayerId;
     room.status = 'closed';
-    console.log(room);
-    await this.roomRepository.update(id, room);
+    await this.roomRepository.update(room.id, room);
     return room;
   }
 }

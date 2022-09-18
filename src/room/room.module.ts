@@ -3,13 +3,13 @@ import { Room as RoomEntity } from './entities/room.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RoomService } from './room.service';
 import { RoomController } from './room.controller';
-import { RoomImage as RoomImageEntity } from './entities/roomImage.entity';
-import { ImageService } from 'src/image/image.service';
 import { ImageModule } from 'src/image/image.module';
+import { RoomImageModule } from 'src/room-image/room-image.module';
 @Module({
   imports: [
-    TypeOrmModule.forFeature([RoomEntity, RoomImageEntity]),
+    TypeOrmModule.forFeature([RoomEntity]),
     ImageModule,
+    RoomImageModule,
   ],
   providers: [RoomService],
   exports: [RoomService],
