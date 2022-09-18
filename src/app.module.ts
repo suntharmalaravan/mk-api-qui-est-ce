@@ -9,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
 import { RoomGateway } from './room/room.gateway';
 import { RoomModule } from './room/room.module';
 import { ImageModule } from './image/image.module';
+import { RoomImageModule } from './room-image/room-image.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -17,6 +18,7 @@ import { ImageModule } from './image/image.module';
     AuthModule,
     RoomModule,
     ImageModule,
+    RoomImageModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoomGateway],

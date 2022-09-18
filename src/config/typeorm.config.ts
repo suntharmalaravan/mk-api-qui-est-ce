@@ -5,8 +5,8 @@ import {
 } from '@nestjs/typeorm';
 import { Image } from 'src/image/entities/image.entity';
 import { Room } from 'src/room/entities/room.entity';
-import { RoomImage } from 'src/room/entities/roomImage.entity';
 import { User } from 'src/user/entities/user.entity';
+import { RoomImage } from 'src/room-image/entities/room-image.entity';
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
   inject: [ConfigService],
