@@ -6,15 +6,21 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { typeOrmAsyncConfig } from './config/typeorm.config';
 import { ConfigModule } from '@nestjs/config';
-
+import { RoomGateway } from './room/room.gateway';
+import { RoomModule } from './room/room.module';
+import { ImageModule } from './image/image.module';
+import { RoomImageModule } from './room-image/room-image.module';
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync(typeOrmAsyncConfig),
     UserModule,
     AuthModule,
+    RoomModule,
+    ImageModule,
+    RoomImageModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, RoomGateway],
 })
 export class AppModule {}

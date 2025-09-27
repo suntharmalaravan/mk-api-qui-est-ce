@@ -12,7 +12,6 @@ export class AuthService {
       (await this.userService.findOneUsername(createUserDto.username)) != null;
     if (ifUserExists == false) {
       createUserDto.password = await bcrypt.hash(createUserDto.password, 12);
-      console.log(createUserDto);
       return this.userService.create(createUserDto);
     } else
       throw new BadRequestException('user exists already with this username');
@@ -26,7 +25,7 @@ export class AuthService {
         user.password,
       );
       if (passwordMatch) {
-        return { token: 'ok' };
+        return user;
       } else throw new BadRequestException('invalid password');
     } else throw new BadRequestException('invalid username');
   }
