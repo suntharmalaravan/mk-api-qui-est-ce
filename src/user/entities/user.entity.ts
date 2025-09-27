@@ -8,13 +8,13 @@ export class User {
   @Column()
   username: string;
 
-  @Column({ default: 0 })
+  @Column({ default: 0, nullable: false })
   score: number;
 
   @Column()
   password: string;
 
-  @Column({ default: 'debutant' })
+  @Column({ default: 'debutant', nullable: false })
   title: string;
 
   constructor(username?: string, password?: string) {

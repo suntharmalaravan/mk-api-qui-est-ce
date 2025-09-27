@@ -14,7 +14,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
     configService: ConfigService,
   ): Promise<TypeOrmModuleOptions> => {
     return {
-      type: 'mysql',
+      type: 'postgres',
       host: configService.get<string>('DATABASE_host'),
       port: configService.get<number>('DATABASE_port'),
       username: configService.get<string>('DATABASE_username'),
@@ -23,12 +23,15 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       entities: [User, Room, Image, RoomImage],
       synchronize: false,
       logging: configService.get<string>('NODE_ENV') === 'development', // Log SQL en dev seulement
+      ssl: {
+        rejectUnauthorized: false, // Nécessaire pour Supabase
+      },
     };
   },
 };
 
 export const typeOrmConfig: TypeOrmModuleOptions = {
-  type: 'mysql',
+  type: 'postgres',
   host: process.env.DATABASE_host,
   port: parseInt(process.env.DATABASE_port, 10),
   username: process.env.DATABASE_username,
@@ -36,4 +39,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   password: process.env.DATABASE_password,
   entities: [User, Room, Image, RoomImage],
   synchronize: false,
+  ssl: {
+    rejectUnauthorized: false, // Nécessaire pour Supabase
+  },
 };
