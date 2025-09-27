@@ -22,17 +22,17 @@ export class CreateRoomDto {
   status: string;
 
   @IsNumber()
-  hostPlayerId: number;
+  hostplayerid: number;
 
   @IsNumber()
   @IsOptional()
-  guestPlayerId: number;
+  guestplayerid: number;
 
   @IsNumber()
   @IsOptional()
-  hostCharacterId: number;
+  hostcharacterid: number;
 
   @IsNumber()
   @IsOptional()
-  guestCharacterId: number;
+  guestcharacterid: number;
 }

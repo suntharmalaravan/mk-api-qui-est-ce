@@ -12,14 +12,14 @@ export class Room {
   status: string;
 
   @Column({ default: 0 })
-  hostPlayerId: number;
+  hostplayerid: number;
 
   @Column()
-  guestPlayerId: number;
+  guestplayerid: number;
 
   @Column()
-  hostCharacterId: number;
+  hostcharacterid: number;
 
   @Column()
-  guestCharacterId: number;
+  guestcharacterid: number;
 }

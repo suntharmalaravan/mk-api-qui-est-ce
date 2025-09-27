@@ -25,7 +25,7 @@ export class RoomService {
 
   async findByName(name: string) {
     const user = await this.roomRepository.findOne({
-      select: { id: true, hostPlayerId: true },
+      select: { id: true, hostplayerid: true },
       where: { name },
     });
     return user;
@@ -35,8 +35,8 @@ export class RoomService {
       select: {
         id: true,
         name: true,
-        hostCharacterId: true,
-        guestCharacterId: true,
+        hostcharacterid: true,
+        guestcharacterid: true,
       },
       where: { id },
     });
@@ -45,18 +45,18 @@ export class RoomService {
   async chooseCharacter(id: number, player: string, characterId: number) {
     if (player == 'guest') {
       const room = await this.roomRepository.findOne({
-        select: { id: true, guestCharacterId: true },
+        select: { id: true, guestcharacterid: true },
         where: { id },
       });
-      room.guestCharacterId = characterId;
+      room.guestcharacterid = characterId;
       await this.roomRepository.update(id, room);
       return room;
     } else {
       const room = await this.roomRepository.findOne({
-        select: { id: true, hostCharacterId: true },
+        select: { id: true, hostcharacterid: true },
         where: { id },
       });
-      room.hostCharacterId = characterId;
+      room.hostcharacterid = characterId;
       await this.roomRepository.update(id, room);
       return room;
     }
@@ -66,7 +66,7 @@ export class RoomService {
     const room = await this.roomRepository.findOne({
       select: {
         id: true,
-        guestPlayerId: true,
+        guestplayerid: true,
         status: true,
       },
       where: { name },
@@ -77,7 +77,7 @@ export class RoomService {
     if (room.status == 'closed') {
       throw new NotAcceptableException('Room is already closed');
     }
-    room.guestPlayerId = roomUpdates.guestPlayerId;
+    room.guestplayerid = roomUpdates.guestplayerid;
     room.status = 'closed';
     await this.roomRepository.update(room.id, room);
     return room;

@@ -24,8 +24,8 @@ export class RoomController {
     return {
       id: roomDetails.id,
       name: roomDetails.name,
-      hostCharacterId: roomDetails.hostCharacterId,
-      guestCharacterId: roomDetails.guestCharacterId,
+      hostcharacterid: roomDetails.hostcharacterid,
+      guestcharacterid: roomDetails.guestcharacterid,
       images,
     };
   }
