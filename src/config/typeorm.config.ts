@@ -13,6 +13,45 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   useFactory: async (
     configService: ConfigService,
   ): Promise<TypeOrmModuleOptions> => {
+    // Log des variables d'environnement pour debug (à supprimer après)
+    console.log("🔍 Debug variables d'environnement:");
+    console.log(
+      'DATABASE_URL:',
+      configService.get<string>('DATABASE_URL')
+        ? '✅ Définie'
+        : '❌ Non définie',
+    );
+    console.log('DATABASE_host:', configService.get<string>('DATABASE_host'));
+    console.log('DATABASE_port:', configService.get<number>('DATABASE_port'));
+    console.log(
+      'DATABASE_username:',
+      configService.get<string>('DATABASE_username'),
+    );
+    console.log('DATABASE_name:', configService.get<string>('DATABASE_name'));
+    console.log(
+      'DATABASE_password:',
+      configService.get<string>('DATABASE_password')
+        ? '✅ Définie'
+        : '❌ Non définie',
+    );
+    console.log('NODE_ENV:', configService.get<string>('NODE_ENV'));
+
+    // Utiliser l'URL de connexion complète si disponible, sinon utiliser les paramètres individuels
+    const databaseUrl = configService.get<string>('DATABASE_URL');
+
+    if (databaseUrl) {
+      return {
+        type: 'postgres',
+        url: databaseUrl,
+        entities: [User, Room, Image, RoomImage],
+        synchronize: false,
+        logging: configService.get<string>('NODE_ENV') === 'development',
+        ssl: {
+          rejectUnauthorized: false,
+        },
+      };
+    }
+
     return {
       type: 'postgres',
       host: configService.get<string>('DATABASE_host'),
@@ -22,9 +61,13 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       password: configService.get<string>('DATABASE_password'),
       entities: [User, Room, Image, RoomImage],
       synchronize: false,
-      logging: configService.get<string>('NODE_ENV') === 'development', // Log SQL en dev seulement
+      logging: configService.get<string>('NODE_ENV') === 'development',
       ssl: {
-        rejectUnauthorized: false, // Nécessaire pour Supabase
+        rejectUnauthorized: false,
+      },
+      // Forcer IPv4 pour éviter les problèmes de connectivité
+      extra: {
+        family: 4, // Force IPv4
       },
     };
   },
