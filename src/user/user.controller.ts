@@ -11,7 +11,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
-import { UpdateScore } from './dto/update-score.dto';
+import { UpdateScoreDto } from './dto/update-score.dto';
 
 @Controller('api/users')
 export class UserController {
@@ -25,7 +25,7 @@ export class UserController {
 
   @Patch(':id/scores')
   @UseGuards(JwtAuthGuard)
-  update(@Param('id') id: string, @Body() updateScore: UpdateScore) {
+  update(@Param('id') id: string, @Body() updateScore: UpdateScoreDto) {
     return this.userService.updateScore(+id, updateScore.score);
   }
 
