@@ -11,7 +11,11 @@ export class UserService {
     private readonly userRepository: Repository<UserEntity>,
   ) {}
   create(createUserDto: CreateUserDto) {
-    const newUser = this.userRepository.create(createUserDto);
+    const newUser = this.userRepository.create({
+      ...createUserDto,
+      score: 0, // Valeur par défaut explicite
+      title: 'debutant', // Valeur par défaut explicite
+    });
     return this.userRepository.save(newUser);
   }
 
