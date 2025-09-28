@@ -23,6 +23,11 @@ export class RoomGateway {
   ) {}
   @SubscribeMessage('create')
   async createRoom(socket: Socket, data: any) {
+    console.log('🎯 Event: create room', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       // Validation des données requises
       if (!data.name || !data.userId || !data.category) {
@@ -70,6 +75,11 @@ export class RoomGateway {
 
   @SubscribeMessage('join')
   async joinRoom(socket: Socket, data: any) {
+    console.log('🚪 Event: join room', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       // Validation des données requises
       if (!data.name || !data.userId) {
@@ -94,6 +104,11 @@ export class RoomGateway {
 
   @SubscribeMessage('start')
   async startGame(socket: Socket, data: any) {
+    console.log('🚀 Event: start game', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       if (!data.name) {
         socket.emit('error', { message: 'Room name is required' });
@@ -110,6 +125,11 @@ export class RoomGateway {
 
   @SubscribeMessage('question')
   async askQuestion(socket: Socket, data: any) {
+    console.log('❓ Event: ask question', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       if (!data.name || !data.question) {
         socket.emit('error', {
@@ -128,6 +148,11 @@ export class RoomGateway {
 
   @SubscribeMessage('answer')
   async answerQuestion(socket: Socket, data: any) {
+    console.log('💬 Event: answer question', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       if (!data.name || !data.answer) {
         socket.emit('error', {
@@ -146,6 +171,11 @@ export class RoomGateway {
 
   @SubscribeMessage('choose')
   async chooseCharacter(socket: Socket, data: any) {
+    console.log('👤 Event: choose character', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       if (!data.id || !data.player || !data.characterId || !data.name) {
         socket.emit('error', {
@@ -175,6 +205,11 @@ export class RoomGateway {
 
   @SubscribeMessage('change turn')
   async changeTurn(socket: Socket, data: any) {
+    console.log('🔄 Event: change turn', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       if (!data.name || !data.player) {
         socket.emit('error', {
@@ -193,6 +228,11 @@ export class RoomGateway {
 
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
+    console.log('🚫 Event: quit room', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
     try {
       if (!data.id || !data.name || !data.userId) {
         socket.emit('error', {
