@@ -9,6 +9,8 @@ async function bootstrap() {
   app.enableCors({
     origin: true, // En production, spécifiez les domaines autorisés
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
   // Enable global validation

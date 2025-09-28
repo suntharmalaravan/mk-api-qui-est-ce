@@ -7,7 +7,13 @@ import { Socket, Server } from 'socket.io';
 import { RoomService } from './room.service';
 import { ImageService } from 'src/image/image.service';
 import { RoomImageService } from 'src/room-image/room-image.service';
-@WebSocketGateway()
+@WebSocketGateway({
+  cors: {
+    origin: '*',
+    methods: ['GET', 'POST'],
+  },
+  transports: ['websocket', 'polling'],
+})
 export class RoomGateway {
   @WebSocketServer() wss: Server;
   constructor(
