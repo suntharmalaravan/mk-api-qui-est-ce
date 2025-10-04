@@ -8,6 +8,7 @@ import { RoomService } from './room.service';
 import { ImageService } from 'src/image/image.service';
 import { RoomImageService } from 'src/room-image/room-image.service';
 @WebSocketGateway({
+  namespace: '/',
   cors: {
     origin: '*',
     methods: ['GET', 'POST'],
@@ -21,6 +22,21 @@ export class RoomGateway {
     private readonly imageService: ImageService,
     private readonly roomImageService: RoomImageService,
   ) {}
+
+  // Événements de connexion/déconnexion pour debug
+  handleConnection(client: Socket) {
+    console.log('🔌 Nouvelle connexion WebSocket:', {
+      socketId: client.id,
+      timestamp: new Date().toISOString(),
+    });
+  }
+
+  handleDisconnect(client: Socket) {
+    console.log('🔌 Déconnexion WebSocket:', {
+      socketId: client.id,
+      timestamp: new Date().toISOString(),
+    });
+  }
   @SubscribeMessage('create')
   async createRoom(socket: Socket, data: any) {
     console.log('🎯 Event: create room', {
@@ -38,35 +54,22 @@ export class RoomGateway {
         return;
       }
 
-      // Vérifier si la room existe déjà
-      const existingRoom = await this.roomService.findByName(data.name);
-      if (existingRoom) {
-        socket.emit('error', { message: 'Room with this name already exists' });
-        return;
-      }
+      // MODE TEST - Simulation sans base de données
+      console.log('🧪 Mode test - Simulation de création de room');
 
-      // Créer la room avec les noms de propriétés corrigés
-      const room = await this.roomService.create({
+      // Simuler la création de room
+      const mockRoom = {
+        id: Math.floor(Math.random() * 1000),
         name: data.name,
         status: 'open',
         hostplayerid: data.userId,
-        guestplayerid: null,
-        hostcharacterid: null,
-        guestcharacterid: null,
-      });
+      };
 
-      // Ajouter les images de la catégorie
-      const images = await this.imageService.getUrlsByCategory(data.category);
-      for (let i = 0; i < images.length; i++) {
-        await this.roomImageService.insertRoomImage({
-          fk_image: images[i].id,
-          fk_room: room.id,
-        });
-      }
+      console.log('✅ Room simulée créée:', mockRoom);
 
       // Notifier la création de la room
       socket.to(data.name).emit('roomCreated', { room: data.name });
-      socket.emit('roomCreated', { room: data.name, roomId: room.id });
+      socket.emit('roomCreated', { room: data.name, roomId: mockRoom.id });
     } catch (error) {
       console.error('Error creating room:', error);
       socket.emit('error', { message: 'Failed to create room' });

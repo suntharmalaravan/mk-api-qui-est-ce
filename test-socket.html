@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Test Socket.IO</title>
+    <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>Test Socket.IO Connection</h1>
+    <div id="logs"></div>
+    <button onclick="testCreate()">Test Create Room</button>
+
+    <script>
+      const logs = document.getElementById('logs');
+
+      function log(message) {
+        logs.innerHTML += `<p>${new Date().toLocaleTimeString()}: ${message}</p>`;
+        console.log(message);
+      }
+
+      // Connexion au serveur
+      const socket = io('http://localhost:8080');
+
+      socket.on('connect', () => {
+        log('✅ Connecté ! Socket ID: ' + socket.id);
+      });
+
+      socket.on('connect_error', (error) => {
+        log('❌ Erreur de connexion: ' + error.message);
+      });
+
+      socket.on('disconnect', (reason) => {
+        log('🔌 Déconnecté: ' + reason);
+      });
+
+      // Écouter les réponses
+      socket.on('roomCreated', (data) => {
+        log('🎯 Room créée: ' + JSON.stringify(data));
+      });
+
+      socket.on('error', (data) => {
+        log('⚠️ Erreur: ' + JSON.stringify(data));
+      });
+
+      function testCreate() {
+        log('📤 Envoi événement create...');
+        socket.emit('create', {
+          name: 'test-room-html',
+          userId: 'user-html-123',
+          category: 'animals',
+        });
+      }
+    </script>
+  </body>
+</html>
