@@ -210,7 +210,7 @@ export class RoomGateway {
         roomId: joinedRoom.id,
         roomName: data.name,
         hostId: joinedRoom.hostplayerid,
-        hostame: hostName,
+        hostName: hostName,
       };
       console.log('📡 Emitting joined confirmation:', {
         socketId: socket.id,
