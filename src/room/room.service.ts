@@ -42,22 +42,22 @@ export class RoomService {
     });
   }
 
-  async chooseCharacter(id: number, player: string, characterId: number) {
+  async chooseCharacter(name: string, player: string, characterId: number) {
     if (player == 'guest') {
       const room = await this.roomRepository.findOne({
         select: { id: true, guestcharacterid: true },
-        where: { id },
+        where: { name },
       });
       room.guestcharacterid = characterId;
-      await this.roomRepository.update(id, room);
+      await this.roomRepository.update(room.id, room);
       return room;
     } else {
       const room = await this.roomRepository.findOne({
         select: { id: true, hostcharacterid: true },
-        where: { id },
+        where: { name },
       });
       room.hostcharacterid = characterId;
-      await this.roomRepository.update(id, room);
+      await this.roomRepository.update(room.id, room);
       return room;
     }
   }
@@ -81,5 +81,18 @@ export class RoomService {
     room.status = 'closed';
     await this.roomRepository.update(room.id, room);
     return room;
+  }
+
+  async selectCharacter(name: string, player: string, characterId: number) {
+    const room = await this.roomRepository.findOne({
+      select: { id: true, hostcharacterid: true, guestcharacterid: true },
+      where: { name },
+    });
+    if (player == 'guest') {
+      return room.guestcharacterid == characterId;
+    }
+    if (player == 'host') {
+      return room.hostcharacterid == characterId;
+    }
   }
 }
