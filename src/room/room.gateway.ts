@@ -39,11 +39,6 @@ export class RoomGateway {
   }
   @SubscribeMessage('create')
   async createRoom(socket: Socket, data: any) {
-    console.log('🎯 Event: create room', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       // Validation des données requises
       if (!data.name || !data.userId || !data.category) {
@@ -53,23 +48,32 @@ export class RoomGateway {
         });
         return;
       }
-
-      // MODE TEST - Simulation sans base de données
-      console.log('🧪 Mode test - Simulation de création de room');
-
-      // Simuler la création de room
-      const mockRoom = {
-        id: Math.floor(Math.random() * 1000),
+      // Vérifier si la room existe déjà
+      const existingRoom = await this.roomService.findByName(data.name);
+      if (existingRoom) {
+        console.log('la room existe');
+        socket.emit('error', { message: 'Room with this name already exists' });
+        return;
+      }
+      const room = await this.roomService.create({
         name: data.name,
         status: 'open',
         hostplayerid: data.userId,
-      };
+        guestplayerid: null,
+        hostcharacterid: null,
+        guestcharacterid: null,
+      });
 
-      console.log('✅ Room simulée créée:', mockRoom);
+      // Récupérer les images de la catégorie
+      const images = await this.imageService.getUrlsByCategory(data.category);
+
+      // Le créateur rejoint automatiquement sa propre room
+      socket.join(data.name);
 
       // Notifier la création de la room
-      socket.to(data.name).emit('roomCreated', { room: data.name });
-      socket.emit('roomCreated', { room: data.name, roomId: mockRoom.id });
+      const roomData = { room: data.name, roomId: room.id, images: images };
+      socket.to(data.name).emit('roomCreated', roomData);
+      socket.emit('roomCreated', roomData);
     } catch (error) {
       console.error('Error creating room:', error);
       socket.emit('error', { message: 'Failed to create room' });
@@ -78,11 +82,6 @@ export class RoomGateway {
 
   @SubscribeMessage('join')
   async joinRoom(socket: Socket, data: any) {
-    console.log('🚪 Event: join room', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       // Validation des données requises
       if (!data.name || !data.userId) {
@@ -92,12 +91,22 @@ export class RoomGateway {
         return;
       }
 
-      socket.join(data.name);
+      // Vérifier et rejoindre la room en base de données d'abord
       const joinedRoom = await this.roomService.addGuest(data.name, {
         guestplayerid: data.userId,
       });
 
-      socket.to(data.name).emit('guest joined', { id: joinedRoom.id });
+      // Si succès, rejoindre la room WebSocket
+      socket.join(data.name);
+
+      // Notifier les autres clients dans la room
+      socket.to(data.name).emit('guest joined', {
+        id: joinedRoom.id,
+        userId: data.userId,
+        socketId: socket.id,
+      });
+
+      // Confirmer au client qui rejoint
       socket.emit('joined', { roomId: joinedRoom.id, roomName: data.name });
     } catch (error) {
       console.error('Error joining room:', error);
@@ -107,11 +116,6 @@ export class RoomGateway {
 
   @SubscribeMessage('start')
   async startGame(socket: Socket, data: any) {
-    console.log('🚀 Event: start game', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       if (!data.name) {
         socket.emit('error', { message: 'Room name is required' });
@@ -128,11 +132,6 @@ export class RoomGateway {
 
   @SubscribeMessage('question')
   async askQuestion(socket: Socket, data: any) {
-    console.log('❓ Event: ask question', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       if (!data.name || !data.question) {
         socket.emit('error', {
@@ -151,11 +150,6 @@ export class RoomGateway {
 
   @SubscribeMessage('answer')
   async answerQuestion(socket: Socket, data: any) {
-    console.log('💬 Event: answer question', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       if (!data.name || !data.answer) {
         socket.emit('error', {
@@ -174,13 +168,8 @@ export class RoomGateway {
 
   @SubscribeMessage('choose')
   async chooseCharacter(socket: Socket, data: any) {
-    console.log('👤 Event: choose character', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
-      if (!data.id || !data.player || !data.characterId || !data.name) {
+      if (!data.name || !data.player || !data.characterId || !data.name) {
         socket.emit('error', {
           message:
             'Missing required data: id, player, characterId, and name are required',
@@ -189,7 +178,7 @@ export class RoomGateway {
       }
 
       await this.roomService.chooseCharacter(
-        data.id,
+        data.name,
         data.player,
         data.characterId,
       );
@@ -208,11 +197,6 @@ export class RoomGateway {
 
   @SubscribeMessage('change turn')
   async changeTurn(socket: Socket, data: any) {
-    console.log('🔄 Event: change turn', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       if (!data.name || !data.player) {
         socket.emit('error', {
@@ -224,18 +208,40 @@ export class RoomGateway {
       socket.to(data.name).emit('turn start', { player: data.player });
       socket.emit('turn changed', { player: data.player });
     } catch (error) {
-      console.error('Error changing turn:', error);
       socket.emit('error', { message: 'Failed to change turn' });
+    }
+  }
+
+  @SubscribeMessage('select')
+  async selectCharacter(socket: Socket, data: any) {
+    try {
+      if (!data.name || !data.player || !data.characterId) {
+        socket.emit('error', {
+          message:
+            'Missing required data: name, player, and characterId are required',
+        });
+        return;
+      }
+      const character = await this.roomService.selectCharacter(
+        data.name,
+        data.player,
+        data.characterId,
+      );
+      if (character) {
+        socket.emit(`${data.player} won`);
+        socket.to(data.name).emit(`${data.player} won`);
+      } else {
+        socket.emit(`${data.player} lost`);
+        socket.to(data.name).emit(`${data.player} lost`);
+      }
+    } catch (error) {
+      console.error('Error selecting character', error);
+      socket.emit('error', { message: 'Failed to select character' });
     }
   }
 
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
-    console.log('🚫 Event: quit room', {
-      socketId: socket.id,
-      data: data,
-      timestamp: new Date().toISOString(),
-    });
     try {
       if (!data.id || !data.name || !data.userId) {
         socket.emit('error', {
