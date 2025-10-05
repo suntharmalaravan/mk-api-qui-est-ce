@@ -207,9 +207,10 @@ export class RoomGateway {
         data.player,
         data.characterId,
       );
-      socket
-        .to(data.name)
-        .emit('player has chosen his character', { player: data.player });
+      socket.to(data.name).emit('character chosen', {
+        player: data.player,
+        characterId: data.characterId,
+      });
       socket.emit('character chosen', {
         player: data.player,
         characterId: data.characterId,
