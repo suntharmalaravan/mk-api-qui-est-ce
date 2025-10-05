@@ -25,7 +25,13 @@ export class RoomService {
 
   async findByName(name: string) {
     const room = await this.roomRepository.findOne({
-      select: { id: true, hostplayerid: true, category: true },
+      select: {
+        id: true,
+        hostplayerid: true,
+        category: true,
+        guestcharacterid: true,
+        hostcharacterid: true,
+      },
       where: { name },
     });
     return room;

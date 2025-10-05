@@ -397,20 +397,48 @@ export class RoomGateway {
         characterId: data.characterId,
       });
 
-      console.log('📡 Emitting character choice events:', {
+      // Vérifier si les deux joueurs ont choisi leurs personnages
+      console.log(
+        '🔍 Checking if both players have chosen their characters...',
+      );
+      const room = await this.roomService.findByName(data.name);
+      const bothPlayersChosen = room.hostcharacterid && room.guestcharacterid;
+
+      console.log('🎭 Character selection status:', {
         socketId: socket.id,
         roomName: data.name,
-        player: data.player,
-        characterId: data.characterId,
+        hostCharacterId: room.hostcharacterid,
+        guestCharacterId: room.guestcharacterid,
+        bothPlayersChosen: bothPlayersChosen,
       });
-      socket.to(data.name).emit('character chosen', {
-        player: data.player,
-        characterId: data.characterId,
-      });
-      socket.emit('character chosen', {
-        player: data.player,
-        characterId: data.characterId,
-      });
+
+      if (bothPlayersChosen) {
+        console.log('🎯 Both players have chosen - starting game board!');
+        const goBoardData = { turn: 'host' };
+        console.log('📡 Emitting go board event:', {
+          socketId: socket.id,
+          roomName: data.name,
+          goBoardData: goBoardData,
+        });
+        socket.to(data.name).emit('go board', goBoardData);
+        socket.emit('go board', goBoardData);
+      } else {
+        console.log('⏳ Waiting for other player to choose character...');
+        console.log('📡 Emitting character choice events:', {
+          socketId: socket.id,
+          roomName: data.name,
+          player: data.player,
+          characterId: data.characterId,
+        });
+        socket.to(data.name).emit('character chosen', {
+          player: data.player,
+          characterId: data.characterId,
+        });
+        socket.emit('character chosen', {
+          player: data.player,
+          characterId: data.characterId,
+        });
+      }
     } catch (error) {
       console.error('Error choosing character:', error);
       socket.emit('error', { message: 'Failed to choose character' });
