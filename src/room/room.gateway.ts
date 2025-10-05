@@ -473,8 +473,8 @@ export class RoomGateway {
         roomName: data.name,
         player: data.player,
       });
-      socket.to(data.name).emit('turn start', { player: data.player });
-      socket.emit('turn changed', { player: data.player });
+      socket.to(data.name).emit('start turn', { turn: data.player });
+      socket.emit('start turn', { turn: data.player });
     } catch (error) {
       socket.emit('error', { message: 'Failed to change turn' });
     }
