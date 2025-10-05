@@ -41,9 +41,23 @@ export class RoomGateway {
   }
   @SubscribeMessage('create')
   async createRoom(socket: Socket, data: any) {
+    console.log('🏠 Event: create room', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+
     try {
       // Validation des données requises
       if (!data.name || !data.userId || !data.category) {
+        console.log('❌ Validation failed for create room:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            userId: !data.userId,
+            category: !data.category,
+          },
+        });
         socket.emit('error', {
           message:
             'Missing required data: name, userId, and category are required',
@@ -53,10 +67,16 @@ export class RoomGateway {
       // Vérifier si la room existe déjà
       const existingRoom = await this.roomService.findByName(data.name);
       if (existingRoom) {
-        console.log('la room existe');
+        console.log('⚠️ Room already exists:', {
+          socketId: socket.id,
+          roomName: data.name,
+          existingRoomId: existingRoom.id,
+        });
         socket.emit('error', { message: 'Room with this name already exists' });
         return;
       }
+      
+      console.log('📝 Creating new room in database...');
       const room = await this.roomService.create({
         name: data.name,
         status: 'open',
@@ -66,15 +86,36 @@ export class RoomGateway {
         guestcharacterid: null,
         category: data.category,
       });
+      console.log('✅ Room created successfully:', {
+        socketId: socket.id,
+        roomId: room.id,
+        roomName: room.name,
+        hostId: room.hostplayerid,
+        category: room.category,
+      });
 
       // Récupérer les images de la catégorie
+      console.log('🖼️ Fetching images for category:', data.category);
       const images = await this.imageService.getUrlsByCategory(data.category);
+      console.log('📸 Images retrieved:', {
+        category: data.category,
+        imageCount: images.length,
+        firstImage: images[0] || 'No images found',
+      });
 
       // Le créateur rejoint automatiquement sa propre room
       socket.join(data.name);
+      console.log('🔗 Socket joined room:', {
+        socketId: socket.id,
+        roomName: data.name,
+      });
 
       // Notifier la création de la room
       const roomData = { room: data.name, roomId: room.id, images: images };
+      console.log('📡 Emitting roomCreated event:', {
+        socketId: socket.id,
+        roomData: roomData,
+      });
       socket.to(data.name).emit('roomCreated', roomData);
       socket.emit('roomCreated', roomData);
     } catch (error) {
@@ -85,9 +126,22 @@ export class RoomGateway {
 
   @SubscribeMessage('join')
   async joinRoom(socket: Socket, data: any) {
+    console.log('🚪 Event: join room', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       // Validation des données requises
       if (!data.name || !data.userId) {
+        console.log('❌ Validation failed for join room:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            userId: !data.userId,
+          },
+        });
         socket.emit('error', {
           message: 'Missing required data: name and userId are required',
         });
@@ -95,27 +149,56 @@ export class RoomGateway {
       }
 
       // Vérifier et rejoindre la room en base de données d'abord
+      console.log('📝 Adding guest to room in database...');
       const joinedRoom = await this.roomService.addGuest(data.name, {
         guestplayerid: data.userId,
+      });
+      console.log('✅ Guest added to room successfully:', {
+        socketId: socket.id,
+        roomId: joinedRoom.id,
+        roomName: joinedRoom.name,
+        guestId: data.userId,
       });
 
       // Si succès, rejoindre la room WebSocket
       socket.join(data.name);
+      console.log('🔗 Socket joined room:', {
+        socketId: socket.id,
+        roomName: data.name,
+      });
 
       // Récupérer le username du joueur
+      console.log('👤 Fetching user information for guest...');
       const user = await this.userService.findOne(parseInt(data.userId));
       const username = user ? user.username : `User-${data.userId}`;
+      console.log('👤 User information retrieved:', {
+        socketId: socket.id,
+        userId: data.userId,
+        username: username,
+        userExists: !!user,
+      });
 
       // Notifier les autres clients dans la room
-      socket.to(data.name).emit('guest joined', {
+      const guestJoinedData = {
         id: joinedRoom.id,
         userId: data.userId,
         username: username,
         socketId: socket.id,
+      };
+      console.log('📡 Emitting guest joined event:', {
+        socketId: socket.id,
+        roomName: data.name,
+        guestData: guestJoinedData,
       });
+      socket.to(data.name).emit('guest joined', guestJoinedData);
 
       // Confirmer au client qui rejoint
-      socket.emit('joined', { roomId: joinedRoom.id, roomName: data.name });
+      const joinedData = { roomId: joinedRoom.id, roomName: data.name };
+      console.log('📡 Emitting joined confirmation:', {
+        socketId: socket.id,
+        joinedData: joinedData,
+      });
+      socket.emit('joined', joinedData);
     } catch (error) {
       console.error('Error joining room:', error);
       socket.emit('error', { message: 'Failed to join room' });
@@ -124,21 +207,48 @@ export class RoomGateway {
 
   @SubscribeMessage('start')
   async startGame(socket: Socket, data: any) {
+    console.log('🚀 Event: start game', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       if (!data.name) {
+        console.log('❌ Validation failed for start game:', {
+          socketId: socket.id,
+          missingFields: { name: !data.name },
+        });
         socket.emit('error', { message: 'Room name is required' });
         return;
       }
 
       // Récupérer les informations de la room
+      console.log('🔍 Looking for room:', data.name);
       const room = await this.roomService.findByName(data.name);
       if (!room) {
+        console.log('⚠️ Room not found:', {
+          socketId: socket.id,
+          roomName: data.name,
+        });
         socket.emit('error', { message: 'Room not found' });
         return;
       }
+      console.log('✅ Room found:', {
+        socketId: socket.id,
+        roomId: room.id,
+        roomName: room.name,
+        category: room.category,
+      });
 
       // Récupérer les images de la catégorie de la room
+      console.log('🖼️ Fetching images for room category:', room.category);
       const images = await this.imageService.getUrlsByCategory(room.category);
+      console.log('📸 Images retrieved for game:', {
+        category: room.category,
+        imageCount: images.length,
+        firstImage: images[0] || 'No images found',
+      });
 
       // Envoyer les données avec la catégorie et les images
       const gameData = {
@@ -146,7 +256,11 @@ export class RoomGateway {
         category: room.category,
         images: images,
       };
-      console.log(gameData);
+      console.log('📡 Emitting game started event:', {
+        socketId: socket.id,
+        roomName: data.name,
+        gameData: gameData,
+      });
       socket.to(data.name).emit('game started', gameData);
       socket.emit('game started', gameData);
     } catch (error) {
@@ -157,14 +271,32 @@ export class RoomGateway {
 
   @SubscribeMessage('question')
   async askQuestion(socket: Socket, data: any) {
+    console.log('❓ Event: ask question', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       if (!data.name || !data.question) {
+        console.log('❌ Validation failed for ask question:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            question: !data.question,
+          },
+        });
         socket.emit('error', {
           message: 'Missing required data: name and question are required',
         });
         return;
       }
 
+      console.log('📡 Emitting ask question event:', {
+        socketId: socket.id,
+        roomName: data.name,
+        question: data.question,
+      });
       socket.to(data.name).emit('ask', { question: data.question });
       socket.emit('question sent', { question: data.question });
     } catch (error) {
@@ -175,14 +307,32 @@ export class RoomGateway {
 
   @SubscribeMessage('answer')
   async answerQuestion(socket: Socket, data: any) {
+    console.log('💬 Event: answer question', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       if (!data.name || !data.answer) {
+        console.log('❌ Validation failed for answer question:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            answer: !data.answer,
+          },
+        });
         socket.emit('error', {
           message: 'Missing required data: name and answer are required',
         });
         return;
       }
 
+      console.log('📡 Emitting answer event:', {
+        socketId: socket.id,
+        roomName: data.name,
+        answer: data.answer,
+      });
       socket.to(data.name).emit('answer', { answer: data.answer });
       socket.emit('answer sent', { answer: data.answer });
     } catch (error) {
@@ -193,20 +343,48 @@ export class RoomGateway {
 
   @SubscribeMessage('choose')
   async chooseCharacter(socket: Socket, data: any) {
+    console.log('🎭 Event: choose character', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
-      if (!data.name || !data.player || !data.characterId || !data.name) {
+      if (!data.name || !data.player || !data.characterId) {
+        console.log('❌ Validation failed for choose character:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            player: !data.player,
+            characterId: !data.characterId,
+          },
+        });
         socket.emit('error', {
           message:
-            'Missing required data: id, player, characterId, and name are required',
+            'Missing required data: name, player, and characterId are required',
         });
         return;
       }
 
+      console.log('📝 Saving character choice in database...');
       await this.roomService.chooseCharacter(
         data.name,
         data.player,
         data.characterId,
       );
+      console.log('✅ Character choice saved:', {
+        socketId: socket.id,
+        roomName: data.name,
+        player: data.player,
+        characterId: data.characterId,
+      });
+
+      console.log('📡 Emitting character choice events:', {
+        socketId: socket.id,
+        roomName: data.name,
+        player: data.player,
+        characterId: data.characterId,
+      });
       socket.to(data.name).emit('character chosen', {
         player: data.player,
         characterId: data.characterId,
@@ -223,14 +401,32 @@ export class RoomGateway {
 
   @SubscribeMessage('change turn')
   async changeTurn(socket: Socket, data: any) {
+    console.log('🔄 Event: change turn', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       if (!data.name || !data.player) {
+        console.log('❌ Validation failed for change turn:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            player: !data.player,
+          },
+        });
         socket.emit('error', {
           message: 'Missing required data: name and player are required',
         });
         return;
       }
 
+      console.log('📡 Emitting turn change events:', {
+        socketId: socket.id,
+        roomName: data.name,
+        player: data.player,
+      });
       socket.to(data.name).emit('turn start', { player: data.player });
       socket.emit('turn changed', { player: data.player });
     } catch (error) {
@@ -240,19 +436,53 @@ export class RoomGateway {
 
   @SubscribeMessage('select')
   async selectCharacter(socket: Socket, data: any) {
+    console.log('🎯 Event: select character', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       if (!data.name || !data.player || !data.characterId) {
+        console.log('❌ Validation failed for select character:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            player: !data.player,
+            characterId: !data.characterId,
+          },
+        });
         socket.emit('error', {
           message:
             'Missing required data: name, player, and characterId are required',
         });
         return;
       }
+      
+      console.log('🔍 Checking character selection result...');
       const character = await this.roomService.selectCharacter(
         data.name,
         data.player,
         data.characterId,
       );
+      
+      const gameResult = character ? 'won' : 'lost';
+      console.log('🏆 Game result determined:', {
+        socketId: socket.id,
+        roomName: data.name,
+        player: data.player,
+        characterId: data.characterId,
+        result: gameResult,
+        isCorrect: character,
+      });
+      
+      const eventName = `${data.player} ${gameResult}`;
+      console.log('📡 Emitting game result events:', {
+        socketId: socket.id,
+        roomName: data.name,
+        eventName: eventName,
+      });
+      
       if (character) {
         socket.emit(`${data.player} won`);
         socket.to(data.name).emit(`${data.player} won`);
@@ -268,16 +498,43 @@ export class RoomGateway {
 
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
+    console.log('🚫 Event: quit room', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+    
     try {
       if (!data.id || !data.name || !data.userId) {
+        console.log('❌ Validation failed for quit room:', {
+          socketId: socket.id,
+          missingFields: {
+            id: !data.id,
+            name: !data.name,
+            userId: !data.userId,
+          },
+        });
         socket.emit('error', {
           message: 'Missing required data: id, name, and userId are required',
         });
         return;
       }
 
+      console.log('🗑️ Removing room and cleaning up...');
       await this.roomImageService.removeRoomImage(data.id);
       await this.roomService.remove(data.id);
+      console.log('✅ Room cleanup completed:', {
+        socketId: socket.id,
+        roomId: data.id,
+        roomName: data.name,
+        userId: data.userId,
+      });
+
+      console.log('📡 Emitting quit events and disconnecting socket:', {
+        socketId: socket.id,
+        roomName: data.name,
+        userId: data.userId,
+      });
       socket.to(data.name).emit('quit', {
         player: data.userId,
       });
