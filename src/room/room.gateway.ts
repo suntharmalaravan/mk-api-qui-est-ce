@@ -64,6 +64,7 @@ export class RoomGateway {
         guestplayerid: null,
         hostcharacterid: null,
         guestcharacterid: null,
+        category: data.category,
       });
 
       // Récupérer les images de la catégorie
@@ -129,8 +130,25 @@ export class RoomGateway {
         return;
       }
 
-      socket.to(data.name).emit('start the game');
-      socket.emit('game started', { roomName: data.name });
+      // Récupérer les informations de la room
+      const room = await this.roomService.findByName(data.name);
+      if (!room) {
+        socket.emit('error', { message: 'Room not found' });
+        return;
+      }
+
+      // Récupérer les images de la catégorie de la room
+      const images = await this.imageService.getUrlsByCategory(room.category);
+
+      // Envoyer les données avec la catégorie et les images
+      const gameData = {
+        roomName: data.name,
+        category: room.category,
+        images: images,
+      };
+      console.log(gameData);
+      socket.to(data.name).emit('game started', gameData);
+      socket.emit('game started', gameData);
     } catch (error) {
       console.error('Error starting game:', error);
       socket.emit('error', { message: 'Failed to start game' });

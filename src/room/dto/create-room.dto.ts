@@ -35,4 +35,7 @@ export class CreateRoomDto {
   @IsNumber()
   @IsOptional()
   guestcharacterid: number;
+
+  @IsString()
+  category: string;
 }

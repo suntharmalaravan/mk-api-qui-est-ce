@@ -22,4 +22,7 @@ export class Room {
 
   @Column()
   guestcharacterid: number;
+
+  @Column()
+  category: string;
 }
