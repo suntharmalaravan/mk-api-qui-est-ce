@@ -75,7 +75,7 @@ export class RoomGateway {
         socket.emit('error', { message: 'Room with this name already exists' });
         return;
       }
-      
+
       console.log('📝 Creating new room in database...');
       const room = await this.roomService.create({
         name: data.name,
@@ -131,7 +131,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       // Validation des données requises
       if (!data.name || !data.userId) {
@@ -192,13 +192,31 @@ export class RoomGateway {
       });
       socket.to(data.name).emit('guest joined', guestJoinedData);
 
+      // Récupérer l'identité de l'host
+      console.log('👤 Fetching host information...');
+      const host = await this.userService.findOne(
+        parseInt(joinedRoom.hostplayerid.toString()),
+      );
+      const hostName = host ? host.username : `User-${joinedRoom.hostplayerid}`;
+      console.log('👤 Host information retrieved:', {
+        socketId: socket.id,
+        hostId: joinedRoom.hostplayerid,
+        hostName: hostName,
+        hostExists: !!host,
+      });
+
       // Confirmer au client qui rejoint
-      const joinedData = { roomId: joinedRoom.id, roomName: data.name };
+      const hostJoinedData = {
+        roomId: joinedRoom.id,
+        roomName: data.name,
+        hostId: joinedRoom.hostplayerid,
+        hostame: hostName,
+      };
       console.log('📡 Emitting joined confirmation:', {
         socketId: socket.id,
-        joinedData: joinedData,
+        hostJoinedData: hostJoinedData,
       });
-      socket.emit('joined', joinedData);
+      socket.emit('joined', hostJoinedData);
     } catch (error) {
       console.error('Error joining room:', error);
       socket.emit('error', { message: 'Failed to join room' });
@@ -212,7 +230,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.name) {
         console.log('❌ Validation failed for start game:', {
@@ -276,7 +294,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.name || !data.question) {
         console.log('❌ Validation failed for ask question:', {
@@ -312,7 +330,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.name || !data.answer) {
         console.log('❌ Validation failed for answer question:', {
@@ -348,7 +366,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.name || !data.player || !data.characterId) {
         console.log('❌ Validation failed for choose character:', {
@@ -406,7 +424,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.name || !data.player) {
         console.log('❌ Validation failed for change turn:', {
@@ -441,7 +459,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.name || !data.player || !data.characterId) {
         console.log('❌ Validation failed for select character:', {
@@ -458,14 +476,14 @@ export class RoomGateway {
         });
         return;
       }
-      
+
       console.log('🔍 Checking character selection result...');
       const character = await this.roomService.selectCharacter(
         data.name,
         data.player,
         data.characterId,
       );
-      
+
       const gameResult = character ? 'won' : 'lost';
       console.log('🏆 Game result determined:', {
         socketId: socket.id,
@@ -475,14 +493,14 @@ export class RoomGateway {
         result: gameResult,
         isCorrect: character,
       });
-      
+
       const eventName = `${data.player} ${gameResult}`;
       console.log('📡 Emitting game result events:', {
         socketId: socket.id,
         roomName: data.name,
         eventName: eventName,
       });
-      
+
       if (character) {
         socket.emit(`${data.player} won`);
         socket.to(data.name).emit(`${data.player} won`);
@@ -503,7 +521,7 @@ export class RoomGateway {
       data: data,
       timestamp: new Date().toISOString(),
     });
-    
+
     try {
       if (!data.id || !data.name || !data.userId) {
         console.log('❌ Validation failed for quit room:', {
