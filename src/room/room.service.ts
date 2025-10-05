@@ -67,6 +67,7 @@ export class RoomService {
       select: {
         id: true,
         guestplayerid: true,
+        hostplayerid: true,
         status: true,
       },
       where: { name },
