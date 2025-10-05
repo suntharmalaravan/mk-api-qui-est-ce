@@ -15,6 +15,7 @@ export default class AuthController {
   async register(@Body() createUserDto: CreateUserDto) {
     const userRegistered = await this.authService.register(createUserDto);
     return {
+      id: userRegistered.id,
       accessToken: await this.jwtService.signAsync({
         id: userRegistered.id,
         username: userRegistered.username,
@@ -25,6 +26,7 @@ export default class AuthController {
   async login(@Body() loginDto: LoginDto) {
     const userLogged = await this.authService.login(loginDto);
     return {
+      id: userLogged.id,
       accessToken: await this.jwtService.signAsync({
         id: userLogged.id,
         username: userLogged.username,
