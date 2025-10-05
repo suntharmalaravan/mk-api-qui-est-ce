@@ -193,7 +193,7 @@ export class RoomGateway {
       socket.to(data.name).emit('guest joined', guestJoinedData);
 
       // Récupérer l'identité de l'host
-      console.log('👤 Fetching host information...');
+      console.log('👤 Fetching host information...', joinedRoom);
       const host = await this.userService.findOne(
         parseInt(joinedRoom.hostplayerid.toString()),
       );
