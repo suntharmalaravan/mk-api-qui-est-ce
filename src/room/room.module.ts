@@ -5,11 +5,13 @@ import { RoomService } from './room.service';
 import { RoomController } from './room.controller';
 import { ImageModule } from 'src/image/image.module';
 import { RoomImageModule } from 'src/room-image/room-image.module';
+import { UserModule } from 'src/user/user.module';
 @Module({
   imports: [
     TypeOrmModule.forFeature([RoomEntity]),
     ImageModule,
     RoomImageModule,
+    UserModule,
   ],
   providers: [RoomService],
   exports: [RoomService],

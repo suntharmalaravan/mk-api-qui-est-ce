@@ -7,6 +7,7 @@ import { Socket, Server } from 'socket.io';
 import { RoomService } from './room.service';
 import { ImageService } from 'src/image/image.service';
 import { RoomImageService } from 'src/room-image/room-image.service';
+import { UserService } from 'src/user/user.service';
 @WebSocketGateway({
   namespace: '/',
   cors: {
@@ -21,6 +22,7 @@ export class RoomGateway {
     private readonly roomService: RoomService,
     private readonly imageService: ImageService,
     private readonly roomImageService: RoomImageService,
+    private readonly userService: UserService,
   ) {}
 
   // Événements de connexion/déconnexion pour debug
@@ -99,10 +101,15 @@ export class RoomGateway {
       // Si succès, rejoindre la room WebSocket
       socket.join(data.name);
 
+      // Récupérer le username du joueur
+      const user = await this.userService.findOne(parseInt(data.userId));
+      const username = user ? user.username : `User-${data.userId}`;
+
       // Notifier les autres clients dans la room
       socket.to(data.name).emit('guest joined', {
         id: joinedRoom.id,
         userId: data.userId,
+        username: username,
         socketId: socket.id,
       });
 
