@@ -10,7 +10,7 @@ export class ImageService {
   ) {}
   async getUrlsByCategory(category: string) {
     return await this.imageRepository.find({
-      select: { id: true, url: true },
+      select: { id: true, name: true, url: true },
       where: { category },
     });
   }
