@@ -12,8 +12,14 @@ export default class AuthController {
   ) {}
 
   @Post('register')
-  register(@Body() createUserDto: CreateUserDto) {
-    return this.authService.register(createUserDto);
+  async register(@Body() createUserDto: CreateUserDto) {
+    const userRegistered = await this.authService.register(createUserDto);
+    return {
+      accessToken: await this.jwtService.signAsync({
+        id: userRegistered.id,
+        username: userRegistered.username,
+      }),
+    };
   }
 
   @Post('login')
