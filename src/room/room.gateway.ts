@@ -547,11 +547,15 @@ export class RoomGateway {
       });
 
       if (character) {
-        socket.emit(`${data.player} won`);
-        socket.to(data.name).emit(`${data.player} won`);
+        socket.emit('select result', { player: data.player, right: true });
+        socket
+          .to(data.name)
+          .emit('select result', { player: data.player, right: true });
       } else {
-        socket.emit(`${data.player} lost`);
-        socket.to(data.name).emit(`${data.player} lost`);
+        socket.emit('select result', { player: data.player, right: false });
+        socket
+          .to(data.name)
+          .emit('select result', { player: data.player, right: false });
       }
     } catch (error) {
       console.error('Error selecting character', error);
