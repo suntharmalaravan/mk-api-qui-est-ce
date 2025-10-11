@@ -296,7 +296,7 @@ export class RoomGateway {
     });
 
     try {
-      if (!data.name || !data.question) {
+      if (!data.name || !data.player || !data.question) {
         console.log('❌ Validation failed for ask question:', {
           socketId: socket.id,
           missingFields: {
@@ -313,10 +313,19 @@ export class RoomGateway {
       console.log('📡 Emitting ask question event:', {
         socketId: socket.id,
         roomName: data.name,
+        player: data.player,
         question: data.question,
       });
-      socket.to(data.name).emit('ask', { question: data.question });
-      socket.emit('question sent', { question: data.question });
+      socket.to(data.name).emit('ask', {
+        question: data.question,
+        player: data.player,
+        name: data.name,
+      });
+      socket.emit('ask', {
+        question: data.question,
+        player: data.player,
+        name: data.name,
+      });
     } catch (error) {
       console.error('Error asking question:', error);
       socket.emit('error', { message: 'Failed to ask question' });
@@ -332,7 +341,7 @@ export class RoomGateway {
     });
 
     try {
-      if (!data.name || !data.answer) {
+      if (!data.name || !data.answer || !data.player) {
         console.log('❌ Validation failed for answer question:', {
           socketId: socket.id,
           missingFields: {
@@ -351,8 +360,16 @@ export class RoomGateway {
         roomName: data.name,
         answer: data.answer,
       });
-      socket.to(data.name).emit('answer', { answer: data.answer });
-      socket.emit('answer sent', { answer: data.answer });
+      socket.to(data.name).emit('answer', {
+        answer: data.answer,
+        player: data.player,
+        name: data.name,
+      });
+      socket.emit('answer', {
+        answer: data.answer,
+        player: data.player,
+        name: data.name,
+      });
     } catch (error) {
       console.error('Error answering question:', error);
       socket.emit('error', { message: 'Failed to answer question' });
