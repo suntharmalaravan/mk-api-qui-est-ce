@@ -394,12 +394,25 @@ export class RoomGateway {
         hostExists: !!host,
       });
 
+      // Récupérer les images de la catégorie de la room
+      console.log('🖼️ Fetching images for room category:', joinedRoom.category);
+      const images = await this.imageService.getUrlsByCategory(
+        joinedRoom.category,
+      );
+      console.log('📸 Images retrieved for joined room:', {
+        category: joinedRoom.category,
+        imageCount: images.length,
+        firstImage: images[0] || 'No images found',
+      });
+
       // Confirmer au client qui rejoint
       const hostJoinedData = {
         roomId: joinedRoom.id,
         roomName: data.name,
         hostId: joinedRoom.hostplayerid,
         hostName: hostName,
+        category: joinedRoom.category,
+        images: images,
       };
       console.log('📡 Emitting joined confirmation:', {
         socketId: socket.id,
