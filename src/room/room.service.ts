@@ -96,10 +96,10 @@ export class RoomService {
       where: { name },
     });
     if (player == 'guest') {
-      return room.guestcharacterid == characterId;
+      return room.hostcharacterid == characterId;
     }
     if (player == 'host') {
-      return room.hostcharacterid == characterId;
+      return room.guestcharacterid == characterId;
     }
   }
 }
