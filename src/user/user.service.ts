@@ -21,7 +21,13 @@ export class UserService {
 
   findOne(id: number) {
     return this.userRepository.findOne({
-      select: { id: true, username: true, score: true, title: true },
+      select: {
+        id: true,
+        username: true,
+        score: true,
+        title: true,
+        image_url: true,
+      },
       where: { id },
     });
   }
@@ -42,6 +48,10 @@ export class UserService {
     user.score = score;
     await this.userRepository.update(id, user);
     return user;
+  }
+
+  async updateImageUrl(id: number, imageUrl: string): Promise<void> {
+    await this.userRepository.update(id, { image_url: imageUrl });
   }
 
   remove(id: number) {

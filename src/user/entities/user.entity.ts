@@ -17,6 +17,9 @@ export class User {
   @Column({ default: 'debutant', nullable: false })
   title: string;
 
+  @Column({ nullable: true })
+  image_url: string;
+
   constructor(username?: string, password?: string) {
     this.username = username;
     this.password = password;
