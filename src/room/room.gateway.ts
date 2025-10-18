@@ -761,6 +761,21 @@ export class RoomGateway {
           guestCharacterId,
         });
 
+        // Mettre à jour le score du joueur gagnant (+100 points)
+        const winnerUserId =
+          data.player === 'host' ? room.hostplayerid : room.guestplayerid;
+        const winnerUser = await this.userService.findOne(winnerUserId);
+        if (winnerUser) {
+          const newScore = winnerUser.score + 100;
+          await this.userService.updateScore(winnerUserId, newScore);
+          console.log('🏆 Score mis à jour:', {
+            userId: winnerUserId,
+            player: data.player,
+            oldScore: winnerUser.score,
+            newScore: newScore,
+          });
+        }
+
         socket.emit('select result', {
           player: data.player,
           right: true,
