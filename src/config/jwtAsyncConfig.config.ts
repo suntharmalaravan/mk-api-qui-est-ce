@@ -9,7 +9,7 @@ export const jwtAsyncOptions: JwtModuleAsyncOptions = {
   ): Promise<JwtModuleOptions> => ({
     secret: configService.get<string>('SECRET'),
     signOptions: {
-      expiresIn: '24h', // Token expire après 24h
+      // Pas d'expiration - ATTENTION: Déconseillé en production
     },
   }),
 };
