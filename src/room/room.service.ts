@@ -72,9 +72,11 @@ export class RoomService {
     const room = await this.roomRepository.findOne({
       select: {
         id: true,
+        name: true,
         guestplayerid: true,
         hostplayerid: true,
         status: true,
+        category: true,
       },
       where: { name },
     });
