@@ -6,6 +6,7 @@ import {
 import { Image } from 'src/image/entities/image.entity';
 import { Room } from 'src/room/entities/room.entity';
 import { User } from 'src/user/entities/user.entity';
+import { Level } from 'src/user/entities/level.entity';
 import { RoomImage } from 'src/room-image/entities/room-image.entity';
 export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
@@ -43,7 +44,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       return {
         type: 'postgres',
         url: databaseUrl,
-        entities: [User, Room, Image, RoomImage],
+        entities: [User, Room, Image, RoomImage, Level],
         synchronize: false,
         logging: configService.get<string>('NODE_ENV') === 'development',
         ssl: {
@@ -59,7 +60,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: configService.get<string>('DATABASE_username'),
       database: configService.get<string>('DATABASE_name'),
       password: configService.get<string>('DATABASE_password'),
-      entities: [User, Room, Image, RoomImage],
+      entities: [User, Room, Image, RoomImage, Level],
       synchronize: false,
       logging: configService.get<string>('NODE_ENV') === 'development',
       ssl: {
@@ -80,7 +81,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DATABASE_username,
   database: process.env.DATABASE_name,
   password: process.env.DATABASE_password,
-  entities: [User, Room, Image, RoomImage],
+  entities: [User, Room, Image, RoomImage, Level],
   synchronize: false,
   ssl: {
     rejectUnauthorized: false, // Nécessaire pour Supabase
