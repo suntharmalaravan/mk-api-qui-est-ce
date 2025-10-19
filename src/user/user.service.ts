@@ -40,10 +40,9 @@ export class UserService {
 
     // Récupérer les informations du niveau basé sur le score
     const levelInfo = await this.getLevelInfo(user.score);
-
     return {
       ...user,
-      currentLevel: levelInfo.currentLevel,
+      title: levelInfo.title,
       minScore: levelInfo.minScore,
       maxScore: levelInfo.maxScore,
     };
@@ -54,7 +53,6 @@ export class UserService {
     const levels = await this.levelRepository.find({
       order: { score: 'ASC' },
     });
-
     // Trouver le niveau actuel (le plus haut niveau dont le score est <= au score du joueur)
     let currentLevel = levels[0];
     for (const level of levels) {
@@ -64,7 +62,6 @@ export class UserService {
         break;
       }
     }
-
     // Trouver le niveau suivant pour déterminer maxScore
     const currentLevelIndex = levels.findIndex((l) => l.id === currentLevel.id);
     const nextLevel =
@@ -73,7 +70,7 @@ export class UserService {
         : null;
 
     return {
-      currentLevel: currentLevel.id,
+      title: currentLevel.title as string,
       minScore: currentLevel.score,
       maxScore: nextLevel ? nextLevel.score : null,
     };
