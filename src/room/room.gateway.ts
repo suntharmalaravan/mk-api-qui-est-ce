@@ -800,6 +800,32 @@ export class RoomGateway {
     }
   }
 
+  @SubscribeMessage('lost lifes')
+  async playerLostLifes(socket: Socket, data: any) {
+    try {
+      if (!data.name || !data.player) {
+        console.log('❌ Validation failed for lost lifes:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            player: !data.player,
+          },
+        });
+        socket.emit('error', {
+          message: 'Missing required data: name and player are required',
+        });
+        return;
+      }
+      socket.emit('player lost all lifes', { player: data.player });
+      socket
+        .to(data.name)
+        .emit('player lost all lifes', { player: data.player });
+    } catch (error) {
+      console.error('Error losing lifes', error);
+      socket.emit('error', { message: 'Failed to lose lifes' });
+    }
+  }
+
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
     console.log('🚫 Event: quit room', {
