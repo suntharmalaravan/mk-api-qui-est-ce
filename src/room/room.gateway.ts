@@ -838,6 +838,32 @@ export class RoomGateway {
         });
         return;
       }
+
+      // Récupérer la room et attribuer +8 points au gagnant
+      const room = await this.roomService.findByName(data.name);
+      if (room) {
+        // Déterminer qui est le gagnant (l'autre joueur)
+        const winnerUserId =
+          data.player === 'host' ? room.guestplayerid : room.hostplayerid;
+
+        if (winnerUserId) {
+          const winnerUser = await this.userService.findOne(winnerUserId);
+          if (winnerUser) {
+            // Incrémenter le score de 8 points
+            const newScore = winnerUser.score + 8;
+            await this.userService.updateScore(winnerUserId, newScore);
+
+            console.log('🎯 Score mis à jour après perte de vies:', {
+              loser: data.player,
+              winnerId: winnerUserId,
+              oldScore: winnerUser.score,
+              newScore: newScore,
+              pointsGained: 8,
+            });
+          }
+        }
+      }
+
       socket.emit('player lost all lifes', { player: data.player });
       socket
         .to(data.name)
