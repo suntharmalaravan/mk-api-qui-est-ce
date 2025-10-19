@@ -162,17 +162,39 @@ export class RoomGateway {
         });
       }
 
-      // Supprimer la room de la base de données
+      // Gestion selon le rôle: si guest quitte avant le début, on rouvre la room
       const room = await this.roomService.findByName(roomName);
       if (room) {
-        console.log('🗑️ Suppression de la room suite à la déconnexion:', {
-          roomId: room.id,
-          roomName,
-          reason: 'user_disconnected',
-        });
+        const isGuestLeaving = disconnectedUser.role === 'guest';
+        const gameStarted = !!(room.hostcharacterid || room.guestcharacterid);
 
-        await this.roomImageService.removeRoomImage(room.id);
-        await this.roomService.remove(room.id);
+        if (isGuestLeaving && !gameStarted) {
+          console.log(
+            '🔁 Guest a quitté avant le début: réouverture de la room',
+            {
+              roomId: room.id,
+              roomName,
+            },
+          );
+          await this.roomService.reopenRoomAfterGuestLeaves(roomName);
+          // Notifier l'host que le guest est parti
+          const tracked = this.connectedUsers.get(roomName);
+          const host = tracked?.host;
+          if (host?.socketId) {
+            this.wss.to(host.socketId).emit('guestLeftBeforeStart', {
+              roomId: room.id,
+              roomName,
+            });
+          }
+        } else {
+          console.log('🗑️ Suppression de la room suite à la déconnexion:', {
+            roomId: room.id,
+            roomName,
+            reason: 'user_disconnected',
+          });
+          await this.roomImageService.removeRoomImage(room.id);
+          await this.roomService.remove(room.id);
+        }
       }
     } catch (error) {
       console.error('❌ Erreur lors de la notification de déconnexion:', error);
@@ -850,30 +872,45 @@ export class RoomGateway {
         return;
       }
 
-      console.log('🗑️ Removing room and cleaning up...');
-      await this.roomImageService.removeRoomImage(data.id);
-      await this.roomService.remove(data.id);
-      console.log('✅ Room cleanup completed:', {
-        socketId: socket.id,
-        roomId: data.id,
-        roomName: data.name,
-        userId: data.userId,
-      });
+      const room = await this.roomService.findByName(data.name);
+      const tracked = this.connectedUsers.get(data.name);
+      const isGuest = tracked?.guest?.socketId === socket.id;
+      const gameStarted = !!(room?.hostcharacterid || room?.guestcharacterid);
 
-      // Nettoyer le tracking des utilisateurs connectés
-      this.connectedUsers.delete(data.name);
-      console.log('🧹 Room supprimée du tracking (quit):', data.name);
-
-      console.log('📡 Emitting quit events and disconnecting socket:', {
-        socketId: socket.id,
-        roomName: data.name,
-        userId: data.userId,
-      });
-      socket.to(data.name).emit('quit', {
-        player: data.userId,
-      });
-      socket.emit('room left', { roomId: data.id });
-      socket.disconnect();
+      if (isGuest && !gameStarted) {
+        // Guest quitte avant le début: rouvrir la room, nettoyer seulement le guest
+        await this.roomService.reopenRoomAfterGuestLeaves(data.name);
+        if (tracked) delete tracked.guest;
+        console.log(
+          '🔁 Guest left before start: room reopened and guest removed from tracking',
+        );
+        // Notifier l'host uniquement
+        if (tracked?.host?.socketId) {
+          this.wss.to(tracked.host.socketId).emit('guestLeftBeforeStart', {
+            roomId: room?.id,
+            roomName: data.name,
+          });
+        }
+        // Confirmer au guest
+        socket.emit('room left', { roomId: room?.id });
+        socket.leave(data.name);
+        socket.disconnect();
+      } else {
+        // Cas host qui quitte ou partie déjà démarrée: comportement actuel (supprimer la room)
+        console.log('🗑️ Removing room and cleaning up...');
+        if (room) await this.roomImageService.removeRoomImage(room.id);
+        if (room) await this.roomService.remove(room.id);
+        console.log('✅ Room cleanup completed:', {
+          socketId: socket.id,
+          roomId: room?.id,
+          roomName: data.name,
+          userId: data.userId,
+        });
+        this.connectedUsers.delete(data.name);
+        socket.to(data.name).emit('quit', { player: data.userId });
+        socket.emit('room left', { roomId: room?.id });
+        socket.disconnect();
+      }
     } catch (error) {
       console.error('Error quitting room:', error);
       socket.emit('error', { message: 'Failed to quit room' });
