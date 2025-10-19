@@ -92,6 +92,17 @@ export class RoomService {
     return room;
   }
 
+  async reopenRoomAfterGuestLeaves(name: string): Promise<void> {
+    const room = await this.roomRepository.findOne({
+      select: { id: true, status: true, guestplayerid: true },
+      where: { name },
+    });
+    if (!room) return;
+    room.guestplayerid = null as any;
+    room.status = 'open';
+    await this.roomRepository.update(room.id, room);
+  }
+
   async selectCharacter(name: string, player: string, characterId: number) {
     const room = await this.roomRepository.findOne({
       select: { id: true, hostcharacterid: true, guestcharacterid: true },
