@@ -874,6 +874,74 @@ export class RoomGateway {
     }
   }
 
+  @SubscribeMessage('ask rematch')
+  async askRematch(socket: Socket, data: any) {
+    try {
+      if (!data.name || !data.player) {
+        console.log('❌ Validation failed for ask rematch:', {
+          socketId: socket.id,
+          missingFields: {
+            name: !data.name,
+            player: !data.player,
+          },
+        });
+        socket.emit('error', {
+          message: 'Missing required data: name and player are required',
+        });
+        return;
+      }
+
+      console.log('🔄 Event: ask rematch', {
+        socketId: socket.id,
+        data: data,
+        timestamp: new Date().toISOString(),
+      });
+
+      const roomName = data.name;
+      const player = data.player;
+
+      // Récupérer les sockets des joueurs connectés
+      const roomUsers = this.connectedUsers.get(roomName);
+      console.log('🔍 Room users for rematch:', roomUsers);
+      if (!roomUsers) return;
+
+      const hostSocket = roomUsers.host
+        ? this.wss.sockets.sockets.get(roomUsers.host.socketId)
+        : null;
+      const guestSocket = roomUsers.guest
+        ? this.wss.sockets.sockets.get(roomUsers.guest.socketId)
+        : null;
+      console.log('🔍 Host socket for rematch:', hostSocket);
+      console.log('🔍 Guest socket for rematch:', guestSocket);
+      // Vérifier si l'autre joueur a déjà envoyé l'événement
+      const otherSocket = player === 'host' ? guestSocket : hostSocket;
+      const currentSocket = player === 'host' ? hostSocket : guestSocket;
+
+      if (otherSocket && otherSocket.data.playAgainRequested) {
+        // L'autre joueur a déjà demandé, on peut procéder
+        console.log('✅ Les deux joueurs veulent rejouer');
+
+        // Nettoyer les flags
+        if (currentSocket) currentSocket.data.playAgainRequested = false;
+        if (otherSocket) otherSocket.data.playAgainRequested = false;
+
+        // Émettre l'événement final
+        socket.to(roomName).emit('rematch can start', { event: 'play_again' });
+        socket.emit('rematch can start', { event: 'play_again' });
+      } else {
+        // Marquer que ce joueur attend
+        if (currentSocket) currentSocket.data.playAgainRequested = true;
+
+        console.log(`⏳ Joueur ${player} attend la réponse de l'autre`);
+        socket.to(roomName).emit('ask play again', { player });
+        socket.emit('ask play again', { player });
+      }
+    } catch (error) {
+      console.error('Error asking rematch', error);
+      socket.emit('error', { message: 'Failed to ask rematch' });
+    }
+  }
+
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
     console.log('🚫 Event: quit room', {
