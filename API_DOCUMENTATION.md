@@ -292,16 +292,41 @@ socket.emit('select', {
 });
 ```
 
-**Réponse reçue :**
+#### `lost lifes` - Signaler qu'un joueur a perdu toutes ses vies
 
 ```javascript
-socket.on('select result', (data) => {
-  // data: {
-  //   player: "host",
-  //   right: true,
-  //   hostCharacterId: 5,
-  //   guestCharacterId: 12
-  // }
+socket.emit('lost lifes', {
+  name: 'ma-room', // string - nom de la room
+  player: 'host', // string - joueur qui a perdu
+});
+```
+
+#### `ask rematch` - Demander un rematch
+
+```javascript
+socket.emit('ask rematch', {
+  name: 'ma-room', // string - nom de la room
+  player: 'host', // string - joueur qui demande
+});
+```
+
+#### `rematch` - Créer une nouvelle room pour le rematch
+
+```javascript
+socket.emit('rematch', {
+  oldRoomName: 'ma-room', // string - nom de l'ancienne room
+  newRoomName: 'ma-room-2', // string - nom de la nouvelle room
+  category: 'animals', // string - catégorie pour la nouvelle room
+  hostId: '123', // string - ID de l'host
+});
+```
+
+#### `join rematch` - Rejoindre une room de rematch
+
+```javascript
+socket.emit('join rematch', {
+  newRoomName: 'ma-room-2', // string - nom de la nouvelle room
+  guestId: '456', // string - ID du guest
 });
 ```
 
@@ -325,6 +350,11 @@ socket.emit('quit', {
 // Room créée avec succès
 socket.on('roomCreated', (data) => {
   // data: { room: "ma-room", roomId: 1, images: [...] }
+});
+
+// Room créée (confirmation pour le créateur)
+socket.on('room created', (data) => {
+  // data: { roomId: 1, roomName: "ma-room" }
 });
 
 // Utilisateur a rejoint la room
@@ -356,19 +386,14 @@ socket.on('game started', (data) => {
   // data: { roomName: "ma-room" }
 });
 
-// Signal de démarrage reçu
-socket.on('start the game', (data) => {
-  // data: {}
-});
-
 // Personnage choisi
 socket.on('character chosen', (data) => {
   // data: { player: "host", characterId: 5 }
 });
 
-// Un joueur a choisi son personnage
-socket.on('player has chosen his character', (data) => {
-  // data: { player: "host" }
+// Les deux joueurs ont choisi, le plateau est prêt
+socket.on('go board', (data) => {
+  // data: { roomName: "ma-room" }
 });
 ```
 
@@ -377,22 +402,20 @@ socket.on('player has chosen his character', (data) => {
 ```javascript
 // Question reçue
 socket.on('ask', (data) => {
-  // data: { question: "Est-ce que..." }
-});
-
-// Question envoyée (confirmation)
-socket.on('question sent', (data) => {
-  // data: { question: "Est-ce que..." }
+  // data: {
+  //   question: "Est-ce que...",
+  //   player: "host",
+  //   name: "ma-room"
+  // }
 });
 
 // Réponse reçue
 socket.on('answer', (data) => {
-  // data: { answer: "Oui" }
-});
-
-// Réponse envoyée (confirmation)
-socket.on('answer sent', (data) => {
-  // data: { answer: "Oui" }
+  // data: {
+  //   answer: "Oui",
+  //   player: "guest",
+  //   name: "ma-room"
+  // }
 });
 ```
 
@@ -400,20 +423,15 @@ socket.on('answer sent', (data) => {
 
 ```javascript
 // C'est le tour d'un joueur
-socket.on('turn start', (data) => {
-  // data: { player: "guest" }
-});
-
-// Tour changé (confirmation)
-socket.on('turn changed', (data) => {
-  // data: { player: "guest" }
+socket.on('start turn', (data) => {
+  // data: { turn: "guest" }
 });
 ```
 
 #### Événements de victoire
 
 ```javascript
-// Résultat de la sélection de personnage (nouveau format)
+// Résultat de la sélection de personnage
 socket.on('select result', (data) => {
   // data: {
   //   player: "host", // ou "guest"
@@ -431,36 +449,51 @@ socket.on('select result', (data) => {
   }
 });
 
-// Événements de victoire (legacy - peuvent être utilisés en complément)
-socket.on('host won', (data) => {
-  // data: { winner: "host", ... }
+// Un joueur a perdu toutes ses vies
+socket.on('player lost all lifes', (data) => {
+  // data: { player: "host" }
+});
+```
+
+#### Événements de rematch
+
+```javascript
+// Demande de rematch reçue
+socket.on('ask play again', (data) => {
+  // data: { player: "host" }
 });
 
-socket.on('host lost', (data) => {
-  // data: { loser: "host", ... }
+// Les deux joueurs veulent rejouer
+socket.on('rematch can start', (data) => {
+  // data: { event: "play_again" }
 });
 
-socket.on('guest won', (data) => {
-  // data: { winner: "guest", ... }
+// Invitation à rejoindre une nouvelle room
+socket.on('rematch invitation', (data) => {
+  // data: {
+  //   newRoomName: "ma-room-2",
+  //   category: "animals",
+  //   hostId: "123",
+  //   roomId: 2
+  // }
 });
 
-socket.on('guest lost', (data) => {
-  // data: { loser: "guest", ... }
+// Guest a rejoint la room de rematch
+socket.on('guest joined rematch', (data) => {
+  // data: {
+  //   guestId: "456",
+  //   roomName: "ma-room-2"
+  // }
 });
 ```
 
 #### Événements de déconnexion
 
 ```javascript
-// Un joueur s'est déconnecté (nouveau)
+// Un joueur s'est déconnecté
 socket.on('playerDisconnected', (data) => {
   // data: {
-  //   disconnectedPlayer: {
-  //     userId: "123",
-  //     username: "Alice",
-  //     role: "host" // ou "guest"
-  //   },
-  //   message: "Alice s'est déconnecté(e). La partie est terminée.",
+  //   message: "Un joueur s'est déconnecté. La partie est terminée.",
   //   timestamp: "2024-01-15T10:30:00.000Z"
   // }
 
@@ -469,6 +502,28 @@ socket.on('playerDisconnected', (data) => {
 
   // Rediriger vers le menu principal
   redirectToMainMenu();
+});
+
+// Guest a quitté avant le début du jeu
+socket.on('guestLeftBeforeStart', (data) => {
+  // data: {
+  //   roomId: 1,
+  //   roomName: "ma-room"
+  // }
+});
+```
+
+#### Événements de quit
+
+```javascript
+// Un joueur a quitté la room
+socket.on('quit', (data) => {
+  // data: { player: "123" }
+});
+
+// Confirmation de sortie de room
+socket.on('room left', (data) => {
+  // data: { roomId: 1 }
 });
 ```
 
@@ -492,9 +547,9 @@ socket.on('disconnect', (reason) => {
 
 ---
 
-## 🔌 Gestion des déconnexions
+## 🔌 Gestion des déconnexions et quits
 
-### 🚫 **Détection automatique**
+### 🚫 **Détection automatique des déconnexions**
 
 Le serveur détecte automatiquement les déconnexions d'utilisateurs dans les cas suivants :
 
@@ -522,13 +577,28 @@ socket.on('playerDisconnected', (data) => {
 });
 ```
 
+### 🔄 **Gestion des quits avant le début du jeu**
+
+Si un joueur quitte avant que le jeu ne commence :
+
+```javascript
+// Guest a quitté avant le début
+socket.on('guestLeftBeforeStart', (data) => {
+  // data: { roomId: 1, roomName: "ma-room" }
+
+  // La room reste ouverte pour un nouveau guest
+  showMessage("L'invité a quitté. La room reste ouverte.");
+  // L'host peut attendre un nouveau guest
+});
+```
+
 ### 🧹 **Nettoyage automatique**
 
 Le serveur effectue automatiquement :
 
-1. **Suppression de la room** de la base de données
-2. **Suppression des images** associées à la room
-3. **Nettoyage du tracking** des utilisateurs connectés
+1. **Suppression de la room** de la base de données (si partie démarrée)
+2. **Réouverture de la room** (si quit avant le début)
+3. **Suppression des images** associées à la room (si suppression)
 4. **Logs détaillés** pour le debugging
 
 ### 💡 **Bonnes pratiques côté client**
@@ -537,7 +607,7 @@ Le serveur effectue automatiquement :
 // Écouter les déconnexions
 socket.on('playerDisconnected', (data) => {
   // 1. Afficher un message informatif
-  alert(`${data.disconnectedPlayer.username} s'est déconnecté(e).`);
+  alert("L'autre joueur s'est déconnecté.");
 
   // 2. Nettoyer l'état du jeu
   resetGameState();
@@ -547,6 +617,12 @@ socket.on('playerDisconnected', (data) => {
 
   // 4. Proposer de créer une nouvelle room
   showCreateRoomOption();
+});
+
+// Gérer les quits avant le début
+socket.on('guestLeftBeforeStart', (data) => {
+  showMessage("L'invité a quitté. Vous pouvez attendre un nouveau joueur.");
+  // L'host reste dans la room
 });
 
 // Gérer sa propre déconnexion
@@ -668,20 +744,59 @@ socket.on('select result', (data) => {
 });
 ```
 
-### 8. **Gérer les déconnexions**
+### 8. **Gérer les déconnexions et quits**
 
 ```javascript
 // Écouter les déconnexions d'autres joueurs
 socket.on('playerDisconnected', (data) => {
-  alert(`${data.disconnectedPlayer.username} s'est déconnecté(e).`);
+  alert("L'autre joueur s'est déconnecté.");
   // Rediriger vers le menu principal
   window.location.href = '/menu';
+});
+
+// Gérer les quits avant le début
+socket.on('guestLeftBeforeStart', (data) => {
+  showMessage("L'invité a quitté. La room reste ouverte.");
+  // L'host peut attendre un nouveau guest
 });
 
 // Gérer sa propre déconnexion
 socket.on('disconnect', (reason) => {
   console.log('Déconnecté:', reason);
   // Nettoyer l'état local
+});
+```
+
+### 9. **Système de rematch**
+
+```javascript
+// Demander un rematch
+socket.emit('ask rematch', { name: 'ma-room', player: 'host' });
+
+// Écouter la demande de rematch
+socket.on('ask play again', (data) => {
+  // Afficher un bouton "Accepter rematch"
+  showRematchDialog(data.player);
+});
+
+// Les deux joueurs veulent rejouer
+socket.on('rematch can start', (data) => {
+  // Afficher l'interface de création de nouvelle room
+  showRematchInterface();
+});
+
+// Créer une nouvelle room pour le rematch
+socket.emit('rematch', {
+  oldRoomName: 'ma-room',
+  newRoomName: 'ma-room-2',
+  category: 'animals',
+  hostId: '123',
+});
+
+// Rejoindre la room de rematch
+socket.emit('join rematch', {
+  newRoomName: 'ma-room-2',
+  guestId: '456',
 });
 ```
 
@@ -722,14 +837,62 @@ npm run test:cov
 2. **Validation** : Toutes les données sont validées avec class-validator
 3. **WebSocket** : Utilise Socket.IO v4.5.1
 4. **Base de données** : Les migrations doivent être exécutées avant utilisation
-5. **JWT** : Les tokens expirent selon la configuration (par défaut 24h)
+5. **JWT** : Les tokens n'expirent plus (configuration modifiée)
 6. **Gestion des déconnexions** : Le serveur détecte automatiquement les déconnexions et notifie l'autre joueur
 7. **Nettoyage automatique** : Les rooms sont automatiquement supprimées quand un joueur se déconnecte
-8. **Firebase Storage** : Configuration requise pour l'upload d'images de profil
-9. **Migration BDD** : Exécutez la migration pour ajouter la colonne `image_url` à la table `user` :
-   ```sql
-   ALTER TABLE "user" ADD COLUMN "image_url" VARCHAR NULL;
-   ```
+8. **Gestion des quits** : Si un guest quitte avant le début, la room reste ouverte
+9. **Système de rematch** : Permet aux joueurs de rejouer avec une nouvelle room
+10. **Score et niveaux** : Système de points et de progression intégré
+11. **Firebase Storage** : Configuration requise pour l'upload d'images de profil
+12. **Migration BDD** : Exécutez la migration pour ajouter la colonne `image_url` à la table `user` :
+    ```sql
+    ALTER TABLE "user" ADD COLUMN "image_url" VARCHAR NULL;
+    ```
+13. **Système de tracking** : Plus de `connectedUsers` - utilisation des rooms WebSocket natives
+
+---
+
+## 🎯 **Résumé des événements WebSocket**
+
+### **Événements émis par le client (13 événements) :**
+
+1. `create` - Créer une room
+2. `join` - Rejoindre une room
+3. `start` - Démarrer le jeu
+4. `choose` - Choisir son personnage
+5. `question` - Poser une question
+6. `answer` - Répondre à une question
+7. `change turn` - Changer de tour
+8. `select` - Deviner le personnage adverse
+9. `lost lifes` - Signaler qu'un joueur a perdu toutes ses vies
+10. `ask rematch` - Demander un rematch
+11. `rematch` - Créer une nouvelle room pour le rematch
+12. `join rematch` - Rejoindre une room de rematch
+13. `quit` - Quitter la room
+
+### **Événements reçus par le client (15 événements) :**
+
+1. `roomCreated` - Room créée avec succès
+2. `room created` - Confirmation de création
+3. `joined` - Utilisateur a rejoint la room
+4. `guest joined` - Nouvel invité dans la room
+5. `game started` - Jeu démarré
+6. `character chosen` - Personnage choisi
+7. `go board` - Plateau prêt (les deux joueurs ont choisi)
+8. `ask` - Question reçue
+9. `answer` - Réponse reçue
+10. `start turn` - C'est le tour d'un joueur
+11. `select result` - Résultat de la devinette
+12. `player lost all lifes` - Un joueur a perdu toutes ses vies
+13. `ask play again` - Demande de rematch reçue
+14. `rematch can start` - Les deux joueurs veulent rejouer
+15. `rematch invitation` - Invitation à rejoindre une nouvelle room
+16. `guest joined rematch` - Guest a rejoint la room de rematch
+17. `playerDisconnected` - Un joueur s'est déconnecté
+18. `guestLeftBeforeStart` - Guest a quitté avant le début
+19. `quit` - Un joueur a quitté la room
+20. `room left` - Confirmation de sortie de room
+21. `error` - Erreur générale
 
 ---
 

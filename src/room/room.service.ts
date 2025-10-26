@@ -48,6 +48,19 @@ export class RoomService {
     });
   }
 
+  async findAll() {
+    return await this.roomRepository.find({
+      select: {
+        id: true,
+        name: true,
+        hostplayerid: true,
+        guestplayerid: true,
+        status: true,
+        category: true,
+      },
+    });
+  }
+
   async chooseCharacter(name: string, player: string, characterId: number) {
     if (player == 'guest') {
       const room = await this.roomRepository.findOne({

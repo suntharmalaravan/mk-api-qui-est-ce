@@ -19,16 +19,6 @@ import { UserService } from 'src/user/user.service';
 export class RoomGateway {
   @WebSocketServer() wss: Server;
 
-  // Map pour tracker les utilisateurs connectés par room
-  // Structure: roomName -> { host: { socketId, userId }, guest: { socketId, userId } }
-  private connectedUsers = new Map<
-    string,
-    {
-      host?: { socketId: string; userId: string };
-      guest?: { socketId: string; userId: string };
-    }
-  >();
-
   constructor(
     private readonly roomService: RoomService,
     private readonly imageService: ImageService,
@@ -59,52 +49,26 @@ export class RoomGateway {
    */
   private async handleUserDisconnection(socketId: string) {
     try {
-      // Trouver dans quelle room cet utilisateur était connecté
-      let disconnectedRoom: string | null = null;
-      let disconnectedUser: {
-        userId: string;
-        role: 'host' | 'guest';
-      } | null = null;
+      // Récupérer toutes les rooms de la DB pour trouver celle du joueur déconnecté
+      const rooms = await this.roomService.findAll();
 
-      for (const [roomName, users] of this.connectedUsers.entries()) {
-        if (users.host?.socketId === socketId) {
-          disconnectedRoom = roomName;
-          disconnectedUser = {
-            userId: users.host.userId,
-            role: 'host',
-          };
-          break;
-        } else if (users.guest?.socketId === socketId) {
-          disconnectedRoom = roomName;
-          disconnectedUser = {
-            userId: users.guest.userId,
-            role: 'guest',
-          };
+      for (const room of rooms) {
+        // Vérifier si le socket déconnecté était dans cette room
+        const roomSockets = await this.wss.in(room.name).fetchSockets();
+        const isSocketInRoom = roomSockets.some((s) => s.id === socketId);
+
+        if (isSocketInRoom) {
+          console.log('🚫 Utilisateur déconnecté détecté:', {
+            socketId,
+            roomName: room.name,
+            timestamp: new Date().toISOString(),
+          });
+
+          // Notifier tous les joueurs de la room
+          await this.notifyUserDisconnection(room.name);
           break;
         }
       }
-
-      if (!disconnectedRoom || !disconnectedUser) {
-        console.log(
-          'ℹ️ Utilisateur déconnecté non trouvé dans les rooms actives:',
-          socketId,
-        );
-        return;
-      }
-
-      console.log('🚫 Utilisateur déconnecté détecté:', {
-        socketId,
-        roomName: disconnectedRoom,
-        userId: disconnectedUser.userId,
-        role: disconnectedUser.role,
-        timestamp: new Date().toISOString(),
-      });
-
-      // Notifier l'autre joueur de la déconnexion
-      await this.notifyUserDisconnection(disconnectedRoom, disconnectedUser);
-
-      // Nettoyer la room
-      this.cleanupDisconnectedUser(disconnectedRoom, disconnectedUser.role);
     } catch (error) {
       console.error('❌ Erreur lors de la gestion de la déconnexion:', error);
     }
@@ -113,79 +77,39 @@ export class RoomGateway {
   /**
    * Notifie l'autre joueur de la déconnexion
    */
-  private async notifyUserDisconnection(
-    roomName: string,
-    disconnectedUser: { userId: string; role: 'host' | 'guest' },
-  ) {
+  private async notifyUserDisconnection(roomName: string) {
     try {
-      const roomUsers = this.connectedUsers.get(roomName);
-      if (!roomUsers) return;
-
-      // Déterminer qui est l'autre joueur
-      const otherPlayer =
-        disconnectedUser.role === 'host' ? roomUsers.guest : roomUsers.host;
-
-      if (otherPlayer) {
-        // Récupérer les informations de l'utilisateur déconnecté
-        const user = await this.userService.findOne(
-          parseInt(disconnectedUser.userId),
-        );
-        const username = user
-          ? user.username
-          : `User-${disconnectedUser.userId}`;
-
-        console.log(
-          "📡 Notification de déconnexion envoyée à l'autre joueur:",
-          {
-            roomName,
-            disconnectedUser: {
-              userId: disconnectedUser.userId,
-              username,
-              role: disconnectedUser.role,
-            },
-            notifiedPlayer: {
-              socketId: otherPlayer.socketId,
-              userId: otherPlayer.userId,
-            },
-          },
-        );
-
-        // Notifier l'autre joueur
-        this.wss.to(otherPlayer.socketId).emit('playerDisconnected', {
-          disconnectedPlayer: {
-            userId: disconnectedUser.userId,
-            username: username,
-            role: disconnectedUser.role,
-          },
-          message: `${username} s'est déconnecté(e). La partie est terminée.`,
+      console.log(
+        '📡 Notification de déconnexion envoyée à tous les joueurs:',
+        {
+          roomName,
           timestamp: new Date().toISOString(),
-        });
-      }
+        },
+      );
 
-      // Gestion selon le rôle: si guest quitte avant le début, on rouvre la room
+      // Notifier tous les joueurs de la room
+      this.wss.to(roomName).emit('playerDisconnected', {
+        message: "Un joueur s'est déconnecté. La partie est terminée.",
+        timestamp: new Date().toISOString(),
+      });
+
+      // Gestion de la room selon son état
       const room = await this.roomService.findByName(roomName);
       if (room) {
-        const isGuestLeaving = disconnectedUser.role === 'guest';
         const gameStarted = !!(room.hostcharacterid || room.guestcharacterid);
 
-        if (isGuestLeaving && !gameStarted) {
-          console.log(
-            '🔁 Guest a quitté avant le début: réouverture de la room',
-            {
-              roomId: room.id,
-              roomName,
-            },
-          );
+        if (!gameStarted) {
+          console.log('🔁 Room rouverte car déconnexion avant le début:', {
+            roomId: room.id,
+            roomName,
+          });
           await this.roomService.reopenRoomAfterGuestLeaves(roomName);
-          // Notifier l'host que le guest est parti
-          const tracked = this.connectedUsers.get(roomName);
-          const host = tracked?.host;
-          if (host?.socketId) {
-            this.wss.to(host.socketId).emit('guestLeftBeforeStart', {
-              roomId: room.id,
-              roomName,
-            });
-          }
+
+          // Notifier tous les joueurs restants
+          this.wss.to(roomName).emit('guestLeftBeforeStart', {
+            roomId: room.id,
+            roomName,
+          });
         } else {
           console.log('🗑️ Suppression de la room suite à la déconnexion:', {
             roomId: room.id,
@@ -202,25 +126,75 @@ export class RoomGateway {
   }
 
   /**
-   * Nettoie les données de l'utilisateur déconnecté
+   * Crée une room avec un host (méthode réutilisable)
    */
-  private cleanupDisconnectedUser(roomName: string, role: 'host' | 'guest') {
-    const roomUsers = this.connectedUsers.get(roomName);
-    if (!roomUsers) return;
+  private async createRoomWithHost(
+    roomName: string,
+    userId: number,
+    category: string,
+  ) {
+    const room = await this.roomService.create({
+      name: roomName,
+      status: 'open',
+      hostplayerid: userId,
+      guestplayerid: null,
+      hostcharacterid: null,
+      guestcharacterid: null,
+      category: category,
+    });
+    return room;
+  }
 
-    if (role === 'host') {
-      delete roomUsers.host;
-    } else {
-      delete roomUsers.guest;
-    }
+  /**
+   * Ajoute un guest à une room (méthode réutilisable)
+   */
+  private async addGuestToRoom(roomName: string, userId: number) {
+    const joinedRoom = await this.roomService.addGuest(roomName, {
+      guestplayerid: userId,
+    });
+    return joinedRoom;
+  }
 
-    // Si plus personne dans la room, supprimer l'entrée
-    if (!roomUsers.host && !roomUsers.guest) {
-      this.connectedUsers.delete(roomName);
-      console.log('🧹 Room supprimée du tracking:', roomName);
-    } else {
-      console.log('🧹 Utilisateur supprimé du tracking:', { roomName, role });
-    }
+  /**
+   * Notifie la création d'une room au host
+   */
+  private async notifyRoomCreation(socket: Socket, room: any, userId: number) {
+    socket.emit('room created', {
+      roomId: room.id,
+      roomName: room.name,
+      hostId: userId,
+      category: room.category,
+    });
+  }
+
+  /**
+   * Notifie qu'un guest a rejoint la room
+   */
+  private async notifyGuestJoined(socket: Socket, room: any) {
+    // Récupérer l'identité de l'host
+    const host = await this.userService.findOne(
+      parseInt(room.hostplayerid.toString()),
+    );
+    const hostName = host ? host.username : `User-${room.hostplayerid}`;
+
+    // Récupérer les images de la catégorie de la room
+    const images = await this.imageService.getUrlsByCategory(room.category);
+    socket.to(room.name).emit('joined', {
+      roomId: room.id,
+      roomName: room.name,
+      hostId: room.hostplayerid,
+      hostName: hostName,
+      category: room.category,
+      images: images,
+    });
+    socket.emit('joined', {
+      roomId: room.id,
+      roomName: room.name,
+      hostId: room.hostplayerid,
+      hostName: hostName,
+      category: room.category,
+      images: images,
+    });
   }
   @SubscribeMessage('create')
   async createRoom(socket: Socket, data: any) {
@@ -293,15 +267,7 @@ export class RoomGateway {
         roomName: data.name,
       });
 
-      // Tracker l'utilisateur host dans la room
-      if (!this.connectedUsers.has(data.name)) {
-        this.connectedUsers.set(data.name, {});
-      }
-      this.connectedUsers.get(data.name).host = {
-        socketId: socket.id,
-        userId: data.userId.toString(),
-      };
-      console.log('👤 Host tracké dans la room:', {
+      console.log('👤 Host créé la room:', {
         roomName: data.name,
         socketId: socket.id,
         userId: data.userId,
@@ -364,15 +330,7 @@ export class RoomGateway {
         roomName: data.name,
       });
 
-      // Tracker l'utilisateur guest dans la room
-      if (!this.connectedUsers.has(data.name)) {
-        this.connectedUsers.set(data.name, {});
-      }
-      this.connectedUsers.get(data.name).guest = {
-        socketId: socket.id,
-        userId: data.userId.toString(),
-      };
-      console.log('👤 Guest tracké dans la room:', {
+      console.log('👤 Guest rejoint la room:', {
         roomName: data.name,
         socketId: socket.id,
         userId: data.userId,
@@ -900,24 +858,19 @@ export class RoomGateway {
       const roomName = data.name;
       const player = data.player;
 
-      // Récupérer les sockets des joueurs connectés
-      const roomUsers = this.connectedUsers.get(roomName);
-      console.log('🔍 Room users for rematch:', roomUsers);
-      if (!roomUsers) return;
+      // Récupérer tous les sockets de la room
+      const roomSockets = await this.wss.in(roomName).fetchSockets();
+      console.log('🔍 Room sockets for rematch:', roomSockets.length);
 
-      const hostSocket = roomUsers.host
-        ? this.wss.sockets.sockets.get(roomUsers.host.socketId)
-        : null;
-      const guestSocket = roomUsers.guest
-        ? this.wss.sockets.sockets.get(roomUsers.guest.socketId)
-        : null;
-      console.log('🔍 Host socket for rematch:', hostSocket);
-      console.log('🔍 Guest socket for rematch:', guestSocket);
-      // Vérifier si l'autre joueur a déjà envoyé l'événement
-      const otherSocket = player === 'host' ? guestSocket : hostSocket;
-      const currentSocket = player === 'host' ? hostSocket : guestSocket;
+      // Trouver le socket actuel et l'autre socket
+      const currentSocket = roomSockets.find((s) => s.id === socket.id);
+      const otherSockets = roomSockets.filter((s) => s.id !== socket.id);
 
-      if (otherSocket && otherSocket.data.playAgainRequested) {
+      // Vérifier si l'autre joueur a déjà demandé un rematch
+      const otherSocket = otherSockets[0]; // Prendre le premier autre socket
+      const hasOtherRequested = otherSocket?.data?.playAgainRequested;
+
+      if (hasOtherRequested) {
         // L'autre joueur a déjà demandé, on peut procéder
         console.log('✅ Les deux joueurs veulent rejouer');
 
@@ -939,6 +892,96 @@ export class RoomGateway {
     } catch (error) {
       console.error('Error asking rematch', error);
       socket.emit('error', { message: 'Failed to ask rematch' });
+    }
+  }
+
+  @SubscribeMessage('rematch')
+  async rematch(socket: Socket, data: any) {
+    console.log('🔄 Event: rematch', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+
+    try {
+      if (!data.newRoomName || !data.category || !data.hostId) {
+        console.log('❌ Validation failed for rematch:', {
+          socketId: socket.id,
+          missingFields: {
+            newRoomName: !data.newRoomName,
+            category: !data.category,
+            hostId: !data.hostId,
+          },
+        });
+        socket.emit('error', {
+          message:
+            'Missing required data: newRoomName, category, and hostId are required',
+        });
+        return;
+      }
+
+      // 1. Créer la nouvelle room avec le host
+      const newRoom = await this.createRoomWithHost(
+        data.newRoomName,
+        data.hostId,
+        data.category,
+      );
+
+      // 2. Notifier le host de la création
+      await this.notifyRoomCreation(socket, newRoom, data.hostId);
+
+      // 3. Notifier tous les autres joueurs de la room de rejoindre
+      socket.to(data.oldRoomName).emit('rematch invitation', {
+        newRoomName: data.newRoomName,
+        category: data.category,
+        hostId: data.hostId,
+        roomId: newRoom.id,
+      });
+
+      console.log('✅ Rematch room created successfully:', {
+        newRoomName: data.newRoomName,
+        category: data.category,
+        hostId: data.hostId,
+      });
+    } catch (error) {
+      console.error('Error creating rematch room:', error);
+      socket.emit('error', { message: 'Failed to create rematch room' });
+    }
+  }
+
+  @SubscribeMessage('join rematch')
+  async joinRematch(socket: Socket, data: any) {
+    console.log('🔄 Event: join rematch', {
+      socketId: socket.id,
+      data: data,
+      timestamp: new Date().toISOString(),
+    });
+
+    try {
+      if (!data.newRoomName || !data.guestId) {
+        socket.emit('error', {
+          message:
+            'Missing required data: newRoomName and guestId are required',
+        });
+        return;
+      }
+
+      // 1. Ajouter le guest à la nouvelle room
+      const joinedRoom = await this.addGuestToRoom(
+        data.newRoomName,
+        data.guestId,
+      );
+
+      // 2. Notifier le guest
+      await this.notifyGuestJoined(socket, joinedRoom);
+
+      console.log('✅ Guest joined rematch room successfully:', {
+        newRoomName: data.newRoomName,
+        guestId: data.guestId,
+      });
+    } catch (error) {
+      console.error('Error joining rematch room:', error);
+      socket.emit('error', { message: 'Failed to join rematch room' });
     }
   }
 
@@ -967,30 +1010,25 @@ export class RoomGateway {
       }
 
       const room = await this.roomService.findByName(data.name);
-      const tracked = this.connectedUsers.get(data.name);
-      const isGuest = tracked?.guest?.socketId === socket.id;
       const gameStarted = !!(room?.hostcharacterid || room?.guestcharacterid);
 
-      if (isGuest && !gameStarted) {
-        // Guest quitte avant le début: rouvrir la room, nettoyer seulement le guest
+      if (!gameStarted) {
+        // Partie pas encore démarrée: rouvrir la room
         await this.roomService.reopenRoomAfterGuestLeaves(data.name);
-        if (tracked) delete tracked.guest;
-        console.log(
-          '🔁 Guest left before start: room reopened and guest removed from tracking',
-        );
-        // Notifier l'host uniquement
-        if (tracked?.host?.socketId) {
-          this.wss.to(tracked.host.socketId).emit('guestLeftBeforeStart', {
-            roomId: room?.id,
-            roomName: data.name,
-          });
-        }
-        // Confirmer au guest
+        console.log('🔁 Room reopened after quit before game start');
+
+        // Notifier tous les autres joueurs
+        socket.to(data.name).emit('guestLeftBeforeStart', {
+          roomId: room?.id,
+          roomName: data.name,
+        });
+
+        // Confirmer au joueur qui quitte
         socket.emit('room left', { roomId: room?.id });
         socket.leave(data.name);
         socket.disconnect();
       } else {
-        // Cas host qui quitte ou partie déjà démarrée: comportement actuel (supprimer la room)
+        // Partie déjà démarrée: supprimer la room
         console.log('🗑️ Removing room and cleaning up...');
         if (room) await this.roomImageService.removeRoomImage(room.id);
         if (room) await this.roomService.remove(room.id);
@@ -1000,7 +1038,7 @@ export class RoomGateway {
           roomName: data.name,
           userId: data.userId,
         });
-        this.connectedUsers.delete(data.name);
+
         socket.to(data.name).emit('quit', { player: data.userId });
         socket.emit('room left', { roomId: room?.id });
         socket.disconnect();
