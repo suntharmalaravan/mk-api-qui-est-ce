@@ -87,16 +87,11 @@ export class RoomGateway {
         },
       );
 
-      // Notifier tous les joueurs de la room
-      this.wss.to(roomName).emit('playerDisconnected', {
-        message: "Un joueur s'est déconnecté. La partie est terminée.",
-        timestamp: new Date().toISOString(),
-      });
-
       // Gestion de la room selon son état
       const room = await this.roomService.findByName(roomName);
       if (room) {
-        const gameStarted = !!(room.hostcharacterid || room.guestcharacterid);
+        const gameStarted =
+          room.hostcharacterid !== null || room.guestcharacterid !== null;
 
         if (!gameStarted) {
           console.log('🔁 Room rouverte car déconnexion avant le début:', {
@@ -115,6 +110,11 @@ export class RoomGateway {
             roomId: room.id,
             roomName,
             reason: 'user_disconnected',
+          });
+          // Notifier tous les joueurs de la room
+          this.wss.to(roomName).emit('playerDisconnected', {
+            message: "Un joueur s'est déconnecté. La partie est terminée.",
+            timestamp: new Date().toISOString(),
           });
           await this.roomImageService.removeRoomImage(room.id);
           await this.roomService.remove(room.id);
