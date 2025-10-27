@@ -28,6 +28,7 @@ export class RoomService {
       select: {
         id: true,
         hostplayerid: true,
+        guestplayerid: true,
         category: true,
         guestcharacterid: true,
         hostcharacterid: true,
