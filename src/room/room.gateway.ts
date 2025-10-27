@@ -176,7 +176,13 @@ export class RoomGateway {
       parseInt(room.hostplayerid.toString()),
     );
     const hostName = host ? host.username : `User-${room.hostplayerid}`;
-
+    console.log('Notify Guest Connection ', {
+      roomId: room.id,
+      roomName: room.name,
+      hostId: room.hostplayerid,
+      hostName: hostName,
+      category: room.category,
+    });
     // Récupérer les images de la catégorie de la room
     const images = await this.imageService.getUrlsByCategory(room.category);
     socket.to(room.name).emit('joined', {
