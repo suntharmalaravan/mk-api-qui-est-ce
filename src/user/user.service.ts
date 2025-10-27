@@ -43,6 +43,7 @@ export class UserService {
     return {
       ...user,
       title: levelInfo.title,
+      currentLevel: levelInfo.levelId,
       minScore: levelInfo.minScore,
       maxScore: levelInfo.maxScore,
     };
@@ -71,6 +72,7 @@ export class UserService {
 
     return {
       title: currentLevel.title as string,
+      levelId: currentLevel.id,
       minScore: currentLevel.score,
       maxScore: nextLevel ? nextLevel.score : null,
     };
