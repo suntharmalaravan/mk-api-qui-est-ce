@@ -175,12 +175,18 @@ export class RoomGateway {
     const host = await this.userService.findOne(
       parseInt(room.hostplayerid.toString()),
     );
+    const guest = await this.userService.findOne(
+      parseInt(room.guestplayerid.toString()),
+    );
     const hostName = host ? host.username : `User-${room.hostplayerid}`;
+    const guestName = guest ? guest.username : `User-${room.guestplayerid}`;
     console.log('Notify Guest Connection ', {
       roomId: room.id,
       roomName: room.name,
       hostId: room.hostplayerid,
       hostName: hostName,
+      guestName : guestName,
+      guestId : room.guestplayerid,
       category: room.category,
     });
     // Récupérer les images de la catégorie de la room
@@ -191,6 +197,8 @@ export class RoomGateway {
       hostId: room.hostplayerid,
       hostName: hostName,
       category: room.category,
+      guestName : guestName,
+      guestId : room.guestplayerid,
       images: images,
     });
     socket.emit('joined', {
@@ -198,6 +206,8 @@ export class RoomGateway {
       roomName: room.name,
       hostId: room.hostplayerid,
       hostName: hostName,
+      guestName : guestName,
+      guestId : room.guestplayerid,
       category: room.category,
       images: images,
     });
