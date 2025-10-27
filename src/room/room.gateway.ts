@@ -175,8 +175,20 @@ export class RoomGateway {
     const host = await this.userService.findOne(
       parseInt(room.hostplayerid.toString()),
     );
+    const guest = await this.userService.findOne(
+      parseInt(room.guestplayerid.toString()),
+    );
     const hostName = host ? host.username : `User-${room.hostplayerid}`;
-
+    const guestName = guest ? guest.username : `User-${room.guestplayerid}`;
+    console.log('Notify Guest Connection ', {
+      roomId: room.id,
+      roomName: room.name,
+      hostId: room.hostplayerid,
+      hostName: hostName,
+      guestName : guestName,
+      guestId : room.guestplayerid,
+      category: room.category,
+    });
     // Récupérer les images de la catégorie de la room
     const images = await this.imageService.getUrlsByCategory(room.category);
     socket.to(room.name).emit('joined', {
@@ -185,6 +197,8 @@ export class RoomGateway {
       hostId: room.hostplayerid,
       hostName: hostName,
       category: room.category,
+      guestName : guestName,
+      guestId : room.guestplayerid,
       images: images,
     });
     socket.emit('joined', {
@@ -192,6 +206,8 @@ export class RoomGateway {
       roomName: room.name,
       hostId: room.hostplayerid,
       hostName: hostName,
+      guestName : guestName,
+      guestId : room.guestplayerid,
       category: room.category,
       images: images,
     });
@@ -744,9 +760,20 @@ export class RoomGateway {
         // Mettre à jour le score du joueur gagnant (+100 points)
         const winnerUserId =
           data.player === 'host' ? room.hostplayerid : room.guestplayerid;
+        console.log('debug winnerUserid', {
+          w : winnerUserId,
+          g: room.guestplayerid,
+        })
+        console.log('debug room', room)
         const winnerUser = await this.userService.findOne(winnerUserId);
         if (winnerUser) {
           const newScore = winnerUser.score + 8;
+          console.log('debug update score ', {
+            userId: winnerUserId,
+            player: data.player,
+            oldScore: winnerUser.score,
+            newScore: newScore,
+          })
           await this.userService.updateScore(winnerUserId, newScore);
           console.log('🏆 Score mis à jour:', {
             userId: winnerUserId,
@@ -928,6 +955,7 @@ export class RoomGateway {
       );
 
       // 2. Notifier le host de la création
+      socket.join(data.newRoomName)
       await this.notifyRoomCreation(socket, newRoom, data.hostId);
 
       // 3. Notifier tous les autres joueurs de la room de rejoindre
@@ -971,6 +999,8 @@ export class RoomGateway {
         data.newRoomName,
         data.guestId,
       );
+      
+      socket.join(data.newRoomName)
 
       // 2. Notifier le guest
       await this.notifyGuestJoined(socket, joinedRoom);
