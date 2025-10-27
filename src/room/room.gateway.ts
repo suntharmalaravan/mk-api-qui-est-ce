@@ -761,8 +761,8 @@ export class RoomGateway {
         const winnerUserId =
           data.player === 'host' ? room.hostplayerid : room.guestplayerid;
         console.log('debug winnerUserid', {
-          winnerUserId,
-          room.guestplayerid,
+          w : winnerUserId,
+          g: room.guestplayerid,
         })
         console.log('debug room', room)
         const winnerUser = await this.userService.findOne(winnerUserId);
