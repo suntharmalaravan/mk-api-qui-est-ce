@@ -934,6 +934,7 @@ export class RoomGateway {
       );
 
       // 2. Notifier le host de la création
+      socket.join(data.newRoomName)
       await this.notifyRoomCreation(socket, newRoom, data.hostId);
 
       // 3. Notifier tous les autres joueurs de la room de rejoindre
@@ -977,6 +978,8 @@ export class RoomGateway {
         data.newRoomName,
         data.guestId,
       );
+      
+      socket.join(data.newRoomName)
 
       // 2. Notifier le guest
       await this.notifyGuestJoined(socket, joinedRoom);
