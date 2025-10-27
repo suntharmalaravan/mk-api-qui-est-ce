@@ -763,6 +763,12 @@ export class RoomGateway {
         const winnerUser = await this.userService.findOne(winnerUserId);
         if (winnerUser) {
           const newScore = winnerUser.score + 8;
+          console.log('debug update score ', {
+            userId: winnerUserId,
+            player: data.player,
+            oldScore: winnerUser.score,
+            newScore: newScore,
+          })
           await this.userService.updateScore(winnerUserId, newScore);
           console.log('🏆 Score mis à jour:', {
             userId: winnerUserId,
