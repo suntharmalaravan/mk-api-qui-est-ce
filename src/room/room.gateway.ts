@@ -760,6 +760,11 @@ export class RoomGateway {
         // Mettre à jour le score du joueur gagnant (+100 points)
         const winnerUserId =
           data.player === 'host' ? room.hostplayerid : room.guestplayerid;
+        console.log('debug winnerUserid', {
+          winnerUserId,
+          room.guestplayerid,
+        })
+        console.log('debug room', room)
         const winnerUser = await this.userService.findOne(winnerUserId);
         if (winnerUser) {
           const newScore = winnerUser.score + 8;
