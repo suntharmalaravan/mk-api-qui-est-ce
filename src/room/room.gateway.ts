@@ -757,31 +757,105 @@ export class RoomGateway {
           guestCharacterId,
         });
 
-        // Mettre à jour le score du joueur gagnant (+100 points)
+        // Mettre à jour le score du joueur gagnant (+8 points)
         const winnerUserId =
           data.player === 'host' ? room.hostplayerid : room.guestplayerid;
-        console.log('debug winnerUserid', {
-          w : winnerUserId,
-          g: room.guestplayerid,
-        })
-        console.log('debug room', room)
-        const winnerUser = await this.userService.findOne(winnerUserId);
-        if (winnerUser) {
-          const newScore = winnerUser.score + 8;
-          console.log('debug update score ', {
-            userId: winnerUserId,
+
+        console.log('👤 [selectCharacter] Détermination du gagnant:', {
+          socketId: socket.id,
+          roomName: data.name,
+          player: data.player,
+          winnerUserId: winnerUserId,
+          hostPlayerId: room.hostplayerid,
+          guestPlayerId: room.guestplayerid,
+        });
+
+        if (winnerUserId) {
+          console.log('🔍 [selectCharacter] Recherche de l\'utilisateur gagnant:', {
+            socketId: socket.id,
+            winnerUserId: winnerUserId,
+          });
+
+          const winnerUser = await this.userService.findOne(winnerUserId);
+
+          console.log('👤 [selectCharacter] Utilisateur gagnant trouvé:', {
+            socketId: socket.id,
+            winnerUserId: winnerUserId,
+            userFound: !!winnerUser,
+            currentScore: winnerUser?.score,
+          });
+
+          if (winnerUser) {
+            const newScore = winnerUser.score + 8;
+            console.log('💰 [selectCharacter] Calcul du nouveau score:', {
+              socketId: socket.id,
+              userId: winnerUserId,
+              player: data.player,
+              oldScore: winnerUser.score,
+              newScore: newScore,
+              pointsToAdd: 8,
+            });
+
+            try {
+              await this.userService.updateScore(winnerUserId, newScore);
+              console.log('✅ [selectCharacter] Score mis à jour avec succès:', {
+                socketId: socket.id,
+                userId: winnerUserId,
+                player: data.player,
+                oldScore: winnerUser.score,
+                newScore: newScore,
+              });
+            } catch (error) {
+              console.error('❌ [selectCharacter] Erreur lors de la mise à jour du score:', {
+                socketId: socket.id,
+                userId: winnerUserId,
+                player: data.player,
+                error: error.message,
+                errorStack: error.stack,
+              });
+              throw error;
+            }
+          } else {
+            console.warn('⚠️ [selectCharacter] Utilisateur gagnant non trouvé:', {
+              socketId: socket.id,
+              winnerUserId: winnerUserId,
+              player: data.player,
+            });
+          }
+        } else {
+          console.warn('⚠️ [selectCharacter] winnerUserId est null ou undefined:', {
+            socketId: socket.id,
             player: data.player,
-            oldScore: winnerUser.score,
-            newScore: newScore,
-          })
-          await this.userService.updateScore(winnerUserId, newScore);
-          console.log('🏆 Score mis à jour:', {
-            userId: winnerUserId,
-            player: data.player,
-            oldScore: winnerUser.score,
-            newScore: newScore,
+            hostPlayerId: room.hostplayerid,
+            guestPlayerId: room.guestplayerid,
           });
         }
+
+        // Émettre les événements de victoire/défaite
+        console.log('📡 [selectCharacter] Émission des événements de victoire:', {
+          socketId: socket.id,
+          roomName: data.name,
+          eventName: eventName,
+          player: data.player,
+        });
+
+        socket.emit(eventName, {
+          player: data.player,
+          roomName: data.name,
+        });
+
+        socket.to(data.name).emit(eventName, {
+          player: data.player,
+          roomName: data.name,
+        });
+
+        console.log('✅ [selectCharacter] Événements de victoire émis avec succès:', {
+          socketId: socket.id,
+          roomName: data.name,
+          eventName: eventName,
+          emittedToSelf: true,
+          emittedToRoom: true,
+        });
 
         socket.emit('select result', {
           player: data.player,
@@ -796,6 +870,30 @@ export class RoomGateway {
           guestCharacterId,
         });
       } else {
+        // Émettre les événements de victoire/défaite même en cas de perte
+        console.log('📡 [selectCharacter] Émission des événements de défaite:', {
+          socketId: socket.id,
+          roomName: data.name,
+          eventName: eventName,
+          player: data.player,
+        });
+
+        socket.emit(eventName, {
+          player: data.player,
+          roomName: data.name,
+        });
+
+        socket.to(data.name).emit(eventName, {
+          player: data.player,
+          roomName: data.name,
+        });
+
+        console.log('✅ [selectCharacter] Événements de défaite émis avec succès:', {
+          socketId: socket.id,
+          roomName: data.name,
+          eventName: eventName,
+        });
+
         socket.emit('select result', { player: data.player, right: false });
         socket
           .to(data.name)
@@ -999,7 +1097,7 @@ export class RoomGateway {
         data.newRoomName,
         data.guestId,
       );
-      
+
       socket.join(data.newRoomName)
 
       // 2. Notifier le guest
