@@ -43,6 +43,7 @@ export class UserService {
     return {
       ...user,
       title: levelInfo.title,
+      currentLevel: levelInfo.levelId,
       minScore: levelInfo.minScore,
       maxScore: levelInfo.maxScore,
     };
@@ -71,6 +72,7 @@ export class UserService {
 
     return {
       title: currentLevel.title as string,
+      levelId: currentLevel.id,
       minScore: currentLevel.score,
       maxScore: nextLevel ? nextLevel.score : null,
     };
@@ -85,13 +87,46 @@ export class UserService {
   }
 
   async updateScore(id: number, score: number) {
+    console.log('📊 [updateScore] Début de la mise à jour du score:', {
+      userId: id,
+      newScore: score,
+    });
+
+    if (!id) {
+      console.error('❌ [updateScore] User ID is null or undefined');
+      throw new Error('User ID is required for updateScore');
+    }
+
     const user = await this.userRepository.findOne({
       select: { score: true },
       where: { id },
     });
-    user.score = score;
-    await this.userRepository.update(id, user);
-    return user;
+
+    console.log('🔍 [updateScore] Utilisateur trouvé:', {
+      userId: id,
+      userFound: !!user,
+      currentScore: user?.score,
+    });
+
+    if (!user) {
+      console.error('❌ [updateScore] User not found:', { userId: id });
+      throw new Error(`User with ID ${id} not found`);
+    }
+
+    console.log('💾 [updateScore] Mise à jour du score en base de données:', {
+      userId: id,
+      oldScore: user.score,
+      newScore: score,
+    });
+
+    await this.userRepository.update(id, { score });
+
+    console.log('✅ [updateScore] Score mis à jour avec succès:', {
+      userId: id,
+      newScore: score,
+    });
+
+    return { ...user, score };
   }
 
   async updateImageUrl(id: number, imageUrl: string): Promise<void> {
