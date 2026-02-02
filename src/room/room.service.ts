@@ -12,7 +12,7 @@ export class RoomService {
   constructor(
     @InjectRepository(RoomEntity)
     private readonly roomRepository: Repository<RoomEntity>,
-  ) {}
+  ) { }
 
   create(createRoomDto: CreateRoomDto) {
     const newRoom = this.roomRepository.create(createRoomDto);
@@ -27,11 +27,15 @@ export class RoomService {
     const room = await this.roomRepository.findOne({
       select: {
         id: true,
+        name: true,
         hostplayerid: true,
         guestplayerid: true,
         category: true,
         guestcharacterid: true,
         hostcharacterid: true,
+        mode: true,
+        deck_id: true,
+        custom_library_user_id: true,
       },
       where: { name },
     });

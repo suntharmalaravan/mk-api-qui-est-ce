@@ -6,7 +6,7 @@ import * as admin from 'firebase-admin';
 export class FirebaseService implements OnModuleInit {
   private storage: admin.storage.Storage;
 
-  constructor(private configService: ConfigService) {}
+  constructor(private configService: ConfigService) { }
 
   async onModuleInit() {
     // Initialiser Firebase Admin SDK
@@ -71,6 +71,64 @@ export class FirebaseService implements OnModuleInit {
     } catch (error) {
       console.error("Erreur lors de l'upload Firebase:", error);
       throw new Error("Échec de l'upload de l'image");
+    }
+  }
+
+  async uploadLibraryImage(
+    userId: number,
+    imageBuffer: Buffer,
+    mimeType: string,
+    imageId: string,
+    deckId?: number,
+  ): Promise<string> {
+    try {
+      const bucket = this.storage.bucket();
+      const extension = mimeType.includes('png') ? 'png' : 'jpg';
+
+      // Si deckId fourni, utiliser la nouvelle structure de dossiers
+      const basePath = deckId
+        ? `userLibrary/${userId}/${deckId}`
+        : `user-libraries/${userId}`;
+
+      const fileName = `${basePath}/${imageId}.${extension}`;
+      const file = bucket.file(fileName);
+
+      // Upload du fichier
+      await file.save(imageBuffer, {
+        metadata: {
+          contentType: mimeType,
+          cacheControl: 'public, max-age=31536000', // Cache 1 an
+        },
+        validation: 'crc32c',
+      });
+
+      // Rendre le fichier public
+      await file.makePublic();
+
+      // Retourner l'URL publique
+      return `https://storage.googleapis.com/${bucket.name}/${fileName}`;
+    } catch (error) {
+      console.error("Erreur lors de l'upload Firebase (library):", error);
+      throw new Error("Échec de l'upload de l'image");
+    }
+  }
+
+  async deleteLibraryImage(userId: number, imageId: string): Promise<void> {
+    try {
+      const bucket = this.storage.bucket();
+      // Essayer les deux extensions
+      for (const ext of ['jpg', 'png']) {
+        const fileName = `user-libraries/${userId}/${imageId}.${ext}`;
+        const file = bucket.file(fileName);
+        const [exists] = await file.exists();
+        if (exists) {
+          await file.delete();
+          console.log(`Image bibliothèque supprimée: ${fileName}`);
+          return;
+        }
+      }
+    } catch (error) {
+      console.error('Erreur lors de la suppression Firebase (library):', error);
     }
   }
 

@@ -32,6 +32,37 @@
 $ npm install
 ```
 
+## pgAdmin (interface admin PostgreSQL)
+
+### Lancer pgAdmin
+
+```bash
+docker-compose up -d
+```
+
+### Accès pgAdmin (interface web)
+
+- URL : http://localhost:5050
+- Email : `admin@admin.com`
+- Mot de passe : `admin123`
+
+### Configurer la connexion à la base distante
+
+1. Clic droit sur "Servers" > "Register" > "Server"
+2. Onglet **General** : Name = nom de votre choix
+3. Onglet **Connection** :
+   - Host : votre host distant
+   - Port : votre port
+   - Database : votre database
+   - Username : votre username
+   - Password : votre password
+
+### Arrêter pgAdmin
+
+```bash
+docker-compose down
+```
+
 ## Running the app
 
 ```bash

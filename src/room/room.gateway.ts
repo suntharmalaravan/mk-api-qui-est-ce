@@ -8,6 +8,7 @@ import { RoomService } from './room.service';
 import { ImageService } from 'src/image/image.service';
 import { RoomImageService } from 'src/room-image/room-image.service';
 import { UserService } from 'src/user/user.service';
+
 @WebSocketGateway({
   namespace: '/',
   cors: {
@@ -24,7 +25,7 @@ export class RoomGateway {
     private readonly imageService: ImageService,
     private readonly roomImageService: RoomImageService,
     private readonly userService: UserService,
-  ) {}
+  ) { }
 
   // Événements de connexion/déconnexion pour debug
   handleConnection(client: Socket) {
@@ -141,6 +142,8 @@ export class RoomGateway {
       hostcharacterid: null,
       guestcharacterid: null,
       category: category,
+      mode: 'category',
+      custom_library_user_id: null,
     });
     return room;
   }
@@ -185,8 +188,8 @@ export class RoomGateway {
       roomName: room.name,
       hostId: room.hostplayerid,
       hostName: hostName,
-      guestName : guestName,
-      guestId : room.guestplayerid,
+      guestName: guestName,
+      guestId: room.guestplayerid,
       category: room.category,
     });
     // Récupérer les images de la catégorie de la room
@@ -197,8 +200,8 @@ export class RoomGateway {
       hostId: room.hostplayerid,
       hostName: hostName,
       category: room.category,
-      guestName : guestName,
-      guestId : room.guestplayerid,
+      guestName: guestName,
+      guestId: room.guestplayerid,
       images: images,
     });
     socket.emit('joined', {
@@ -206,8 +209,8 @@ export class RoomGateway {
       roomName: room.name,
       hostId: room.hostplayerid,
       hostName: hostName,
-      guestName : guestName,
-      guestId : room.guestplayerid,
+      guestName: guestName,
+      guestId: room.guestplayerid,
       category: room.category,
       images: images,
     });
@@ -222,21 +225,39 @@ export class RoomGateway {
 
     try {
       // Validation des données requises
-      if (!data.name || !data.userId || !data.category) {
-        console.log('❌ Validation failed for create room:', {
-          socketId: socket.id,
-          missingFields: {
-            name: !data.name,
-            userId: !data.userId,
-            category: !data.category,
-          },
-        });
-        socket.emit('error', {
-          message:
-            'Missing required data: name, userId, and category are required',
-        });
-        return;
+      const mode = data.mode || 'category';
+
+      if (mode === 'category') {
+        if (!data.name || !data.userId || !data.category) {
+          console.log('❌ Validation failed for create room (category):', {
+            socketId: socket.id,
+            missingFields: {
+              name: !data.name,
+              userId: !data.userId,
+              category: !data.category,
+            },
+          });
+          socket.emit('error', {
+            message: 'Missing required data: name, userId, and category are required',
+          });
+          return;
+        }
+      } else if (mode === 'custom') {
+        if (!data.name || !data.userId) {
+          console.log('❌ Validation failed for create room (custom):', {
+            socketId: socket.id,
+            missingFields: {
+              name: !data.name,
+              userId: !data.userId,
+            },
+          });
+          socket.emit('error', {
+            message: 'Missing required data: name and userId are required',
+          });
+          return;
+        }
       }
+
       // Vérifier si la room existe déjà
       const existingRoom = await this.roomService.findByName(data.name);
       if (existingRoom) {
@@ -249,6 +270,63 @@ export class RoomGateway {
         return;
       }
 
+      let images: any[];
+
+      if (mode === 'custom') {
+        // Mode bibliothèque personnelle
+        const deckId = data.deckId;
+
+        if (deckId) {
+          // Nouveau système: utiliser un deck sauvegardé
+          console.log('📚 Mode custom avec deck:', { userId: data.userId, deckId });
+
+          // Vérifier que le deck existe et appartient à l'utilisateur
+          const deckImages = await this.imageService.getDeckImagesById(deckId);
+
+          if (deckImages.length < 20) {
+            console.log('❌ Deck invalide ou pas assez d\'images:', { deckId, count: deckImages.length });
+            socket.emit('error', {
+              message: 'Deck invalide ou ne contient pas assez d\'images (minimum 20)',
+            });
+            return;
+          }
+
+          images = deckImages;
+          console.log('📸 Images du deck récupérées:', {
+            deckId,
+            imageCount: images.length,
+          });
+        } else {
+          // Legacy: utiliser toutes les images de l'utilisateur
+          console.log('📚 Mode custom legacy: bibliothèque user:', data.userId);
+
+          // Vérifier le nombre d'images
+          const imageCount = await this.imageService.count(data.userId);
+          if (imageCount < 20) {
+            console.log('❌ Pas assez d\'images:', { userId: data.userId, count: imageCount });
+            socket.emit('error', {
+              message: `Vous devez avoir au moins 20 images dans votre bibliothèque (vous en avez ${imageCount})`,
+            });
+            return;
+          }
+
+          // Récupérer les images de la bibliothèque
+          images = await this.imageService.findByUserId(data.userId);
+          console.log('📸 Images bibliothèque récupérées:', {
+            userId: data.userId,
+            imageCount: images.length,
+          });
+        }
+      } else {
+        // Mode catégorie
+        console.log('🖼️ Fetching images for category:', data.category);
+        images = await this.imageService.getUrlsByCategory(data.category);
+        console.log('📸 Images category retrieved:', {
+          category: data.category,
+          imageCount: images.length,
+        });
+      }
+
       console.log('📝 Creating new room in database...');
       const room = await this.roomService.create({
         name: data.name,
@@ -257,23 +335,18 @@ export class RoomGateway {
         guestplayerid: null,
         hostcharacterid: null,
         guestcharacterid: null,
-        category: data.category,
+        category: mode === 'category' ? data.category : 'custom',
+        mode: mode,
+        custom_library_user_id: mode === 'custom' ? data.userId : null,
+        deck_id: data.deckId || null, // Sauvegarder le deckId pour les parties custom
       });
       console.log('✅ Room created successfully:', {
         socketId: socket.id,
         roomId: room.id,
         roomName: room.name,
         hostId: room.hostplayerid,
+        mode: room.mode,
         category: room.category,
-      });
-
-      // Récupérer les images de la catégorie
-      console.log('🖼️ Fetching images for category:', data.category);
-      const images = await this.imageService.getUrlsByCategory(data.category);
-      console.log('📸 Images retrieved:', {
-        category: data.category,
-        imageCount: images.length,
-        firstImage: images[0] || 'No images found',
       });
 
       // Le créateur rejoint automatiquement sa propre room
@@ -287,13 +360,19 @@ export class RoomGateway {
         roomName: data.name,
         socketId: socket.id,
         userId: data.userId,
+        mode: mode,
       });
 
       // Notifier la création de la room
-      const roomData = { room: data.name, roomId: room.id, images: images };
+      const roomData = {
+        room: data.name,
+        roomId: room.id,
+        images: images,
+        mode: mode,
+      };
       console.log('📡 Emitting roomCreated event:', {
         socketId: socket.id,
-        roomData: roomData,
+        roomData: { ...roomData, images: `[${images.length} images]` },
       });
       socket.to(data.name).emit('roomCreated', roomData);
       socket.emit('roomCreated', roomData);
@@ -390,16 +469,28 @@ export class RoomGateway {
         hostExists: !!host,
       });
 
-      // Récupérer les images de la catégorie de la room
-      console.log('🖼️ Fetching images for room category:', joinedRoom.category);
-      const images = await this.imageService.getUrlsByCategory(
-        joinedRoom.category,
-      );
-      console.log('📸 Images retrieved for joined room:', {
-        category: joinedRoom.category,
-        imageCount: images.length,
-        firstImage: images[0] || 'No images found',
-      });
+      // Récupérer les images selon le mode de la room
+      let images: any[];
+      const roomMode = (joinedRoom as any).mode || 'category';
+
+      if (roomMode === 'custom') {
+        // Mode bibliothèque personnelle - récupérer les images du host
+        const customLibraryUserId = (joinedRoom as any).custom_library_user_id || joinedRoom.hostplayerid;
+        console.log('📚 Mode custom: récupération bibliothèque user:', customLibraryUserId);
+        images = await this.imageService.findByUserId(customLibraryUserId);
+        console.log('📸 Images bibliothèque récupérées:', {
+          ownerId: customLibraryUserId,
+          imageCount: images.length,
+        });
+      } else {
+        // Mode catégorie
+        console.log('🖼️ Fetching images for room category:', joinedRoom.category);
+        images = await this.imageService.getUrlsByCategory(joinedRoom.category);
+        console.log('📸 Images category retrieved:', {
+          category: joinedRoom.category,
+          imageCount: images.length,
+        });
+      }
 
       // Confirmer au client qui rejoint
       const hostJoinedData = {
@@ -409,10 +500,11 @@ export class RoomGateway {
         hostName: hostName,
         category: joinedRoom.category,
         images: images,
+        mode: roomMode,
       };
       console.log('📡 Emitting joined confirmation:', {
         socketId: socket.id,
-        hostJoinedData: hostJoinedData,
+        hostJoinedData: { ...hostJoinedData, images: `[${images.length} images]` },
       });
       socket.emit('joined', hostJoinedData);
     } catch (error) {
@@ -455,16 +547,44 @@ export class RoomGateway {
         roomId: room.id,
         roomName: room.name,
         category: room.category,
+        mode: room.mode,
+        deck_id: room.deck_id,
       });
 
-      // Récupérer les images de la catégorie de la room
-      console.log('🖼️ Fetching images for room category:', room.category);
-      const images = await this.imageService.getUrlsByCategory(room.category);
-      console.log('📸 Images retrieved for game:', {
-        category: room.category,
-        imageCount: images.length,
-        firstImage: images[0] || 'No images found',
-      });
+      // Récupérer les images selon le mode
+      let images: any[];
+
+      if (room.mode === 'custom' && room.deck_id) {
+        // Mode custom avec deck: récupérer les images du deck
+        console.log('🖼️ Fetching images from deck:', room.deck_id);
+        images = await this.imageService.getDeckImagesById(room.deck_id);
+        console.log('📸 Deck images retrieved:', {
+          deckId: room.deck_id,
+          imageCount: images.length,
+        });
+      } else if (room.mode === 'custom' && room.custom_library_user_id) {
+        // Mode custom legacy: récupérer toutes les images de l'utilisateur
+        console.log('🖼️ Fetching user library images:', room.custom_library_user_id);
+        images = await this.imageService.findByUserId(room.custom_library_user_id);
+        console.log('📸 User library images retrieved:', {
+          userId: room.custom_library_user_id,
+          imageCount: images.length,
+        });
+      } else {
+        // Mode catégorie
+        console.log('🖼️ Fetching images for category:', room.category);
+        images = await this.imageService.getUrlsByCategory(room.category);
+        console.log('📸 Category images retrieved:', {
+          category: room.category,
+          imageCount: images.length,
+        });
+      }
+
+      if (images.length < 18) {
+        console.log('❌ Not enough images:', { count: images.length });
+        socket.emit('error', { message: 'Pas assez d\'images pour démarrer la partie (minimum 18)' });
+        return;
+      }
 
       // Envoyer les données avec la catégorie et les images
       const gameData = {
@@ -475,7 +595,8 @@ export class RoomGateway {
       console.log('📡 Emitting game started event:', {
         socketId: socket.id,
         roomName: data.name,
-        gameData: gameData,
+        imageCount: images.length,
+        mode: room.mode,
       });
       socket.to(data.name).emit('game started', gameData);
       socket.emit('game started', gameData);
