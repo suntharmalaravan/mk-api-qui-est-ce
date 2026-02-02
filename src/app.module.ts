@@ -10,6 +10,7 @@ import { RoomGateway } from './room/room.gateway';
 import { RoomModule } from './room/room.module';
 import { ImageModule } from './image/image.module';
 import { RoomImageModule } from './room-image/room-image.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
@@ -23,4 +24,6 @@ import { RoomImageModule } from './room-image/room-image.module';
   controllers: [AppController],
   providers: [AppService, RoomGateway],
 })
-export class AppModule {}
+export class AppModule { }
+
+

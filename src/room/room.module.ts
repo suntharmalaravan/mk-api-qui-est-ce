@@ -6,6 +6,7 @@ import { RoomController } from './room.controller';
 import { ImageModule } from 'src/image/image.module';
 import { RoomImageModule } from 'src/room-image/room-image.module';
 import { UserModule } from 'src/user/user.module';
+
 @Module({
   imports: [
     TypeOrmModule.forFeature([RoomEntity]),
@@ -17,4 +18,6 @@ import { UserModule } from 'src/user/user.module';
   exports: [RoomService],
   controllers: [RoomController],
 })
-export class RoomModule {}
+export class RoomModule { }
+
+
