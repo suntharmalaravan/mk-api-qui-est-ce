@@ -4,6 +4,7 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { Image } from 'src/image/entities/image.entity';
+import { Deck } from 'src/image/entities/deck.entity';
 import { Room } from 'src/room/entities/room.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Level } from 'src/user/entities/level.entity';
@@ -44,7 +45,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       return {
         type: 'postgres',
         url: databaseUrl,
-        entities: [User, Room, Image, RoomImage, Level],
+        entities: [User, Room, Image, Deck, RoomImage, Level],
         synchronize: false,
         logging: configService.get<string>('NODE_ENV') === 'development',
         ssl: {
@@ -60,7 +61,7 @@ export const typeOrmAsyncConfig: TypeOrmModuleAsyncOptions = {
       username: configService.get<string>('DATABASE_username'),
       database: configService.get<string>('DATABASE_name'),
       password: configService.get<string>('DATABASE_password'),
-      entities: [User, Room, Image, RoomImage, Level],
+      entities: [User, Room, Image, Deck, RoomImage, Level],
       synchronize: false,
       logging: configService.get<string>('NODE_ENV') === 'development',
       ssl: {
@@ -81,7 +82,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   username: process.env.DATABASE_username,
   database: process.env.DATABASE_name,
   password: process.env.DATABASE_password,
-  entities: [User, Room, Image, RoomImage, Level],
+  entities: [User, Room, Image, Deck, RoomImage, Level],
   synchronize: false,
   ssl: {
     rejectUnauthorized: false, // Nécessaire pour Supabase

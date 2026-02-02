@@ -38,4 +38,17 @@ export class CreateRoomDto {
 
   @IsString()
   category: string;
+
+  @IsString()
+  @IsOptional()
+  mode: string; // 'category' | 'custom'
+
+  @IsNumber()
+  @IsOptional()
+  custom_library_user_id: number;
+
+  @IsNumber()
+  @IsOptional()
+  deck_id?: number; // Pour les parties avec un deck sauvegardé
 }
+

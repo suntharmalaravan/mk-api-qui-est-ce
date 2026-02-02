@@ -25,4 +25,13 @@ export class Room {
 
   @Column()
   category: string;
+
+  @Column({ default: 'category' })
+  mode: string; // 'category' | 'custom'
+
+  @Column({ nullable: true })
+  custom_library_user_id: number; // ID de l'utilisateur dont on utilise la bibliothèque
+
+  @Column({ nullable: true })
+  deck_id: number; // ID du deck utilisé pour les parties custom
 }
