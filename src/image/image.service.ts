@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, IsNull } from 'typeorm';
+import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
+import { Repository, IsNull, DataSource } from 'typeorm';
 import { Image as ImageEntity } from './entities/image.entity';
 import { Deck } from './entities/deck.entity';
 
@@ -11,6 +11,8 @@ export class ImageService {
     private readonly imageRepository: Repository<ImageEntity>,
     @InjectRepository(Deck)
     private readonly deckRepository: Repository<Deck>,
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
   ) { }
 
   // ========== CATEGORY IMAGES (admin-managed) ==========
@@ -272,6 +274,17 @@ export class ImageService {
   }
 
   async remove(id: number, userId: number): Promise<boolean> {
+    // D'abord, nettoyer les références FK dans la table room
+    // pour éviter les violations de contrainte
+    await this.dataSource.query(
+      `UPDATE room SET hostcharacterid = NULL WHERE hostcharacterid = $1`,
+      [id]
+    );
+    await this.dataSource.query(
+      `UPDATE room SET guestcharacterid = NULL WHERE guestcharacterid = $1`,
+      [id]
+    );
+
     const result = await this.imageRepository.delete({ id, user_id: userId });
     return (result.affected ?? 0) > 0;
   }

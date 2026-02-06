@@ -283,10 +283,10 @@ export class RoomGateway {
           // Vérifier que le deck existe et appartient à l'utilisateur
           const deckImages = await this.imageService.getDeckImagesById(deckId);
 
-          if (deckImages.length < 20) {
+          if (deckImages.length < 18) {
             console.log('❌ Deck invalide ou pas assez d\'images:', { deckId, count: deckImages.length });
             socket.emit('error', {
-              message: 'Deck invalide ou ne contient pas assez d\'images (minimum 20)',
+              message: 'Deck invalide ou ne contient pas assez d\'images (minimum 18)',
             });
             return;
           }
@@ -302,10 +302,10 @@ export class RoomGateway {
 
           // Vérifier le nombre d'images
           const imageCount = await this.imageService.count(data.userId);
-          if (imageCount < 20) {
+          if (imageCount < 18) {
             console.log('❌ Pas assez d\'images:', { userId: data.userId, count: imageCount });
             socket.emit('error', {
-              message: `Vous devez avoir au moins 20 images dans votre bibliothèque (vous en avez ${imageCount})`,
+              message: `Vous devez avoir au moins 18 images dans votre bibliothèque (vous en avez ${imageCount})`,
             });
             return;
           }

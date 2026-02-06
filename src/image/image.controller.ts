@@ -73,8 +73,8 @@ export class ImageController {
   ) {
     const userId = req.user.id;
 
-    if (!files || files.length < 20) {
-      throw new BadRequestException('Minimum 20 images requises pour créer un deck');
+    if (!files || files.length < 18) {
+      throw new BadRequestException('Minimum 18 images requises pour créer un deck');
     }
 
     let names: string[];
@@ -170,6 +170,77 @@ export class ImageController {
     }
 
     return { success: true };
+  }
+
+  @Post('decks/:id/images')
+  @UseGuards(JwtAuthGuard)
+  @UseInterceptors(FilesInterceptor('images', 10))
+  async addImagesToDeck(
+    @Request() req,
+    @Param('id', ParseIntPipe) deckId: number,
+    @UploadedFiles() files: Express.Multer.File[],
+    @Body('names') namesJson: string,
+  ) {
+    const userId = req.user.id;
+
+    if (!files || files.length === 0) {
+      throw new BadRequestException('Au moins une image est requise');
+    }
+
+    let names: string[];
+    try {
+      names = JSON.parse(namesJson);
+    } catch (e) {
+      throw new BadRequestException('Format des noms invalide');
+    }
+
+    if (names.length !== files.length) {
+      throw new BadRequestException('Le nombre de noms doit correspondre au nombre d\'images');
+    }
+
+    // Vérifier que le deck existe et appartient à l'utilisateur
+    const deck = await this.imageService.getDeck(deckId, userId);
+    if (!deck) {
+      throw new NotFoundException('Deck non trouvé');
+    }
+
+    // Upload vers Firebase
+    const uploadedImages: { url: string; name: string }[] = [];
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      const name = names[i];
+
+      if (!name || name.trim().length < 2) {
+        throw new BadRequestException(`Le nom de l'image ${i + 1} est invalide`);
+      }
+
+      console.log(`📤 Ajout image ${i + 1}/${files.length} au deck ${deckId}`);
+      const url = await this.firebaseService.uploadLibraryImage(
+        userId,
+        file.buffer,
+        file.mimetype,
+        `${Date.now()}-${i}`,
+        deckId,
+      );
+
+      uploadedImages.push({ url, name: name.trim() });
+    }
+
+    // Ajouter les images au deck
+    const savedImages = await this.imageService.addImagesToDeck(
+      deckId,
+      userId,
+      uploadedImages,
+    );
+
+    console.log('✅ Images ajoutées:', { deckId, imageCount: savedImages.length });
+
+    return {
+      success: true,
+      addedCount: savedImages.length,
+      images: savedImages,
+    };
   }
 
   // ========== LEGACY CUSTOM LIBRARY ROUTES (backward compat) ==========
