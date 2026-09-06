@@ -206,7 +206,11 @@ Récupérer toutes les catégories d'images disponibles, avec 3 images d'aperçu
   {
     "category": "footballers",
     "previewImages": [
-      { "id": 42, "url": "https://storage.googleapis.com/…/01-mbappe.jpg", "name": "Mbappé" }
+      {
+        "id": 42,
+        "url": "https://storage.googleapis.com/…/01-mbappe.jpg",
+        "name": "Mbappé"
+      }
     ]
   }
 ]
@@ -231,8 +235,15 @@ Ils valent `null` pour les catégories qui n'ont rien à créditer.
 ### 📡 **Connexion**
 
 ```javascript
-const socket = io('http://localhost:8080');
+const socket = io('http://localhost:8080', {
+  auth: { token: accessToken }, // JWT retourné par /login ou /register
+});
 ```
+
+La connexion est refusée sans JWT valide. Les champs `userId`, `hostId` et
+`guestId` restent acceptés pour compatibilité, mais doivent correspondre à
+l'identité du token. Une socket ne peut agir que dans la room et avec le rôle
+(`host` ou `guest`) qui lui ont été attribués par le serveur.
 
 ### 🎯 **Événements à émettre (Client → Serveur)**
 
@@ -279,6 +290,7 @@ socket.emit('choose', {
 ```javascript
 socket.emit('question', {
   name: 'ma-room', // string - nom de la room
+  player: 'host', // doit correspondre au rôle attribué par le serveur
   question: 'Est-ce que ton personnage porte des lunettes ?',
 });
 ```
@@ -288,6 +300,7 @@ socket.emit('question', {
 ```javascript
 socket.emit('answer', {
   name: 'ma-room', // string - nom de la room
+  player: 'guest', // doit correspondre au rôle attribué par le serveur
   answer: 'Oui', // string - "Oui" ou "Non"
 });
 ```
@@ -356,6 +369,26 @@ socket.emit('quit', {
   id: 1, // number - ID de la room
   name: 'ma-room', // string - nom de la room
   userId: '123', // string - ID de l'utilisateur
+});
+```
+
+#### `resume` - Reprendre une room après reconnexion
+
+Après une coupure, le client dispose par défaut de 10 secondes pour se
+réauthentifier puis reprendre sa place. L'identité et le rôle sont recalculés
+depuis le JWT et la base ; ils ne sont jamais acceptés depuis le client.
+
+```javascript
+socket.on('connect', () => {
+  if (currentRoomName) socket.emit('resume', { name: currentRoomName });
+});
+
+socket.on('room resumed', ({ roomId, roomName, role, status }) => {
+  console.log('Partie reprise', { roomId, roomName, role, status });
+});
+
+socket.on('player reconnected', ({ userId, role }) => {
+  console.log('Adversaire reconnecté', { userId, role });
 });
 ```
 
@@ -707,7 +740,9 @@ console.log('Image URL depuis la BDD:', userData.image_url);
 ### 3. **Connexion WebSocket**
 
 ```javascript
-const socket = io('http://localhost:8080');
+const socket = io('http://localhost:8080', {
+  auth: { token: accessToken },
+});
 ```
 
 ### 4. **Créer/Rejoindre une room**
@@ -852,12 +887,12 @@ npm run test:cov
 
 ## 📝 Notes importantes
 
-1. **CORS** : Activé pour tous les domaines en développement
-2. **Validation** : Toutes les données sont validées avec class-validator
+1. **CORS** : localhost est accepté en développement ; configurez `SOCKET_CORS_ORIGINS` en production
+2. **Validation** : L'identité, la room, le rôle et les champs critiques sont validés côté serveur
 3. **WebSocket** : Utilise Socket.IO v4.5.1
 4. **Base de données** : Les migrations doivent être exécutées avant utilisation
-5. **JWT** : Les tokens n'expirent plus (configuration modifiée)
-6. **Gestion des déconnexions** : Le serveur détecte automatiquement les déconnexions et notifie l'autre joueur
+5. **JWT** : Les nouveaux tokens expirent après `JWT_EXPIRES_IN` (`1d` par défaut)
+6. **Gestion des déconnexions** : Une fenêtre de reprise configurable (`SOCKET_DISCONNECT_GRACE_MS`, 10 s par défaut) précède le nettoyage
 7. **Nettoyage automatique** : Les rooms sont automatiquement supprimées quand un joueur se déconnecte
 8. **Gestion des quits** : Si un guest quitte avant le début, la room reste ouverte
 9. **Système de rematch** : Permet aux joueurs de rejouer avec une nouvelle room
@@ -867,7 +902,7 @@ npm run test:cov
     ```sql
     ALTER TABLE "user" ADD COLUMN "image_url" VARCHAR NULL;
     ```
-13. **Système de tracking** : Plus de `connectedUsers` - utilisation des rooms WebSocket natives
+13. **Système de tracking** : La session `{roomId, userId, role}` est attachée à `socket.data` et vérifiée à chaque action
 
 ---
 

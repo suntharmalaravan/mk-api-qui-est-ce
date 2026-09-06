@@ -6,10 +6,15 @@ export const jwtAsyncOptions: JwtModuleAsyncOptions = {
   inject: [ConfigService],
   useFactory: async (
     configService: ConfigService,
-  ): Promise<JwtModuleOptions> => ({
-    secret: configService.get<string>('SECRET'),
-    signOptions: {
-      // Pas d'expiration - ATTENTION: Déconseillé en production
-    },
-  }),
+  ): Promise<JwtModuleOptions> => {
+    const secret = configService.get<string>('SECRET');
+    if (!secret) throw new Error('SECRET is required to sign and verify JWTs');
+
+    return {
+      secret,
+      signOptions: {
+        expiresIn: configService.get<string>('JWT_EXPIRES_IN') || '1d',
+      },
+    };
+  },
 };

@@ -129,6 +129,24 @@ export class UserService {
     return { ...user, score };
   }
 
+  async incrementScore(id: number, points: number): Promise<void> {
+    if (!Number.isInteger(id) || !Number.isInteger(points) || points <= 0) {
+      throw new Error('A valid user ID and a positive integer are required');
+    }
+
+    const result = await this.userRepository
+      .createQueryBuilder()
+      .update(UserEntity)
+      .set({ score: () => 'score + :points' })
+      .where('id = :id', { id })
+      .setParameters({ points })
+      .execute();
+
+    if (result.affected !== 1) {
+      throw new Error(`User with ID ${id} not found`);
+    }
+  }
+
   async updateImageUrl(id: number, imageUrl: string): Promise<void> {
     await this.userRepository.update(id, { image_url: imageUrl });
   }

@@ -26,15 +26,15 @@ export class CreateRoomDto {
 
   @IsNumber()
   @IsOptional()
-  guestplayerid: number;
+  guestplayerid: number | null;
 
   @IsNumber()
   @IsOptional()
-  hostcharacterid: number;
+  hostcharacterid: number | null;
 
   @IsNumber()
   @IsOptional()
-  guestcharacterid: number;
+  guestcharacterid: number | null;
 
   @IsString()
   category: string;
@@ -45,10 +45,9 @@ export class CreateRoomDto {
 
   @IsNumber()
   @IsOptional()
-  custom_library_user_id: number;
+  custom_library_user_id: number | null;
 
   @IsNumber()
   @IsOptional()
-  deck_id?: number; // Pour les parties avec un deck sauvegardé
+  deck_id?: number | null; // Pour les parties avec un deck sauvegardé
 }
-

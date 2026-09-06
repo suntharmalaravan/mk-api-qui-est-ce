@@ -6,6 +6,9 @@
   </head>
   <body>
     <h1>Test Socket.IO Connection</h1>
+    <label>JWT <input id="token" size="80" /></label>
+    <label>User ID <input id="userId" type="number" /></label>
+    <button onclick="connectSocket()">Connect</button>
     <div id="logs"></div>
     <button onclick="testCreate()">Test Create Room</button>
 
@@ -17,35 +20,41 @@
         console.log(message);
       }
 
-      // Connexion au serveur
-      const socket = io('http://localhost:8080');
+      let socket;
 
-      socket.on('connect', () => {
-        log('✅ Connecté ! Socket ID: ' + socket.id);
-      });
+      function connectSocket() {
+        socket?.disconnect();
+        socket = io('http://localhost:8080', {
+          auth: { token: document.getElementById('token').value },
+        });
 
-      socket.on('connect_error', (error) => {
-        log('❌ Erreur de connexion: ' + error.message);
-      });
+        socket.on('connect', () => {
+          log('✅ Connecté ! Socket ID: ' + socket.id);
+        });
 
-      socket.on('disconnect', (reason) => {
-        log('🔌 Déconnecté: ' + reason);
-      });
+        socket.on('connect_error', (error) => {
+          log('❌ Erreur de connexion: ' + error.message);
+        });
 
-      // Écouter les réponses
-      socket.on('roomCreated', (data) => {
-        log('🎯 Room créée: ' + JSON.stringify(data));
-      });
+        socket.on('disconnect', (reason) => {
+          log('🔌 Déconnecté: ' + reason);
+        });
 
-      socket.on('error', (data) => {
-        log('⚠️ Erreur: ' + JSON.stringify(data));
-      });
+        // Écouter les réponses
+        socket.on('roomCreated', (data) => {
+          log('🎯 Room créée: ' + JSON.stringify(data));
+        });
+
+        socket.on('error', (data) => {
+          log('⚠️ Erreur: ' + JSON.stringify(data));
+        });
+      }
 
       function testCreate() {
         log('📤 Envoi événement create...');
         socket.emit('create', {
           name: 'test-room-html',
-          userId: 'user-html-123',
+          userId: Number(document.getElementById('userId').value),
           category: 'animals',
         });
       }

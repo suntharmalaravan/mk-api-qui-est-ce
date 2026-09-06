@@ -2,8 +2,16 @@ const io = require('socket.io-client');
 
 console.log('🚀 Démarrage du client de test...');
 
+const accessToken = process.env.ACCESS_TOKEN;
+const userId = Number(process.env.USER_ID);
+if (!accessToken || !Number.isInteger(userId)) {
+  console.error('ACCESS_TOKEN and a numeric USER_ID are required');
+  process.exit(1);
+}
+
 const socket = io('http://localhost:8080', {
   transports: ['websocket', 'polling'],
+  auth: { token: accessToken },
 });
 
 socket.on('connect', () => {
@@ -14,7 +22,7 @@ socket.on('connect', () => {
     console.log('📤 Envoi événement create...');
     socket.emit('create', {
       name: 'test-node-client',
-      userId: 'node-user-123',
+      userId,
       category: 'animals',
     });
   }, 1000);

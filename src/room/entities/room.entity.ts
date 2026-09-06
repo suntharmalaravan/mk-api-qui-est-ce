@@ -5,7 +5,7 @@ export class Room {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   name: string;
 
   @Column({ default: 'closed' })
@@ -14,14 +14,14 @@ export class Room {
   @Column({ default: 0 })
   hostplayerid: number;
 
-  @Column()
-  guestplayerid: number;
+  @Column({ nullable: true })
+  guestplayerid: number | null;
 
-  @Column()
-  hostcharacterid: number;
+  @Column({ nullable: true })
+  hostcharacterid: number | null;
 
-  @Column()
-  guestcharacterid: number;
+  @Column({ nullable: true })
+  guestcharacterid: number | null;
 
   @Column()
   category: string;
@@ -30,8 +30,8 @@ export class Room {
   mode: string; // 'category' | 'custom'
 
   @Column({ nullable: true })
-  custom_library_user_id: number; // ID de l'utilisateur dont on utilise la bibliothèque
+  custom_library_user_id: number | null; // ID de l'utilisateur dont on utilise la bibliothèque
 
   @Column({ nullable: true })
-  deck_id: number; // ID du deck utilisé pour les parties custom
+  deck_id: number | null; // ID du deck utilisé pour les parties custom
 }
