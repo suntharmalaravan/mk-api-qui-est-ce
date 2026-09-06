@@ -113,6 +113,39 @@ export class FirebaseService implements OnModuleInit {
     }
   }
 
+  /**
+   * Upload d'une image du catalogue officiel (catégories gérées par l'admin,
+   * user_id NULL en base), rangée par catégorie : catalog/<category>/<id>.<ext>
+   */
+  async uploadCatalogImage(
+    category: string,
+    imageBuffer: Buffer,
+    mimeType: string,
+    imageId: string,
+  ): Promise<string> {
+    try {
+      const bucket = this.storage.bucket();
+      const extension = mimeType.includes('png') ? 'png' : 'jpg';
+      const fileName = `catalog/${category}/${imageId}.${extension}`;
+      const file = bucket.file(fileName);
+
+      await file.save(imageBuffer, {
+        metadata: {
+          contentType: mimeType,
+          cacheControl: 'public, max-age=31536000', // Cache 1 an
+        },
+        validation: 'crc32c',
+      });
+
+      await file.makePublic();
+
+      return `https://storage.googleapis.com/${bucket.name}/${fileName}`;
+    } catch (error) {
+      console.error("Erreur lors de l'upload Firebase (catalog):", error);
+      throw new Error("Échec de l'upload de l'image du catalogue");
+    }
+  }
+
   async deleteLibraryImage(userId: number, imageId: string): Promise<void> {
     try {
       const bucket = this.storage.bucket();

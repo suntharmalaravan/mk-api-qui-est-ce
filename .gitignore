@@ -34,3 +34,5 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+# Images du catalogue : régénérables via scripts/catalog, non versionnées
+/assets

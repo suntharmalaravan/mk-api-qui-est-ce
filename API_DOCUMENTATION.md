@@ -195,15 +195,34 @@ Récupérer uniquement les images d'une room.
 
 #### `GET /api/images/categories`
 
-Récupérer toutes les catégories d'images disponibles.
+Récupérer toutes les catégories d'images disponibles, avec 3 images d'aperçu chacune.
 
 **Headers :** `Authorization: Bearer <token>`
 
 **Réponse :**
 
 ```json
-["animals", "celebrities", "cartoons"]
+[
+  {
+    "category": "footballers",
+    "previewImages": [
+      { "id": 42, "url": "https://storage.googleapis.com/…/01-mbappe.jpg", "name": "Mbappé" }
+    ]
+  }
+]
 ```
+
+> Une catégorie n'est pas une table : c'est l'ensemble des valeurs distinctes de
+> `image.category` pour les lignes dont `user_id` est `NULL` (le catalogue
+> officiel, par opposition aux decks des joueurs). Pour en ajouter une, voir
+> `scripts/catalog/` et les migrations `add_category_<slug>.sql`.
+
+**Attribution.** Les images du catalogue portent quatre champs facultatifs —
+`author`, `license`, `license_url`, `source_url` — renvoyés avec chaque image
+par `getUrlsByCategory` (donc dans les événements `created`, `joined` et
+`start`). Quand `license` est renseignée avec une licence CC BY ou CC BY-SA,
+**l'application doit afficher l'auteur et la licence** là où l'image apparaît.
+Ils valent `null` pour les catégories qui n'ont rien à créditer.
 
 ---
 

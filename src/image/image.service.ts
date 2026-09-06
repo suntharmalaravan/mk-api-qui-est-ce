@@ -19,7 +19,18 @@ export class ImageService {
 
   async getUrlsByCategory(category: string) {
     return await this.imageRepository.find({
-      select: { id: true, name: true, url: true },
+      // author / license accompagnent l'image : les licences CC BY et CC BY-SA
+      // imposent de créditer là où elle est affichée. Null pour les catégories
+      // dont les images n'ont pas d'attribution à porter.
+      select: {
+        id: true,
+        name: true,
+        url: true,
+        author: true,
+        license: true,
+        license_url: true,
+        source_url: true,
+      },
       where: { category, user_id: IsNull() },
     });
   }

@@ -1,0 +1,471 @@
+{
+  "slug": "footballers",
+  "label": "Footballeurs",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les images sous CC BY / CC BY-SA imposent de créditer l'auteur et de nommer la licence là où elles sont affichées."
+  },
+  "characters": [
+    {
+      "file": "01-mbappe",
+      "name": "Mbappé",
+      "wikipedia": "Kylian Mbappé",
+      "source": {
+        "file": "Kylian_Mbappe_-_France_v_Norway_-_26_June_2026_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/cf/Kylian_Mbappe_-_France_v_Norway_-_26_June_2026_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1880,
+        "height": 3029,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.85,
+        "x": 0.5,
+        "y": 0.2
+      }
+    },
+    {
+      "file": "02-messi",
+      "name": "Messi",
+      "wikipedia": "Lionel Messi",
+      "source": {
+        "file": "Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Leo_Messi_Argentina_v_Egypt_7_July_2026-1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 3333,
+        "height": 5000,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.6,
+        "x": 0.5,
+        "y": 0.16
+      }
+    },
+    {
+      "file": "03-cristiano-ronaldo",
+      "name": "Cristiano Ronaldo",
+      "wikipedia": "Cristiano Ronaldo",
+      "source": {
+        "file": "Cristiano_Ronaldo_Croatia_v_Portugal_2_July_2026-075_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Cristiano_Ronaldo_Croatia_v_Portugal_2_July_2026-075_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2812,
+        "height": 4215,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "04-zidane",
+      "name": "Zidane",
+      "wikipedia": "Zinédine Zidane",
+      "source": {
+        "file": "Zinedine_Zidane_by_Tasnim_03.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Zinedine_Zidane_by_Tasnim_03.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 410,
+        "height": 544,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Hadi Abyar"
+      },
+      "crop": {
+        "zoom": 1,
+        "x": 0.55,
+        "y": 0.42
+      }
+    },
+    {
+      "file": "05-ronaldinho",
+      "name": "Ronaldinho",
+      "wikipedia": "Ronaldinho",
+      "source": {
+        "file": "Ronaldinho_in_2019.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Ronaldinho_in_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 735,
+        "height": 981,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Marcos Corrêa/PR"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "06-valderrama",
+      "name": "Valderrama",
+      "wikipedia": "Carlos Valderrama",
+      "source": {
+        "file": "Carlos_Valderrama_2016.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Carlos_Valderrama_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 5472,
+        "height": 3648,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Biser Todorov"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.48,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "07-davids",
+      "name": "Davids",
+      "wikipedia": "Edgar Davids",
+      "source": {
+        "file": "Edgar_Davids.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Edgar_Davids.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 700,
+        "height": 525,
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "author": "Paul Blank"
+      },
+      "crop": {
+        "zoom": 0.95,
+        "x": 0.5,
+        "y": 0.52
+      }
+    },
+    {
+      "file": "08-fellaini",
+      "name": "Fellaini",
+      "wikipedia": "Marouane Fellaini",
+      "source": {
+        "file": "Fellaini_2018_2_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/dd/Fellaini_2018_2_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1174,
+        "height": 999,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Кирилл Венедиктов"
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "09-ibrahimovic",
+      "name": "Ibrahimović",
+      "wikipedia": "Zlatan Ibrahimović",
+      "source": {
+        "file": "Zlatan_Ibrahimović_June_2018.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/09/Zlatan_Ibrahimovi%C4%87_June_2018.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 332,
+        "height": 480,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Meghdad Madadi"
+      },
+      "crop": {
+        "zoom": 0.95,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "10-modric",
+      "name": "Modrić",
+      "wikipedia": "Luka Modrić",
+      "source": {
+        "file": "Luka_Modric_Croatia_v_Portugal_2_July_2026-055.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Luka_Modric_Croatia_v_Portugal_2_July_2026-055.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 3333,
+        "height": 5000,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.6,
+        "x": 0.5,
+        "y": 0.16
+      }
+    },
+    {
+      "file": "11-salah",
+      "name": "Salah",
+      "wikipedia": "Mohamed Salah",
+      "source": {
+        "file": "Mohamed_Salah_Argentina_v_Egypt_7_July_2026-163_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Mohamed_Salah_Argentina_v_Egypt_7_July_2026-163_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1297,
+        "height": 1878,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "12-haaland",
+      "name": "Haaland",
+      "wikipedia": "Erling Haaland",
+      "source": {
+        "file": "Erling_Haaland_France_v_Norway_26_June_26-008.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Erling_Haaland_France_v_Norway_26_June_26-008.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 3333,
+        "height": 5000,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.74,
+        "x": 0.5,
+        "y": 0.19
+      }
+    },
+    {
+      "file": "13-pogba",
+      "name": "Pogba",
+      "wikipedia": "Paul Pogba",
+      "source": {
+        "file": "Paul_Pogba_in_2018.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/13/Paul_Pogba_in_2018.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 628,
+        "height": 924,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Антон Зайцев"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "14-marcelo",
+      "name": "Marcelo",
+      "wikipedia": "Marcelo (football, 1988)",
+      "source": {
+        "file": "Marcelo_by_Tasnim.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/82/Marcelo_by_Tasnim.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 437,
+        "height": 536,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Hadi Abyar"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "15-maradona",
+      "name": "Maradona",
+      "wikipedia": "Diego Maradona",
+      "source": {
+        "file": "Argentina_celebrando_copa_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/48/Argentina_celebrando_copa_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 365,
+        "height": 572,
+        "license": "Public domain",
+        "licenseUrl": "",
+        "author": "Unknown author Unknown author"
+      },
+      "crop": {
+        "zoom": 0.6,
+        "x": 0.4,
+        "y": 0.23
+      }
+    },
+    {
+      "file": "16-pele",
+      "name": "Pelé",
+      "wikipedia": "Pelé",
+      "source": {
+        "file": "Pele_con_brasil_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Pele_con_brasil_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 388,
+        "height": 526,
+        "license": "Public domain",
+        "licenseUrl": "",
+        "author": "Unknown author Unknown author"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "17-renard",
+      "name": "Wendie Renard",
+      "wikipedia": "Wendie Renard",
+      "source": {
+        "file": "2019-05-17_Fußball,_Frauen,_UEFA_Women's_Champions_League,_Olympique_Lyonnais_-_FC_Barcelona_StP_0635_LR10_by_Stepro.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/64/2019-05-17_Fu%C3%9Fball%2C_Frauen%2C_UEFA_Women%27s_Champions_League%2C_Olympique_Lyonnais_-_FC_Barcelona_StP_0635_LR10_by_Stepro.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 3873,
+        "height": 2582,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Steffen Prößdorf"
+      },
+      "crop": {
+        "zoom": 0.72,
+        "x": 0.5,
+        "y": 0.19
+      }
+    },
+    {
+      "file": "18-rapinoe",
+      "name": "Megan Rapinoe",
+      "wikipedia": "Megan Rapinoe",
+      "source": {
+        "file": "Megan_Rapinoe_on_20_July_2023_-_53058900298_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Megan_Rapinoe_on_20_July_2023_-_53058900298_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1547,
+        "height": 2063,
+        "license": "Public domain",
+        "licenseUrl": "",
+        "author": "US Embassy New Zealand"
+      },
+      "crop": {
+        "zoom": 0.7,
+        "x": 0.56,
+        "y": 0.36
+      }
+    },
+    {
+      "file": "19-hegerberg",
+      "name": "Ada Hegerberg",
+      "wikipedia": "Ada Hegerberg",
+      "source": {
+        "file": "Ada_Hegerberg_2019.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/60/Ada_Hegerberg_2019.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 576,
+        "height": 856,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Steffen Prößdorf"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "20-marta",
+      "name": "Marta",
+      "wikipedia": "Marta (football)",
+      "source": {
+        "file": "NC_Courage_vs_Orlando_Pride_(Jun_2024)_073_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/NC_Courage_vs_Orlando_Pride_%28Jun_2024%29_073_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 856,
+        "height": 1189,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Hameltion"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "21-putellas",
+      "name": "Alexia Putellas",
+      "wikipedia": "Alexia Putellas",
+      "source": {
+        "file": "Premios_Goya_2026_-_Alexia_Putellas_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Premios_Goya_2026_-_Alexia_Putellas_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1675,
+        "height": 2307,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Pedro J Pacheco"
+      },
+      "crop": {
+        "zoom": 0.8,
+        "x": 0.5,
+        "y": 0.28
+      }
+    },
+    {
+      "file": "22-kerr",
+      "name": "Sam Kerr",
+      "wikipedia": "Sam Kerr",
+      "source": {
+        "file": "Chelsea_FC_Women_v_Everton_FC_Women,_12_September_2021_(10)_(cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Chelsea_FC_Women_v_Everton_FC_Women%2C_12_September_2021_%2810%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 682,
+        "height": 1020,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Katie Chan"
+      },
+      "crop": {
+        "zoom": 0.42,
+        "x": 0.5,
+        "y": 0.15
+      }
+    },
+    {
+      "file": "23-buffon",
+      "name": "Buffon",
+      "wikipedia": "Gianluigi Buffon",
+      "source": {
+        "file": "Gianluigi_Buffon_Euro_2012_final_02.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Gianluigi_Buffon_Euro_2012_final_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 435,
+        "height": 656,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Илья Хохлов"
+      },
+      "crop": {
+        "zoom": 0.55,
+        "x": 0.38,
+        "y": 0.3
+      }
+    },
+    {
+      "file": "24-kante",
+      "name": "Kanté",
+      "wikipedia": "N'Golo Kanté",
+      "source": {
+        "file": "N'Golo_Kante_France_v_Senegal_16_June_2026-267.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/N%27Golo_Kante_France_v_Senegal_16_June_2026-267.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 3333,
+        "height": 5000,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.42,
+        "x": 0.5,
+        "y": 0.13
+      }
+    }
+  ]
+}

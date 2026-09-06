@@ -1,0 +1,41 @@
+{
+  "slug": "avatars",
+  "label": "Avatars",
+  "source": {
+    "provider": "DiceBear 9.x HTTP API",
+    "style": "avataaars",
+    "author": "Pablo Stanley",
+    "url": "https://avataaars.com/",
+    "license": "Free for personal and commercial use"
+  },
+  "render": {
+    "size": 256,
+    "backgroundColor": "eef2f7"
+  },
+  "characters": [
+    { "file": "01-alba",   "name": "Alba",   "top": "longButNotTooLong", "hairColor": "724133", "skinColor": "edb98a", "clothing": "shirtCrewNeck",    "clothesColor": "ff488e", "facialHair": null,              "accessories": null,            "hatColor": null },
+    { "file": "02-bruno",  "name": "Bruno",  "top": "shortFlat",         "hairColor": "724133", "skinColor": "d08b5b", "clothing": "hoodie",           "clothesColor": "25557c", "facialHair": "beardMedium",     "accessories": "prescription02", "hatColor": null },
+    { "file": "03-camille","name": "Camille","top": "bob",               "hairColor": "b58143", "skinColor": "ffdbb4", "clothing": "blazerAndShirt",   "clothesColor": "262e33", "facialHair": null,              "accessories": "round",          "hatColor": null },
+    { "file": "04-dario",  "name": "Dario",  "top": "shortCurly",        "hairColor": "2c1b18", "skinColor": "614335", "clothing": "shirtVNeck",       "clothesColor": "a7ffc4", "facialHair": "beardLight",      "accessories": null,            "hatColor": null },
+    { "file": "05-elsa",   "name": "Elsa",   "top": "curly",             "hairColor": "c93305", "skinColor": "ffdbb4", "clothing": "shirtScoopNeck",   "clothesColor": "ffffb1", "facialHair": null,              "accessories": null,            "hatColor": null },
+    { "file": "06-farid",  "name": "Farid",  "top": "turban",            "hairColor": "2c1b18", "skinColor": "ae5d29", "clothing": "collarAndSweater", "clothesColor": "3c4f5c", "facialHair": "beardMajestic",   "accessories": "wayfarers",      "hatColor": "3c4f5c" },
+    { "file": "07-gaby",   "name": "Gaby",   "top": "bun",               "hairColor": "724133", "skinColor": "edb98a", "clothing": "graphicShirt",     "clothesColor": "ff5c5c", "facialHair": null,              "accessories": "prescription01", "hatColor": null },
+    { "file": "08-hugo",   "name": "Hugo",   "top": "theCaesar",         "hairColor": "b58143", "skinColor": "ffdbb4", "clothing": "overall",          "clothesColor": "5199e4", "facialHair": "moustacheMagnum", "accessories": null,            "hatColor": null },
+    { "file": "09-ines",   "name": "Inès",   "top": "hijab",             "hairColor": "2c1b18", "skinColor": "d08b5b", "clothing": "shirtCrewNeck",    "clothesColor": "e6e6e6", "facialHair": null,              "accessories": null,            "hatColor": "25557c" },
+    { "file": "10-jonas",  "name": "Jonas",  "top": "winterHat04",       "hairColor": "b58143", "skinColor": "edb98a", "clothing": "hoodie",           "clothesColor": "929598", "facialHair": null,              "accessories": "sunglasses",     "hatColor": "262e33" },
+    { "file": "11-kenza",  "name": "Kenza",  "top": "straight01",        "hairColor": "724133", "skinColor": "ae5d29", "clothing": "blazerAndSweater", "clothesColor": "e6e6e6", "facialHair": null,              "accessories": null,            "hatColor": null },
+    { "file": "12-leo",    "name": "Léo",    "top": "shaggyMullet",      "hairColor": "a55728", "skinColor": "d08b5b", "clothing": "graphicShirt",     "clothesColor": "65c9ff", "facialHair": "beardLight",      "accessories": null,            "hatColor": null },
+    { "file": "13-maya",   "name": "Maya",   "top": "dreads01",          "hairColor": "2c1b18", "skinColor": "614335", "clothing": "shirtVNeck",       "clothesColor": "ffafb9", "facialHair": null,              "accessories": "prescription02", "hatColor": null },
+    { "file": "14-nils",   "name": "Nils",   "top": "winterHat02",       "hairColor": "b58143", "skinColor": "edb98a", "clothing": "hoodie",           "clothesColor": "262e33", "facialHair": null,              "accessories": null,            "hatColor": "ff5c5c" },
+    { "file": "15-olivia", "name": "Olivia", "top": "miaWallace",        "hairColor": "2c1b18", "skinColor": "edb98a", "clothing": "shirtCrewNeck",    "clothesColor": "ffffff", "facialHair": null,              "accessories": "round",          "hatColor": null },
+    { "file": "16-paulo",  "name": "Paulo",  "top": "shortRound",        "hairColor": "724133", "skinColor": "d08b5b", "clothing": "collarAndSweater", "clothesColor": "25557c", "facialHair": "beardMedium",     "accessories": "prescription01", "hatColor": null },
+    { "file": "17-rita",   "name": "Rita",   "top": "frida",             "hairColor": "2c1b18", "skinColor": "ae5d29", "clothing": "graphicShirt",     "clothesColor": "a7ffc4", "facialHair": null,              "accessories": null,            "hatColor": null },
+    { "file": "18-samir",  "name": "Samir",  "top": "shavedSides",       "hairColor": "2c1b18", "skinColor": "614335", "clothing": "shirtCrewNeck",    "clothesColor": "ffffb1", "facialHair": "moustacheFancy",  "accessories": "kurt",           "hatColor": null },
+    { "file": "19-theo",   "name": "Théo",   "top": "hat",               "hairColor": "724133", "skinColor": "ffdbb4", "clothing": "blazerAndShirt",   "clothesColor": "3c4f5c", "facialHair": "beardLight",      "accessories": null,            "hatColor": "262e33" },
+    { "file": "20-uma",    "name": "Uma",    "top": "bigHair",           "hairColor": "2c1b18", "skinColor": "614335", "clothing": "shirtScoopNeck",   "clothesColor": "ff5c5c", "facialHair": null,              "accessories": null,            "hatColor": null },
+    { "file": "21-viktor", "name": "Viktor", "top": "shortWaved",        "hairColor": "e8e1e1", "skinColor": "d08b5b", "clothing": "blazerAndSweater", "clothesColor": "929598", "facialHair": "beardMajestic",   "accessories": "prescription01", "hatColor": null },
+    { "file": "22-wanda",  "name": "Wanda",  "top": "straightAndStrand", "hairColor": "ecdcbf", "skinColor": "edb98a", "clothing": "shirtVNeck",       "clothesColor": "b1e2ff", "facialHair": null,              "accessories": "wayfarers",      "hatColor": null },
+    { "file": "23-yanis",  "name": "Yanis",  "top": "fro",               "hairColor": "2c1b18", "skinColor": "ae5d29", "clothing": "hoodie",           "clothesColor": "ff488e", "facialHair": "beardLight",      "accessories": null,            "hatColor": null },
+    { "file": "24-zoe",    "name": "Zoé",    "top": "winterHat1",        "hairColor": "c93305", "skinColor": "ffdbb4", "clothing": "overall",          "clothesColor": "ffafb9", "facialHair": null,              "accessories": "sunglasses",     "hatColor": "65c9ff" }
+  ]
+}

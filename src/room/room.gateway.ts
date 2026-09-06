@@ -325,6 +325,19 @@ export class RoomGateway {
           category: data.category,
           imageCount: images.length,
         });
+
+        // Même contrôle qu'en mode custom : sans ces 18 images la partie ne
+        // pourra pas démarrer, autant le dire avant de créer la room.
+        if (images.length < 18) {
+          console.log('❌ Catégorie insuffisante:', {
+            category: data.category,
+            count: images.length,
+          });
+          socket.emit('error', {
+            message: `La catégorie "${data.category}" ne contient pas assez d'images (${images.length}/18)`,
+          });
+          return;
+        }
       }
 
       console.log('📝 Creating new room in database...');
