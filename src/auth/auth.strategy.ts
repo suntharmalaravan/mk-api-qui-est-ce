@@ -17,7 +17,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-    return this.userService.findOneUsername(payload.username);
+  async validate(payload: { id?: unknown }) {
+    if (!Number.isSafeInteger(payload?.id) || Number(payload.id) <= 0) return null;
+    return this.userService.findPrincipal(Number(payload.id));
   }
 }

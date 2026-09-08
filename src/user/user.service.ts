@@ -78,6 +78,13 @@ export class UserService {
     };
   }
 
+  findPrincipal(id: number) {
+    return this.userRepository.findOne({
+      select: { id: true, username: true },
+      where: { id },
+    });
+  }
+
   findOneUsername(username: string) {
     const user = this.userRepository.findOne({
       select: { id: true, username: true, password: true },

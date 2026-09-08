@@ -1,4 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, Index, ManyToOne, JoinColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  Index,
+  ManyToOne,
+  JoinColumn,
+} from 'typeorm';
 import { Deck } from './deck.entity';
 
 @Entity()
@@ -40,6 +48,10 @@ export class Image {
 
   @Column({ nullable: true })
   source_url: string;
+
+  // Restrictions distinctes du copyright (par exemple : marque déposée).
+  @Column({ nullable: true })
+  restrictions: string;
 
   @CreateDateColumn({ nullable: true })
   created_at: Date;

@@ -10,6 +10,7 @@ import { RoomGateway } from './room/room.gateway';
 import { RoomModule } from './room/room.module';
 import { ImageModule } from './image/image.module';
 import { RoomImageModule } from './room-image/room-image.module';
+import { AtelierModule } from './atelier/atelier.module';
 
 @Module({
   imports: [
@@ -20,10 +21,10 @@ import { RoomImageModule } from './room-image/room-image.module';
     RoomModule,
     ImageModule,
     RoomImageModule,
+    AtelierModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoomGateway],
 })
 export class AppModule { }
-
 

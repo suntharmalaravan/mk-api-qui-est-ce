@@ -7,7 +7,8 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { JwtService } from '@nestjs/jwt';
-import { Logger, OnModuleDestroy } from '@nestjs/common';
+import { Logger, OnModuleDestroy, Optional } from '@nestjs/common';
+import { AtelierGameService } from '../atelier/atelier-game.service';
 import { Socket, Server } from 'socket.io';
 import { RoomService } from './room.service';
 import { ImageService } from 'src/image/image.service';
@@ -85,6 +86,7 @@ export class RoomGateway
     private readonly roomImageService: RoomImageService,
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
+    @Optional() private readonly atelierGame?: AtelierGameService,
   ) {}
 
   afterInit(server: Server<any, any, any, SocketData>) {
@@ -1095,6 +1097,7 @@ export class RoomGateway
       });
 
       if (bothPlayersChosen) {
+        await this.atelierGame?.started(data.name);
         console.log('🎯 Both players have chosen - starting game board!');
         const goBoardData = { turn: 'host' };
         console.log('📡 Emitting go board event:', {
@@ -1114,7 +1117,6 @@ export class RoomGateway
         });
         socket.to(data.name).emit('character chosen', {
           player: data.player,
-          characterId: data.characterId,
         });
         socket.emit('character chosen', {
           player: data.player,
@@ -1137,8 +1139,6 @@ export class RoomGateway
 
     try {
       if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
-      if (!this.validPositiveInteger(socket, data?.characterId, 'characterId'))
-        return;
       if (!data.name || !data.player) {
         console.log('❌ Validation failed for change turn:', {
           socketId: socket.id,
@@ -1167,6 +1167,19 @@ export class RoomGateway
 
   @SubscribeMessage('select')
   async selectCharacter(socket: Socket, data: any) {
+    if (this.atelierGame?.enabled) {
+      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
+      if (!this.validPositiveInteger(socket, data?.characterId, 'characterId')) return;
+      try {
+        const result = await this.atelierGame.guess(data.name, Number(socket.data.authenticatedUserId), data.player, data.characterId);
+        socket.emit('select result', result);
+        if (!result.duplicate) socket.to(data.name).emit('select result', result);
+      } catch (error) {
+        const response = typeof error.getResponse === 'function' ? error.getResponse() : null;
+        this.emitError(socket, response?.code || 'GUESS_FAILED', response?.message || 'Impossible de valider la tentative.');
+      }
+      return;
+    }
     console.log('🎯 Event: select character', {
       socketId: socket.id,
       roomName: data?.name,
@@ -1415,6 +1428,11 @@ export class RoomGateway
 
   @SubscribeMessage('lost lifes')
   async playerLostLifes(socket: Socket, data: any) {
+    if (this.atelierGame?.enabled) {
+      // Client self-reports can no longer finish a match or mint rewards.
+      this.emitError(socket, 'SERVER_LIVES', 'Les vies sont vérifiées par le serveur.');
+      return;
+    }
     try {
       if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
       if (!data.name || !data.player) {
@@ -1696,6 +1714,7 @@ export class RoomGateway
 
       await this.bindSocketToRoom(socket, room, userId, role);
       socket.emit('room resumed', {
+        ...(this.atelierGame?.enabled ? await this.atelierGame.state(room.name) : {}),
         roomId: room.id,
         roomName: room.name,
         role,

@@ -48,6 +48,9 @@ export class RoomService {
       select: {
         id: true,
         name: true,
+        hostplayerid: true,
+        guestplayerid: true,
+        status: true,
         hostcharacterid: true,
         guestcharacterid: true,
       },
@@ -86,6 +89,7 @@ export class RoomService {
       .where('name = :name', { name })
       .andWhere('status = :status', { status: 'closed' })
       .andWhere(`${characterColumn} IS NULL`)
+      .andWhere('EXISTS (SELECT 1 FROM room_image WHERE fk_room = room.id AND fk_image = :characterId)', { characterId })
       .execute();
 
     if (result.affected !== 1) {

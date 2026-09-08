@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
 import { Repository, IsNull, DataSource } from 'typeorm';
 import { Image as ImageEntity } from './entities/image.entity';
@@ -13,7 +13,7 @@ export class ImageService {
     private readonly deckRepository: Repository<Deck>,
     @InjectDataSource()
     private readonly dataSource: DataSource,
-  ) { }
+  ) {}
 
   // ========== CATEGORY IMAGES (admin-managed) ==========
 
@@ -30,6 +30,7 @@ export class ImageService {
         license: true,
         license_url: true,
         source_url: true,
+        restrictions: true,
       },
       where: { category, user_id: IsNull() },
     });
@@ -51,7 +52,7 @@ export class ImageService {
       .distinct(true)
       .getRawMany();
 
-    const categoryNames = categoriesRaw.map(c => c.category);
+    const categoryNames = categoriesRaw.map((c) => c.category);
 
     // 2. Pour chaque catégorie, récupérer 3 images pour la preview
     const categoriesWithImages = await Promise.all(
@@ -66,7 +67,7 @@ export class ImageService {
           category: categoryName,
           previewImages: images,
         };
-      })
+      }),
     );
 
     return categoriesWithImages;
@@ -75,8 +76,11 @@ export class ImageService {
   /**
    * Crée un deck vide (pour obtenir le deckId avant l'upload)
    */
-  async createEmptyDeck(userId: number, deckName?: string | null): Promise<Deck> {
-    const name = deckName || await this.generateDeckName(userId);
+  async createEmptyDeck(
+    userId: number,
+    deckName?: string | null,
+  ): Promise<Deck> {
+    const name = deckName || (await this.generateDeckName(userId));
 
     const deck = this.deckRepository.create({
       user_id: userId,
@@ -91,18 +95,20 @@ export class ImageService {
   async addImagesToDeck(
     deckId: number,
     userId: number,
-    images: { url: string; name: string }[]
+    images: { url: string; name: string }[],
   ): Promise<ImageEntity[]> {
-    const deckImages = images.map((img) =>
-      this.imageRepository.create({
-        user_id: userId,
-        deck_id: deckId,
-        url: img.url,
-        name: img.name,
-        category: null,
-      }),
-    );
-    return await this.imageRepository.save(deckImages);
+    return this.dataSource.transaction(async tx => {
+      const deck = await tx.getRepository(Deck).findOne({
+        where: { id: deckId, user_id: userId }, lock: { mode: 'pessimistic_write' },
+      });
+      if (!deck) throw new NotFoundException('Deck non trouvé');
+      const repository = tx.getRepository(ImageEntity);
+      const count = await repository.count({ where: { deck_id: deckId } });
+      if (images.length < 1 || count + images.length > 21) throw new BadRequestException({code:'DECK_FULL',message:'Le deck ne peut pas dépasser 21 cartes.'});
+      return repository.save(images.map(img => repository.create({
+        user_id:userId, deck_id:deckId, url:img.url, name:img.name, category:null,
+      })));
+    });
   }
 
   /**
@@ -111,7 +117,7 @@ export class ImageService {
   async createDeckWithImages(
     userId: number,
     deckName: string | null,
-    images: { url: string; name: string }[]
+    images: { url: string; name: string }[],
   ): Promise<{ deck: Deck; images: ImageEntity[] }> {
     const deck = await this.createEmptyDeck(userId, deckName);
     const savedImages = await this.addImagesToDeck(deck.id, userId, images);
@@ -225,7 +231,11 @@ export class ImageService {
   /**
    * Renomme un deck
    */
-  async renameDeck(deckId: number, userId: number, newName: string): Promise<Deck | null> {
+  async renameDeck(
+    deckId: number,
+    userId: number,
+    newName: string,
+  ): Promise<Deck | null> {
     const deck = await this.deckRepository.findOne({
       where: { id: deckId, user_id: userId },
     });
@@ -240,7 +250,10 @@ export class ImageService {
 
   // ========== LEGACY CUSTOM IMAGES (backward compat) ==========
 
-  async createBulk(userId: number, images: { url: string; name: string }[]): Promise<ImageEntity[]> {
+  async createBulk(
+    userId: number,
+    images: { url: string; name: string }[],
+  ): Promise<ImageEntity[]> {
     const userImages = images.map((img) =>
       this.imageRepository.create({
         user_id: userId,
@@ -271,7 +284,11 @@ export class ImageService {
     });
   }
 
-  async updateName(id: number, userId: number, name: string): Promise<ImageEntity | null> {
+  async updateName(
+    id: number,
+    userId: number,
+    name: string,
+  ): Promise<ImageEntity | null> {
     const image = await this.imageRepository.findOne({
       where: { id, user_id: userId },
     });
@@ -285,15 +302,17 @@ export class ImageService {
   }
 
   async remove(id: number, userId: number): Promise<boolean> {
+    // Authorize BEFORE modifying any game's secret references.
+    if (!await this.imageRepository.findOne({ where: { id, user_id: userId } })) return false;
     // D'abord, nettoyer les références FK dans la table room
     // pour éviter les violations de contrainte
     await this.dataSource.query(
       `UPDATE room SET hostcharacterid = NULL WHERE hostcharacterid = $1`,
-      [id]
+      [id],
     );
     await this.dataSource.query(
       `UPDATE room SET guestcharacterid = NULL WHERE guestcharacterid = $1`,
-      [id]
+      [id],
     );
 
     const result = await this.imageRepository.delete({ id, user_id: userId });

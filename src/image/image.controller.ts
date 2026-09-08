@@ -64,7 +64,7 @@ export class ImageController {
 
   @Post('decks')
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FilesInterceptor('images', 30))
+  @UseInterceptors(FilesInterceptor('images', 21))
   async createDeck(
     @Request() req,
     @UploadedFiles() files: Express.Multer.File[],
@@ -73,7 +73,7 @@ export class ImageController {
   ) {
     const userId = req.user.id;
 
-    if (!files || files.length < 18) {
+    if (!files || files.length < 18 || files.length > 21) {
       throw new BadRequestException('Minimum 18 images requises pour créer un deck');
     }
 
@@ -84,7 +84,7 @@ export class ImageController {
       throw new BadRequestException('Format des noms invalide');
     }
 
-    if (names.length !== files.length) {
+    if (!Array.isArray(names) || names.length !== files.length || !names.every(name => typeof name === 'string' && name.trim().length >= 2 && name.trim().length <= 255)) {
       throw new BadRequestException('Le nombre de noms doit correspondre au nombre d\'images');
     }
 
@@ -174,7 +174,7 @@ export class ImageController {
 
   @Post('decks/:id/images')
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FilesInterceptor('images', 10))
+  @UseInterceptors(FilesInterceptor('images', 21))
   async addImagesToDeck(
     @Request() req,
     @Param('id', ParseIntPipe) deckId: number,
@@ -183,7 +183,7 @@ export class ImageController {
   ) {
     const userId = req.user.id;
 
-    if (!files || files.length === 0) {
+    if (!files || files.length === 0 || files.length > 21) {
       throw new BadRequestException('Au moins une image est requise');
     }
 
@@ -194,7 +194,7 @@ export class ImageController {
       throw new BadRequestException('Format des noms invalide');
     }
 
-    if (names.length !== files.length) {
+    if (!Array.isArray(names) || names.length !== files.length || !names.every(name => typeof name === 'string' && name.trim().length >= 2 && name.trim().length <= 255)) {
       throw new BadRequestException('Le nombre de noms doit correspondre au nombre d\'images');
     }
 
@@ -205,6 +205,9 @@ export class ImageController {
     }
 
     // Upload vers Firebase
+    if (await this.imageService.countDeckImages(deckId) + files.length > 21) {
+      throw new BadRequestException('Le deck ne peut pas dépasser 21 cartes.');
+    }
     const uploadedImages: { url: string; name: string }[] = [];
 
     for (let i = 0; i < files.length; i++) {
@@ -247,7 +250,7 @@ export class ImageController {
 
   @Post('custom/upload')
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(FilesInterceptor('images', 30))
+  @UseInterceptors(FilesInterceptor('images', 21))
   async uploadCustomImages(
     @Request() req,
     @UploadedFiles() files: Express.Multer.File[],
@@ -255,7 +258,7 @@ export class ImageController {
   ) {
     const userId = req.user.id;
 
-    if (!files || files.length === 0) {
+    if (!files || files.length === 0 || files.length > 21) {
       throw new BadRequestException('Aucune image fournie');
     }
 
@@ -266,7 +269,7 @@ export class ImageController {
       throw new BadRequestException('Format des noms invalide');
     }
 
-    if (names.length !== files.length) {
+    if (!Array.isArray(names) || names.length !== files.length || !names.every(name => typeof name === 'string' && name.trim().length >= 2 && name.trim().length <= 255)) {
       throw new BadRequestException('Le nombre de noms doit correspondre au nombre d\'images');
     }
 
