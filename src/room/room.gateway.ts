@@ -1562,6 +1562,17 @@ export class RoomGateway
       ) {
         return;
       }
+      if (
+        data.mode !== 'custom' &&
+        !(await this.imageService.isCategoryVisible(data.category))
+      ) {
+        this.emitError(
+          socket,
+          'CATEGORY_UNAVAILABLE',
+          `La catégorie "${data.category}" n'est plus disponible`,
+        );
+        return;
+      }
 
       const newRoom = await this.createRoomWithHost(
         data.newRoomName,
