@@ -73,7 +73,18 @@ export class RoomService {
     });
   }
 
-  async chooseCharacter(name: string, player: string, characterId: number) {
+  /**
+   * Records a player's secret character, once, from the deck frozen at start.
+   *
+   * Repeating the same choice succeeds: a confirmation whose acknowledgement
+   * was lost to a reconnection must not strand the player. Refusals carry a
+   * code so the client can tell the player what happened.
+   */
+  async chooseCharacter(
+    name: string,
+    player: string,
+    characterId: number,
+  ): Promise<Room> {
     if (player !== 'host' && player !== 'guest') {
       throw new NotAcceptableException('Invalid player role');
     }
@@ -90,6 +101,7 @@ export class RoomService {
       .set(characterUpdate)
       .where('name = :name', { name })
       .andWhere('status = :status', { status: 'closed' })
+      .andWhere('selection_started_at IS NOT NULL')
       .andWhere(`${characterColumn} IS NULL`)
       .andWhere(
         'EXISTS (SELECT 1 FROM room_image WHERE fk_room = room.id AND fk_image = :characterId)',
@@ -97,15 +109,32 @@ export class RoomService {
       )
       .execute();
 
-    if (result.affected !== 1) {
-      const room = await this.findByName(name);
-      if (!room) throw new NotFoundException('Room is not found');
-      throw new ConflictException(
-        'Character is already selected or game is not active',
-      );
+    const room = await this.findByName(name);
+    if (!room) {
+      throw new NotFoundException({
+        code: 'ROOM_NOT_FOUND',
+        message: 'Cette partie n’existe plus.',
+      });
     }
-
-    return this.findByName(name);
+    if (result.affected === 1 || room[characterColumn] === characterId) {
+      return room;
+    }
+    if (room[characterColumn] !== null) {
+      throw new ConflictException({
+        code: 'CHARACTER_ALREADY_CHOSEN',
+        message: 'Ton personnage est déjà choisi.',
+      });
+    }
+    if (room.status !== 'closed' || !room.selection_started_at) {
+      throw new ConflictException({
+        code: 'SELECTION_CLOSED',
+        message: 'La sélection des personnages n’est pas ouverte.',
+      });
+    }
+    throw new ConflictException({
+      code: 'CHARACTER_NOT_IN_GAME',
+      message: 'Ce personnage ne fait pas partie de cette partie.',
+    });
   }
 
   async addGuest(name: string, roomUpdates: any): Promise<Room> {

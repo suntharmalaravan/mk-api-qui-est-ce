@@ -1,3 +1,4 @@
+import { ConflictException } from '@nestjs/common';
 import { RoomGateway } from './room.gateway';
 
 function createSocket(userId?: number) {
@@ -40,6 +41,7 @@ describe('RoomGateway socket lifecycle', () => {
         .mockResolvedValue(
           Array.from({ length: 18 }, (_, id) => ({ id: id + 1 })),
         ),
+      isCategoryVisible: jest.fn().mockResolvedValue(true),
       getDeckImages: jest.fn(),
       getDeckImagesById: jest.fn(),
       findByUserId: jest.fn(),
@@ -272,5 +274,157 @@ describe('RoomGateway socket lifecycle', () => {
       'room resumed',
       expect.objectContaining({ roomId: 42, role: 'guest' }),
     );
+  });
+
+  function bindToRoom(socket: any, role: 'host' | 'guest', userId = 7) {
+    socket.rooms.add('room-42');
+    socket.data.roomSession = {
+      roomId: 42,
+      roomName: 'room-42',
+      userId,
+      role,
+    };
+  }
+
+  const startedRoom = {
+    id: 42,
+    name: 'room-42',
+    status: 'closed',
+    hostplayerid: 1,
+    guestplayerid: 7,
+    hostcharacterid: null,
+    guestcharacterid: null,
+    selection_started_at: new Date(),
+  };
+
+  it('acknowledges a refused character choice instead of leaving both players waiting', async () => {
+    const { socket, roomBroadcast } = createSocket(7);
+    bindToRoom(socket, 'guest');
+    roomService.chooseCharacter = jest.fn().mockRejectedValue(
+      new ConflictException({
+        code: 'CHARACTER_NOT_IN_GAME',
+        message: 'Hors deck',
+      }),
+    );
+
+    const ack = await gateway.chooseCharacter(socket, {
+      name: 'room-42',
+      player: 'guest',
+      characterId: 5,
+    });
+
+    expect(ack).toEqual({
+      error: { code: 'CHARACTER_NOT_IN_GAME', message: 'Hors deck' },
+    });
+    expect(serverBroadcast.emit).not.toHaveBeenCalled();
+    expect(roomBroadcast.emit).not.toHaveBeenCalled();
+  });
+
+  it('tells the opponent a character was chosen without revealing it', async () => {
+    const { socket, roomBroadcast } = createSocket(7);
+    bindToRoom(socket, 'guest');
+    roomService.chooseCharacter = jest
+      .fn()
+      .mockResolvedValue({ ...startedRoom, guestcharacterid: 5 });
+
+    const ack = await gateway.chooseCharacter(socket, {
+      name: 'room-42',
+      player: 'guest',
+      characterId: '5',
+    });
+
+    expect(roomService.chooseCharacter).toHaveBeenCalledWith(
+      'room-42',
+      'guest',
+      5,
+    );
+    expect(ack).toEqual({ ok: true, bothChosen: false });
+    expect(roomBroadcast.emit).toHaveBeenCalledWith('character chosen', {
+      player: 'guest',
+    });
+    expect(socket.emit).toHaveBeenCalledWith('character chosen', {
+      player: 'guest',
+      characterId: 5,
+    });
+  });
+
+  it('sends the whole room to the board once the second choice is recorded', async () => {
+    const { socket } = createSocket(7);
+    bindToRoom(socket, 'guest');
+    roomService.chooseCharacter = jest.fn().mockResolvedValue({
+      ...startedRoom,
+      hostcharacterid: 3,
+      guestcharacterid: 5,
+    });
+
+    const ack = await gateway.chooseCharacter(socket, {
+      name: 'room-42',
+      player: 'guest',
+      characterId: 5,
+    });
+
+    expect(ack).toEqual({ ok: true, bothChosen: true });
+    expect(serverBroadcast.emit).toHaveBeenCalledWith('go board', {
+      turn: 'host',
+    });
+  });
+
+  it('closes a started game for the opponent and frees their socket when a player quits', async () => {
+    const { socket } = createSocket(7);
+    bindToRoom(socket, 'guest');
+    const opponent: any = {
+      data: {
+        roomSession: {
+          roomId: 42,
+          roomName: 'room-42',
+          userId: 1,
+          role: 'host',
+        },
+      },
+      leave: jest.fn(),
+    };
+    (gateway as any).wss.in = jest.fn(() => ({
+      fetchSockets: jest.fn().mockResolvedValue([opponent]),
+    }));
+    roomService.findByName.mockResolvedValue(startedRoom);
+
+    await gateway.quitRoom(socket, { name: 'room-42' });
+
+    expect(serverBroadcast.emit).toHaveBeenCalledWith('quit', { player: 7 });
+    expect(opponent.data.roomSession).toBeUndefined();
+    expect(opponent.leave).toHaveBeenCalledWith('room-42');
+    expect(roomService.reopenRoomAfterGuestLeaves).not.toHaveBeenCalled();
+    expect(roomService.remove).toHaveBeenCalledWith(42);
+    expect(socket.data.roomSession).toBeUndefined();
+    expect(socket.emit).toHaveBeenCalledWith('room left', {
+      roomId: 42,
+      roomName: 'room-42',
+    });
+  });
+
+  it('accepts the legacy leave event and treats leaving a closed room as done', async () => {
+    const { socket } = createSocket(7);
+
+    await gateway.leaveRoom(socket, { room: 'room-42' });
+
+    expect(socket.emit).toHaveBeenCalledWith('room left', {
+      roomName: 'room-42',
+    });
+    expect(socket.emit).not.toHaveBeenCalledWith('error', expect.anything());
+    expect(roomService.remove).not.toHaveBeenCalled();
+  });
+
+  it('announces a dropped player at once but keeps the room during the grace period', () => {
+    const { socket } = createSocket(7);
+    bindToRoom(socket, 'guest');
+
+    gateway.handleDisconnect(socket);
+
+    expect(serverBroadcast.emit).toHaveBeenCalledWith(
+      'player connection lost',
+      expect.objectContaining({ userId: 7, role: 'guest' }),
+    );
+    expect((gateway as any).pendingDisconnects.size).toBe(1);
+    expect(roomService.remove).not.toHaveBeenCalled();
   });
 });

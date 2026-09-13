@@ -36,6 +36,18 @@ export class ImageService {
     });
   }
 
+  /**
+   * Une catégorie masquée depuis le back office (category_setting) ne peut plus
+   * lancer de nouvelle partie. Sans ligne de réglage, elle est visible.
+   */
+  async isCategoryVisible(category: string): Promise<boolean> {
+    const hidden = await this.dataSource.query(
+      'SELECT 1 FROM category_setting WHERE slug=$1 AND visible=false',
+      [category],
+    );
+    return hidden.length === 0;
+  }
+
   async getUrlById(id: number) {
     return await this.imageRepository.findOne({
       select: { url: true, name: true },
@@ -44,11 +56,14 @@ export class ImageService {
   }
 
   async getCategories() {
-    // 1. Récupérer les noms des catégories distinctes
+    // 1. Récupérer les noms des catégories distinctes, hors catégories masquées
     const categoriesRaw = await this.imageRepository
       .createQueryBuilder('image')
       .select('category')
       .where('user_id IS NULL')
+      .andWhere(
+        'NOT EXISTS (SELECT 1 FROM category_setting cs WHERE cs.slug = image.category AND cs.visible = false)',
+      )
       .distinct(true)
       .getRawMany();
 

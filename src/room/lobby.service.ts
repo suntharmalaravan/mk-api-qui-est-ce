@@ -123,6 +123,18 @@ export class LobbyService {
         throw new ConflictException('La partie a déjà commencé.');
       if (room.lobby_revision !== revision)
         throw new ConflictException('Le thème a changé. Réessaie.');
+      // Only new choices are refused: a lobby already set on a category hidden
+      // afterwards stays startable, since payload() does not re-check it.
+      if (
+        input.mode === 'category' &&
+        (
+          await tx.query(
+            'SELECT 1 FROM category_setting WHERE slug=$1 AND visible=false',
+            [input.category],
+          )
+        ).length
+      )
+        throw new BadRequestException('Ce thème n’est plus disponible.');
       await this.selection(tx, userId, input);
       const updated = (
         await tx.query(
@@ -162,6 +174,14 @@ export class LobbyService {
       await tx.query('UPDATE room SET selection_started_at=now() WHERE id=$1', [
         room.id,
       ]);
+      // Freeze the deck for this match. Character choices and guesses are
+      // validated against room_image: without these rows every `choose` was
+      // refused and both players waited for each other forever.
+      await tx.query('DELETE FROM room_image WHERE fk_room=$1', [room.id]);
+      await tx.query(
+        'INSERT INTO room_image(fk_room,fk_image) SELECT $1, unnest($2::int[])',
+        [room.id, payload.images.map((image) => image.id)],
+      );
       return { ...payload, started: true };
     });
   }

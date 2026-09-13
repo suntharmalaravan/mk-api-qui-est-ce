@@ -151,6 +151,14 @@ export class RoomGateway
     timer.unref?.();
     this.pendingDisconnects.set(key, timer);
 
+    // The opponent learns at once that this player is offline; the room is
+    // only closed, with `playerDisconnected`, when the grace period expires.
+    this.wss.to(session.roomName).emit('player connection lost', {
+      userId: session.userId,
+      role: session.role,
+      graceMs: this.disconnectGraceMs,
+    });
+
     this.logger.log(
       `Socket ${client.id} disconnected; keeping ${session.roomName}/${session.role} for ${this.disconnectGraceMs}ms`,
     );
@@ -173,6 +181,29 @@ export class RoomGateway
 
   private emitError(socket: Socket, code: string, message: string) {
     socket.emit('error', { code, message });
+  }
+
+  /** Acknowledgement payload of a refused request. */
+  private ackError(code: string, message: string) {
+    return { error: { code, message } };
+  }
+
+  /**
+   * Detaches every socket still bound to a room that is being closed.
+   *
+   * Without this the remaining player kept a session on a deleted room: each
+   * later `create` or `join` was refused with ALREADY_IN_ROOM until the app
+   * reconnected.
+   */
+  private async detachRoomSockets(room: { id: number; name: string }) {
+    const sockets = await this.wss.in(room.name).fetchSockets();
+    for (const candidate of sockets) {
+      if (candidate.data.roomSession?.roomId === room.id) {
+        delete candidate.data.roomSession;
+        candidate.data.playAgainRequested = false;
+      }
+      candidate.leave(room.name);
+    }
   }
 
   private authenticatedUserId(socket: Socket, suppliedUserId?: unknown) {
@@ -357,6 +388,7 @@ export class RoomGateway
         message: "Un joueur s'est déconnecté. La partie est terminée.",
         timestamp: new Date().toISOString(),
       });
+      await this.detachRoomSockets(room);
       await this.roomImageService.removeRoomImage(room.id);
       await this.roomService.remove(room.id);
     } catch (error) {
@@ -610,6 +642,12 @@ export class RoomGateway
         }
       } else {
         if (!this.validString(socket, data.category, 'category', 50)) return;
+        if (!(await this.imageService.isCategoryVisible(data.category))) {
+          socket.emit('error', {
+            message: `La catégorie "${data.category}" n'est plus disponible`,
+          });
+          return;
+        }
         // Mode catégorie
         console.log('🖼️ Fetching images for category:', data.category);
         images = await this.imageService.getUrlsByCategory(data.category);
@@ -992,92 +1030,63 @@ export class RoomGateway
     }
   }
 
+  /**
+   * Records a secret character and acknowledges the outcome.
+   *
+   * Clients used to switch to "waiting for opponent" before any answer: a
+   * refused choice was only reported on the generic `error` event, which the
+   * selection screen does not listen to, so both players waited for a
+   * `go board` that never came.
+   */
   @SubscribeMessage('choose')
   async chooseCharacter(socket: Socket, data: any) {
-    console.log('🎭 Event: choose character', {
-      socketId: socket.id,
-      roomName: data?.name,
-      timestamp: new Date().toISOString(),
-    });
+    const session = this.authorizeRoomEvent(socket, data?.name, data?.player);
+    if (!session) {
+      return this.ackError(
+        'FORBIDDEN',
+        'Tu ne fais plus partie de cette partie.',
+      );
+    }
+    if (!this.validPositiveInteger(socket, data?.characterId, 'characterId')) {
+      return this.ackError('INVALID_PAYLOAD', 'Personnage invalide.');
+    }
+    const characterId = Number(data.characterId);
 
     try {
-      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
-      if (!this.validPositiveInteger(socket, data?.characterId, 'characterId'))
-        return;
-      if (!data.name || !data.player || !data.characterId) {
-        console.log('❌ Validation failed for choose character:', {
-          socketId: socket.id,
-          missingFields: {
-            name: !data.name,
-            player: !data.player,
-            characterId: !data.characterId,
-          },
-        });
-        socket.emit('error', {
-          message:
-            'Missing required data: name, player, and characterId are required',
-        });
-        return;
-      }
-
-      console.log('📝 Saving character choice in database...');
-      await this.roomService.chooseCharacter(
-        data.name,
-        data.player,
-        data.characterId,
+      const room = await this.roomService.chooseCharacter(
+        session.roomName,
+        session.role,
+        characterId,
       );
-      console.log('✅ Character choice saved:', {
-        socketId: socket.id,
-        roomName: data.name,
-        player: data.player,
-        characterId: data.characterId,
-      });
+      const bothChosen =
+        room.hostcharacterid !== null && room.guestcharacterid !== null;
 
-      // Vérifier si les deux joueurs ont choisi leurs personnages
-      console.log(
-        '🔍 Checking if both players have chosen their characters...',
-      );
-      const room = await this.roomService.findByName(data.name);
-      const bothPlayersChosen = room.hostcharacterid && room.guestcharacterid;
-
-      console.log('🎭 Character selection status:', {
-        socketId: socket.id,
-        roomName: data.name,
-        hostCharacterId: room.hostcharacterid,
-        guestCharacterId: room.guestcharacterid,
-        bothPlayersChosen: bothPlayersChosen,
-      });
-
-      if (bothPlayersChosen) {
-        await this.atelierGame?.started(data.name);
-        console.log('🎯 Both players have chosen - starting game board!');
-        const goBoardData = { turn: 'host' };
-        console.log('📡 Emitting go board event:', {
-          socketId: socket.id,
-          roomName: data.name,
-          goBoardData: goBoardData,
-        });
-        socket.to(data.name).emit('go board', goBoardData);
-        socket.emit('go board', goBoardData);
+      if (bothChosen) {
+        await this.atelierGame?.started(session.roomName);
+        // When both players confirm at the same instant, both requests can
+        // observe the completed pair: clients treat `go board` as idempotent.
+        this.wss.to(session.roomName).emit('go board', { turn: 'host' });
       } else {
-        console.log('⏳ Waiting for other player to choose character...');
-        console.log('📡 Emitting character choice events:', {
-          socketId: socket.id,
-          roomName: data.name,
-          player: data.player,
-          characterId: data.characterId,
-        });
-        socket.to(data.name).emit('character chosen', {
-          player: data.player,
-        });
-        socket.emit('character chosen', {
-          player: data.player,
-          characterId: data.characterId,
-        });
+        // Only the chooser learns which character was recorded.
+        socket
+          .to(session.roomName)
+          .emit('character chosen', { player: session.role });
+        socket.emit('character chosen', { player: session.role, characterId });
       }
+      return { ok: true, bothChosen };
     } catch (error) {
-      console.error('Error choosing character:', error);
-      socket.emit('error', { message: 'Failed to choose character' });
+      const response =
+        typeof error?.getResponse === 'function' ? error.getResponse() : null;
+      const code = response?.code || 'CHOOSE_FAILED';
+      const message =
+        response?.code && response?.message
+          ? response.message
+          : 'Impossible d’enregistrer ton personnage.';
+      this.logger.warn(
+        `choose refused in ${session.roomName}/${session.role}: ${code}`,
+      );
+      this.emitError(socket, code, message);
+      return this.ackError(code, message);
     }
   }
 
@@ -1721,18 +1730,26 @@ export class RoomGateway
     }
   }
 
+  /**
+   * Leaves the current room on purpose.
+   *
+   * Before the game starts, a leaving guest frees the seat and the host keeps
+   * the room. In every other case the room is closed: the opponent receives
+   * `quit` and is detached, so they can create or join another game at once.
+   * Leaving is idempotent — the opponent may have closed the room first.
+   */
   @SubscribeMessage('quit')
   async quitRoom(socket: Socket, data: any) {
-    console.log('🚫 Event: quit room', {
-      socketId: socket.id,
-      roomName: data?.name,
-      timestamp: new Date().toISOString(),
-    });
-
     try {
       const userId = this.authenticatedUserId(socket, data?.userId);
-      const session = this.authorizeRoomEvent(socket, data?.name);
-      if (!userId || !session) return;
+      if (!userId || !this.validRoomName(socket, data?.name)) return;
+
+      const session = socket.data.roomSession as RoomSocketSession | undefined;
+      if (!session || session.roomName !== data.name) {
+        await socket.leave(data.name);
+        socket.emit('room left', { roomName: data.name });
+        return { ok: true };
+      }
       if (data?.id !== undefined && Number(data.id) !== session.roomId) {
         this.emitError(
           socket,
@@ -1742,44 +1759,56 @@ export class RoomGateway
         return;
       }
 
-      const room = await this.roomService.findByName(session.roomName);
-      if (!room || room.id !== session.roomId) {
-        this.emitError(socket, 'ROOM_NOT_FOUND', 'Room not found');
-        return;
-      }
-
       delete socket.data.roomSession;
+      socket.data.playAgainRequested = false;
       this.clearPendingDisconnect(this.sessionKey(session));
-      const gameStarted = !!(
-        room.selection_started_at ||
-        room.hostcharacterid ||
-        room.guestcharacterid
-      );
+      await socket.leave(session.roomName);
 
-      let reopened = false;
-      if (session.role === 'guest' && !gameStarted) {
-        reopened = await this.roomService.reopenRoomAfterGuestLeaves(
-          room.name,
-          session.userId,
+      const room = await this.roomService.findByName(session.roomName);
+      if (room?.id === session.roomId) {
+        const gameStarted = !!(
+          room.selection_started_at ||
+          room.hostcharacterid ||
+          room.guestcharacterid
         );
+
+        const reopened =
+          session.role === 'guest' &&
+          !gameStarted &&
+          (await this.roomService.reopenRoomAfterGuestLeaves(
+            room.name,
+            session.userId,
+          ));
         if (reopened) {
-          socket.to(room.name).emit('guestLeftBeforeStart', {
+          this.wss.to(room.name).emit('guestLeftBeforeStart', {
             roomId: room.id,
             roomName: room.name,
           });
+        } else {
+          this.wss.to(room.name).emit('quit', { player: userId });
+          await this.detachRoomSockets(room);
+          await this.roomImageService.removeRoomImage(room.id);
+          await this.roomService.remove(room.id);
         }
       }
-      if (!reopened) {
-        socket.to(room.name).emit('quit', { player: userId });
-        await this.roomImageService.removeRoomImage(room.id);
-        await this.roomService.remove(room.id);
-      }
 
-      socket.emit('room left', { roomId: room.id });
-      await socket.leave(room.name);
+      socket.emit('room left', {
+        roomId: session.roomId,
+        roomName: session.roomName,
+      });
+      return { ok: true };
     } catch (error) {
-      console.error('Error quitting room:', error);
-      socket.emit('error', { message: 'Failed to quit room' });
+      this.logger.error(
+        'Failed to quit room',
+        error instanceof Error ? error.stack : String(error),
+      );
+      this.emitError(socket, 'QUIT_FAILED', 'Failed to quit room');
     }
+  }
+
+  /** Event emitted by app builds released before `quit` was wired. */
+  @SubscribeMessage('leave')
+  leaveRoom(socket: Socket, data: any) {
+    return this.quitRoom(socket, { name: data?.name ?? data?.room });
   }
 }

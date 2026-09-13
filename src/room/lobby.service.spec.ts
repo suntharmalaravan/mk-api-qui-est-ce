@@ -12,7 +12,9 @@ describe('LobbyService', () => {
   let query: jest.Mock;
   let images: any[];
   let owned: boolean;
+  let frozenDeck: number[] | null;
   beforeEach(() => {
+    frozenDeck = null;
     room = {
       id: 4,
       name: 'ABCDE',
@@ -51,6 +53,14 @@ describe('LobbyService', () => {
       }
       if (sql.startsWith('UPDATE room SET selection_started_at')) {
         room.selection_started_at = new Date();
+        return [];
+      }
+      if (sql.startsWith('DELETE FROM room_image')) {
+        frozenDeck = [];
+        return [];
+      }
+      if (sql.startsWith('INSERT INTO room_image')) {
+        frozenDeck = args[1];
         return [];
       }
       throw new Error('Unexpected SQL: ' + sql);
@@ -124,6 +134,10 @@ describe('LobbyService', () => {
     await expect(service.start('ABCDE', 1, 0)).rejects.toBeInstanceOf(
       ConflictException,
     );
+  });
+  it('freezes the deck of a started game for character choices and guesses', async () => {
+    await service.start('ABCDE', 1, 0);
+    expect(frozenDeck).toEqual(images.map((image) => image.id));
   });
   it('does not start without an opponent or with fewer than 18 cards', async () => {
     room.guestplayerid = null;
