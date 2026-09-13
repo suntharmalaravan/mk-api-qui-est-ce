@@ -147,12 +147,38 @@ Smoke test sur ton environnement :
 - Limitation DB par compte et deux rendus simultanés par instance ; compléter par les limites
   réseau/authentification de l’infrastructure. Les échecs rejetés ne consomment pas la limite
   de mutations confirmées.
-- Portraits stockés en PostgreSQL : choix v1 pour une validation atomique sans dépendance
-  Firebase. 160 recettes possibles, dont 120 rendus visuellement distincts, partagés entre
-  comptes. Prévoir un stockage objet/CDN et une stratégie de conservation avant d’étendre
-  fortement le catalogue.
+- Portraits stockés en PostgreSQL pour une validation atomique sans dépendance Firebase.
+  La v2 augmente fortement les combinaisons possibles : surveiller la taille de la table
+  atelier_portrait et prévoir un stockage objet/CDN et une stratégie de conservation
+  avant une montée en charge importante. Les anciennes estimations du catalogue v1
+  ne dimensionnent plus le catalogue actuel.
 - Les anciennes routes de photos Firebase gardent leur workflow d’upload : une interruption
   peut encore laisser des objets orphelins/un deck incomplet. Elles ne sont pas devenues
   idempotentes ; seul le nouveau chemin atelier a cette garantie.
 - Les brouillons/anciennes créations sont locaux, non chiffrés, et séparés par compte.
   La suppression du compte purge ces données sur cet appareil après confirmation serveur.
+
+## 8. Catalogue et assets v2
+
+Déployer l’API v2 complète avant le frontend v2. Le catalogue annonce maintenant
+catalogVersion=2, rendererVersion=2 et supportedCatalogVersions=[1,2].
+Les recettes v1 à six slots sont toujours acceptées et gardent leurs JPEG/hashes.
+Les recettes v2 ajoutent face, hairColor et accessory, obligatoires pour cette version.
+Le serveur refuse les champs supplémentaires, couleurs/IDs inconnus et faux items v1.
+
+Sept PNG RGBA sont livrés sous src/atelier/assets/v2. Vérifier leur présence sous
+dist/atelier/assets/v2 après npm run build ; nest-cli.json inclut les sous-dossiers.
+Le contrat src/atelier/catalogContract.ts est copié identiquement depuis le frontend.
+IDs, ancres, calques et teintes sont partagés ; une retouche après publication exige
+une nouvelle version du catalogue et du moteur, jamais un écrasement silencieux.
+
+Pas de nouvelle migration SQL. Tous les nouveaux items sont gratuits ; seul le fond
+doré historique conserve son achat, avec les mêmes contrôles serveur.
+Les portraits de decks déjà publiés restent des snapshots immuables.
+Ne pas rétrograder vers l’API v1 une fois des recettes v2 enregistrées : garder un
+serveur capable de lire les deux versions, même si l’éditeur est temporairement fermé.
+
+Contrôles supplémentaires : exécuter src/atelier/catalog-v2.spec.ts ; vérifier une
+bibliothèque contenant v1 et v2, visage féminin/carré rose/casque/hoodie, rechargement,
+publication en deck et masquage des cheveux sous la casquette. Les tests unitaires
+de stockage utilisent un double DB ; ils ne remplacent pas les tests PostgreSQL opt-in.

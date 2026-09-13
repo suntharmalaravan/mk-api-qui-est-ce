@@ -1,0 +1,122 @@
+{
+  "slug": "actors",
+  "label": "Acteurs & actrices",
+  "characters": [
+    {
+      "file": "01-jenna-ortega",
+      "name": "Jenna Ortega",
+      "wikipedia": "Jenna Ortega"
+    },
+    { "file": "02-zendaya", "name": "Zendaya", "wikipedia": "Zendaya" },
+    {
+      "file": "03-tom-holland",
+      "name": "Tom Holland",
+      "wikipedia": "Tom Holland"
+    },
+    {
+      "file": "04-timothee-chalamet",
+      "name": "Timothée Chalamet",
+      "wikipedia": "Timothée Chalamet"
+    },
+    {
+      "file": "05-millie-bobby-brown",
+      "name": "Millie Bobby Brown",
+      "wikipedia": "Millie Bobby Brown"
+    },
+    {
+      "file": "06-anya-taylor-joy",
+      "name": "Anya Taylor-Joy",
+      "wikipedia": "Anya Taylor-Joy"
+    },
+    {
+      "file": "07-sydney-sweeney",
+      "name": "Sydney Sweeney",
+      "wikipedia": "Sydney Sweeney"
+    },
+    {
+      "file": "08-jacob-elordi",
+      "name": "Jacob Elordi",
+      "wikipedia": "Jacob Elordi"
+    },
+    {
+      "file": "09-florence-pugh",
+      "name": "Florence Pugh",
+      "wikipedia": "Florence Pugh"
+    },
+    {
+      "file": "10-saoirse-ronan",
+      "name": "Saoirse Ronan",
+      "wikipedia": "Saoirse Ronan"
+    },
+    {
+      "file": "11-hunter-schafer",
+      "name": "Hunter Schafer",
+      "wikipedia": "Hunter Schafer"
+    },
+    {
+      "file": "12-ayo-edebiri",
+      "name": "Ayo Edebiri",
+      "wikipedia": "Ayo Edebiri"
+    },
+    {
+      "file": "13-pedro-pascal",
+      "name": "Pedro Pascal",
+      "wikipedia": "Pedro Pascal"
+    },
+    {
+      "file": "14-margot-robbie",
+      "name": "Margot Robbie",
+      "wikipedia": "Margot Robbie"
+    },
+    {
+      "file": "15-ryan-gosling",
+      "name": "Ryan Gosling",
+      "wikipedia": "Ryan Gosling"
+    },
+    {
+      "file": "16-keanu-reeves",
+      "name": "Keanu Reeves",
+      "wikipedia": "Keanu Reeves"
+    },
+    {
+      "file": "17-cillian-murphy",
+      "name": "Cillian Murphy",
+      "wikipedia": "Cillian Murphy"
+    },
+    {
+      "file": "18-emma-stone",
+      "name": "Emma Stone",
+      "wikipedia": "Emma Stone"
+    },
+    {
+      "file": "19-daniel-radcliffe",
+      "name": "Daniel Radcliffe",
+      "wikipedia": "Daniel Radcliffe"
+    },
+    {
+      "file": "20-emma-watson",
+      "name": "Emma Watson",
+      "wikipedia": "Emma Watson"
+    },
+    {
+      "file": "21-robert-pattinson",
+      "name": "Robert Pattinson",
+      "wikipedia": "Robert Pattinson"
+    },
+    {
+      "file": "22-andrew-garfield",
+      "name": "Andrew Garfield",
+      "wikipedia": "Andrew Garfield"
+    },
+    {
+      "file": "23-lupita-nyongo",
+      "name": "Lupita Nyong'o",
+      "wikipedia": "Lupita Nyong'o"
+    },
+    {
+      "file": "24-austin-butler",
+      "name": "Austin Butler",
+      "wikipedia": "Austin Butler"
+    }
+  ]
+}

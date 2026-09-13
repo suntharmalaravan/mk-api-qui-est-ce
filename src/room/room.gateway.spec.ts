@@ -66,6 +66,75 @@ describe('RoomGateway socket lifecycle', () => {
 
   afterEach(() => gateway.onModuleDestroy());
 
+  it('broadcasts only an acknowledged theme and enforces the host role', async () => {
+    const settings = { roomName: 'room-42', revision: 3 };
+    const lobby = { change: jest.fn().mockResolvedValue(settings) };
+    (gateway as any).lobby = lobby;
+    const { socket } = createSocket(7);
+    socket.rooms.add('room-42');
+    socket.data.roomSession = {
+      roomId: 42,
+      roomName: 'room-42',
+      userId: 7,
+      role: 'host',
+    };
+    const data = {
+      name: 'room-42',
+      mode: 'category',
+      category: 'animals',
+      revision: 2,
+    };
+    expect(await gateway.changeLobbyTheme(socket, data)).toEqual(settings);
+    expect(lobby.change).toHaveBeenCalledWith('room-42', 7, data, 2);
+    expect(serverBroadcast.emit).toHaveBeenCalledWith(
+      'lobby theme changed',
+      settings,
+    );
+    socket.data.roomSession.role = 'guest';
+    await gateway.changeLobbyTheme(socket, data);
+    expect(lobby.change).toHaveBeenCalledTimes(1);
+  });
+
+  it('passes the revision into the sole start path and never broadcasts a rejected start', async () => {
+    const settings = { roomName: 'room-42', revision: 3, started: true };
+    const lobby = { start: jest.fn().mockResolvedValue(settings) };
+    (gateway as any).lobby = lobby;
+    const { socket } = createSocket(7);
+    socket.rooms.add('room-42');
+    socket.data.roomSession = {
+      roomId: 42,
+      roomName: 'room-42',
+      userId: 7,
+      role: 'host',
+    };
+    await gateway.startGame(socket, { name: 'room-42', revision: 3 });
+    expect(lobby.start).toHaveBeenCalledWith('room-42', 7, 3);
+    expect(serverBroadcast.emit).toHaveBeenCalledWith('game started', settings);
+    lobby.start.mockRejectedValue(new Error('Already started'));
+    await gateway.startGame(socket, { name: 'room-42', revision: 3 });
+    expect(serverBroadcast.emit).toHaveBeenCalledTimes(1);
+  });
+
+  it('does not reopen a game already in character selection when its guest leaves', async () => {
+    roomService.findByName.mockResolvedValue({
+      id: 42,
+      name: 'room-42',
+      hostplayerid: 1,
+      guestplayerid: 7,
+      hostcharacterid: null,
+      guestcharacterid: null,
+      selection_started_at: new Date(),
+    });
+    await (gateway as any).finalizeDisconnection({
+      roomId: 42,
+      roomName: 'room-42',
+      userId: 7,
+      role: 'guest',
+    });
+    expect(roomService.reopenRoomAfterGuestLeaves).not.toHaveBeenCalled();
+    expect(roomService.remove).toHaveBeenCalledWith(42);
+  });
+
   it('rejects an unauthenticated handshake before connection', async () => {
     const { socket } = createSocket();
     let middleware: (client: any, next: (error?: Error) => void) => void;

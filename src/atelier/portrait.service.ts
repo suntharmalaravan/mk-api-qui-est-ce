@@ -35,13 +35,27 @@ export class PortraitService {
         // Mirror React Native Image tintColor (source-in) and layer opacity.
         // The unmodified v1 pipeline stays byte-for-byte identical.
         if (layer.tint || layer.opacity !== undefined) {
-          const { data, info } = await source.ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-          const rgb = layer.tint ? [1, 3, 5].map(start => parseInt(layer.tint.slice(start, start + 2), 16)) : null;
+          const { data, info } = await source
+            .ensureAlpha()
+            .raw()
+            .toBuffer({ resolveWithObject: true });
+          const rgb = layer.tint
+            ? [1, 3, 5].map((start) =>
+                parseInt(layer.tint.slice(start, start + 2), 16),
+              )
+            : null;
           for (let i = 0; i < data.length; i += 4) {
-            if (rgb) { data[i] = rgb[0]; data[i + 1] = rgb[1]; data[i + 2] = rgb[2]; }
-            if (layer.opacity !== undefined) data[i + 3] = Math.round(data[i + 3] * layer.opacity);
+            if (rgb) {
+              data[i] = rgb[0];
+              data[i + 1] = rgb[1];
+              data[i + 2] = rgb[2];
+            }
+            if (layer.opacity !== undefined)
+              data[i + 3] = Math.round(data[i + 3] * layer.opacity);
           }
-          source = sharp(data, { raw: { width: info.width, height: info.height, channels: 4 } });
+          source = sharp(data, {
+            raw: { width: info.width, height: info.height, channels: 4 },
+          });
         }
         const input = await source
           .resize(edge, edge, { fit: 'fill' })

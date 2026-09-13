@@ -1,0 +1,97 @@
+{
+  "slug": "animals",
+  "label": "Animaux incroyables",
+  "defaultCrop": { "zoom": 0.92, "x": 0.5, "y": 0.5 },
+  "characters": [
+    { "file": "01-lion", "name": "Lion", "wikipedia": "Lion" },
+    {
+      "file": "02-tigre",
+      "name": "Tigre",
+      "wikipedia": "Tiger",
+      "sourceFile": "A tiger portrait.jpg"
+    },
+    { "file": "03-guepard", "name": "Guépard", "wikipedia": "Cheetah" },
+    {
+      "file": "04-panthere-des-neiges",
+      "name": "Panthère des neiges",
+      "wikipedia": "Snow leopard"
+    },
+    { "file": "05-loup", "name": "Loup gris", "wikipedia": "Wolf" },
+    { "file": "06-renard", "name": "Renard roux", "wikipedia": "Red fox" },
+    {
+      "file": "07-ours-polaire",
+      "name": "Ours polaire",
+      "wikipedia": "Polar bear"
+    },
+    {
+      "file": "08-panda-geant",
+      "name": "Panda géant",
+      "wikipedia": "Giant panda"
+    },
+    { "file": "09-panda-roux", "name": "Panda roux", "wikipedia": "Red panda" },
+    { "file": "10-koala", "name": "Koala", "wikipedia": "Koala" },
+    {
+      "file": "11-dauphin",
+      "name": "Grand dauphin",
+      "wikipedia": "Common bottlenose dolphin"
+    },
+    {
+      "file": "12-elephant",
+      "name": "Éléphant d’Afrique",
+      "wikipedia": "African bush elephant"
+    },
+    { "file": "13-girafe", "name": "Girafe", "wikipedia": "Giraffe" },
+    {
+      "file": "14-zebre",
+      "name": "Zèbre",
+      "wikipedia": "Plains zebra",
+      "sourceFile": "Equus quagga.jpg"
+    },
+    {
+      "file": "15-hippopotame",
+      "name": "Hippopotame",
+      "wikipedia": "Hippopotamus"
+    },
+    {
+      "file": "16-rhinoceros",
+      "name": "Rhinocéros blanc",
+      "wikipedia": "White rhinoceros"
+    },
+    { "file": "17-gorille", "name": "Gorille", "wikipedia": "Western gorilla" },
+    {
+      "file": "18-lemurien",
+      "name": "Maki catta",
+      "wikipedia": "Ring-tailed lemur",
+      "sourceFile": "Ring tailed lemur portrait.jpg"
+    },
+    {
+      "file": "19-paresseux",
+      "name": "Paresseux",
+      "wikipedia": "Brown-throated sloth"
+    },
+    { "file": "20-capybara", "name": "Capybara", "wikipedia": "Capybara" },
+    {
+      "file": "21-manchot-empereur",
+      "name": "Manchot empereur",
+      "wikipedia": "Emperor penguin",
+      "sourceFile": "Emperor-solo hg.jpg",
+      "crop": { "zoom": 0.92, "x": 0.5, "y": 0.3 }
+    },
+    {
+      "file": "22-flamant-rose",
+      "name": "Flamant rose",
+      "wikipedia": "Greater flamingo"
+    },
+    {
+      "file": "23-axolotl",
+      "name": "Axolotl",
+      "wikipedia": "Axolotl",
+      "sourceFile": "Axolotl Portrait.jpg"
+    },
+    {
+      "file": "24-requin-blanc",
+      "name": "Grand requin blanc",
+      "wikipedia": "Great white shark"
+    }
+  ]
+}

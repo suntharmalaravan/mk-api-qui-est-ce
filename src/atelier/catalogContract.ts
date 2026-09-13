@@ -50,7 +50,7 @@ export const V2_DEFAULTS = {
 };
 export const ITEMS_V2: Record<Slot, readonly string[]> = {
   ...LEGACY_ITEMS,
-  hair: [...LEGACY_ITEMS.hair, 'hair-bob', 'hair-curls'],
+  hair: [...LEGACY_ITEMS.hair, 'hair-bob', 'hair-curls', 'hair-swoop'],
   glasses: [...LEGACY_ITEMS.glasses, 'glasses-y2k'],
   outfit: [...LEGACY_ITEMS.outfit, 'outfit-hoodie'],
   face: ['face-original', 'face-feminine'],
@@ -116,7 +116,7 @@ export const ANCHORS = {
   bob: { scale: 0.85, y: -0.075 },
   curls: { scale: 0.72, y: -0.09 },
   hoodie: { scale: 1, y: 0.075 },
-  headphones: { scale: 0.64, y: -0.04 },
+  headphones: { scale: 0.82, y: -0.045 },
   y2k: { scale: 0.44, y: -0.012 },
 };
 export type ArtKey = keyof typeof ANCHORS;
@@ -164,7 +164,9 @@ export function renderLayers(r: Recipe): RenderLayer[] {
           ? 'bob'
           : r.hair === 'hair-curls'
           ? 'curls'
-          : 'quiffTint';
+          : r.hair === 'hair-swoop'
+          ? 'quiffTint'
+          : 'hair';
       layers.push(
         { art, tint: HAIR_COLORS[r.hairColor!] },
         { art, opacity: 0.35 },

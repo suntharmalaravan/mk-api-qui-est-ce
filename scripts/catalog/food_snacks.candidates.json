@@ -1,0 +1,32 @@
+{
+  "slug": "food_snacks",
+  "label": "Food & snacks",
+  "defaultCrop": { "zoom": 0.92, "x": 0.5, "y": 0.5 },
+  "attributionNote": "Les photos Wikimedia Commons doivent être créditées selon la licence indiquée pour chaque image.",
+  "characters": [
+    { "file": "01-pizza", "name": "Pizza", "wikipedia": "Pizza" },
+    { "file": "02-sushi", "name": "Sushi", "wikipedia": "Sushi" },
+    { "file": "03-burger", "name": "Burger", "wikipedia": "Hamburger" },
+    { "file": "04-tacos", "name": "Tacos", "wikipedia": "Taco" },
+    { "file": "05-ramen", "name": "Ramen", "wikipedia": "Ramen" },
+    { "file": "06-bubble-tea", "name": "Bubble tea", "wikipedia": "Bubble tea" },
+    { "file": "07-croissant", "name": "Croissant", "wikipedia": "Croissant" },
+    { "file": "08-donut", "name": "Donut", "wikipedia": "Doughnut" },
+    { "file": "09-kebab", "name": "Kebab", "wikipedia": "Doner kebab" },
+    { "file": "10-mochi", "name": "Mochi", "wikipedia": "Daifuku" },
+    { "file": "11-tiramisu", "name": "Tiramisu", "wikipedia": "Tiramisu" },
+    { "file": "12-paella", "name": "Paella", "wikipedia": "Paella" },
+    { "file": "13-couscous", "name": "Couscous", "wikipedia": "Couscous" },
+    { "file": "14-fondue", "name": "Fondue", "wikipedia": "Fondue" },
+    { "file": "15-crepe", "name": "Crêpe", "wikipedia": "Crêpe" },
+    { "file": "16-gaufre", "name": "Gaufre", "wikipedia": "Waffle" },
+    { "file": "17-hot-dog", "name": "Hot-dog", "wikipedia": "Hot dog" },
+    { "file": "18-frites", "name": "Frites", "wikipedia": "French fries" },
+    { "file": "19-churros", "name": "Churros", "wikipedia": "Churro" },
+    { "file": "20-macarons", "name": "Macarons", "wikipedia": "Macaron" },
+    { "file": "21-avocado-toast", "name": "Avocado toast", "wikipedia": "Avocado toast" },
+    { "file": "22-nuggets", "name": "Nuggets", "wikipedia": "Chicken nugget" },
+    { "file": "23-glace", "name": "Glace", "wikipedia": "Ice cream" },
+    { "file": "24-falafel", "name": "Falafel", "wikipedia": "Falafel" }
+  ]
+}

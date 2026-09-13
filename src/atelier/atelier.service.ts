@@ -29,6 +29,7 @@ import {
   visibleKey,
 } from './catalog';
 import { PortraitService } from './portrait.service';
+import { MixedCard, MixedPhoto } from './mixed-deck';
 
 @Injectable()
 export class AtelierService implements OnModuleInit {
@@ -188,6 +189,26 @@ export class AtelierService implements OnModuleInit {
         message: 'Opération non confirmée. Réutilise le même identifiant.',
       });
     return { status: 'succeeded', result: rows[0].response };
+  }
+  /** Resolve an interrupted deck without replaying an upload the user cancelled.
+   * The same account lock serializes this tombstone against publication: either
+   * return the committed deck or prevent any late request from creating it. */
+  async settleDeck(userId: number, operationId: string) {
+    this.requireEnabled();
+    if (!/^[a-zA-Z0-9:_-]{1,150}$/.test(operationId)) fail('INVALID_OPERATION', 'Opération invalide.');
+    return this.db.transaction(async tx => {
+      await this.accountLock(tx, userId);
+      const previous = (await tx.query('SELECT response FROM atelier_operation WHERE user_id=$1 AND id=$2', [userId, operationId]))[0];
+      if (previous) {
+        if (previous.response?.deck || previous.response?.cancelled === true) return previous.response;
+        fail('INVALID_OPERATION', 'Cette opération ne concerne pas un deck.');
+      }
+      const recent = Number((await tx.query("SELECT count(*) AS count FROM atelier_operation WHERE user_id=$1 AND created_at > now()-interval '1 minute'", [userId]))[0]?.count ?? 0);
+      if (recent >= this.amount('ATELIER_WRITES_PER_MINUTE', 120)) throw new HttpException('Réessaie dans un instant.', 429);
+      const response = { cancelled: true, operationId };
+      await tx.query('INSERT INTO atelier_operation(user_id,id,request_hash,response) VALUES($1,$2,$3,$4::jsonb)', [userId, operationId, hash(['cancelled-deck']), JSON.stringify(response)]);
+      return response;
+    });
   }
   // The receipt and business writes commit together. Errors roll everything back.
   // A timeout/unknown result is retried with the same key, never a new POST identity.
@@ -384,11 +405,17 @@ export class AtelierService implements OnModuleInit {
       },
     );
   }
-  async publish(userId: number, input: PublishDto) {
+  async publish(userId: number, input: PublishDto, mixed?: { photos: MixedPhoto[]; order: MixedCard[] }) {
+    const photos = mixed?.photos ?? [];
+    const count = input.characters.length + photos.length;
+    if (count < (input.deckId ? 1 : 18) || count > 21)
+      fail('INVALID_DECK_SIZE', 'Un deck doit contenir de 18 à 21 cartes.');
+    if (new Set(photos.map(p => p.hash)).size !== photos.length)
+      fail('DUPLICATE_PHOTO', 'Une photo est présente plusieurs fois.');
     return this.mutate(
       userId,
       input.operationId,
-      ['publish', input.deckId ?? null, input.name ?? null, input.characters],
+      mixed ? ['publish-mixed', input.characters, mixed.order, photos.map(p => p.hash)] : ['publish', input.deckId ?? null, input.name ?? null, input.characters],
       async (tx) => {
         const rows = [];
         for (const ref of input.characters) {
@@ -408,7 +435,7 @@ export class AtelierService implements OnModuleInit {
         }
         assertDistinct(
           rows.map((row) => recipe(row.recipe)),
-          input.deckId ? 1 : 18,
+          input.deckId ? 1 : Math.max(1, 18 - photos.length),
         );
         let deck;
         if (input.deckId) {
@@ -423,7 +450,7 @@ export class AtelierService implements OnModuleInit {
             'SELECT atelier_visible_key FROM image WHERE deck_id=$1',
             [deck.id],
           );
-          if (existing.length + rows.length > 21)
+          if (existing.length + count > 21)
             fail('DECK_FULL', 'Le deck ne peut pas dépasser 21 cartes.');
           if (
             rows.some((row) =>
@@ -445,13 +472,21 @@ export class AtelierService implements OnModuleInit {
             )
           )[0];
         }
-        for (const row of rows)
+        const cards = mixed ? mixed.order.map(card => {
+          if (card.kind === 'photo') {
+            const photo = photos[card.index];
+            return { url: photo.url, name: photo.name, visible_key: null };
+          }
+          const row = rows.find(r => r.id === card.id);
+          return { url: this.portraitUrl(row.portrait_hash), name: row.name, visible_key: row.visible_key };
+        }) : rows.map(row => ({ url: this.portraitUrl(row.portrait_hash), name: row.name, visible_key: row.visible_key }));
+        for (const row of cards)
           await tx.query(
             'INSERT INTO image(user_id,deck_id,url,name,category,atelier_visible_key) VALUES($1,$2,$3,$4,NULL,$5)',
             [
               userId,
               deck.id,
-              this.portraitUrl(row.portrait_hash),
+              row.url,
               row.name,
               row.visible_key,
             ],

@@ -1,0 +1,495 @@
+{
+  "slug": "animals",
+  "label": "Animaux incroyables",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les portraits Wikimedia Commons doivent être crédités selon la licence indiquée pour chaque image."
+  },
+  "characters": [
+    {
+      "file": "01-lion",
+      "name": "Lion",
+      "wikipedia": "Lion",
+      "source": {
+        "file": "Lion in masai mara.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f8/Lion_in_masai_mara.jpg/1280px-Lion_in_masai_mara.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3264,
+        "height": 2448,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Sumit.pamnani at English Wikipedia",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "02-tigre",
+      "name": "Tigre",
+      "wikipedia": "Tiger",
+      "source": {
+        "file": "A tiger portrait.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/92/A_tiger_portrait.jpg/1280px-A_tiger_portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2065,
+        "height": 3003,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Gowri Subramanya",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "03-guepard",
+      "name": "Guépard",
+      "wikipedia": "Cheetah",
+      "source": {
+        "file": "Cheetah (Acinonyx jubatus) female 2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/Cheetah_%28Acinonyx_jubatus%29_female_2.jpg/1280px-Cheetah_%28Acinonyx_jubatus%29_female_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 5472,
+        "height": 3648,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Charles J. Sharp",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "04-panthere-des-neiges",
+      "name": "Panthère des neiges",
+      "wikipedia": "Snow leopard",
+      "source": {
+        "file": "Uncia uncia.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Uncia_uncia.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 533,
+        "height": 800,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "author": "Bernard Landgraf",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "05-loup",
+      "name": "Loup gris",
+      "wikipedia": "Wolf",
+      "source": {
+        "file": "Eurasian wolf 2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Eurasian_wolf_2.jpg/1280px-Eurasian_wolf_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3440,
+        "height": 2664,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "User:Mas3cf",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "06-renard",
+      "name": "Renard roux",
+      "wikipedia": "Red fox",
+      "source": {
+        "file": "Fox at the British Wildlife Centre, Newchapel, Surrey - geograph.org.uk - 2221750.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/9d/Fox_at_the_British_Wildlife_Centre%2C_Newchapel%2C_Surrey_-_geograph.org.uk_-_2221750.jpg/1280px-Fox_at_the_British_Wildlife_Centre%2C_Newchapel%2C_Surrey_-_geograph.org.uk_-_2221750.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1865,
+        "height": 2802,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Peter Trimming",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "07-ours-polaire",
+      "name": "Ours polaire",
+      "wikipedia": "Polar bear",
+      "source": {
+        "file": "Polar Bear - Alaska (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/66/Polar_Bear_-_Alaska_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 563,
+        "height": 565,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Alan Wilson",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "08-panda-geant",
+      "name": "Panda géant",
+      "wikipedia": "Giant panda",
+      "source": {
+        "file": "Giant Panda 2004-03-2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/3c/Giant_Panda_2004-03-2.jpg/1280px-Giant_Panda_2004-03-2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2095,
+        "height": 1394,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Jeff Kubina",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "09-panda-roux",
+      "name": "Panda roux",
+      "wikipedia": "Red panda",
+      "source": {
+        "file": "RedPanda SingalilaNationalPark DFrame.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/RedPanda_SingalilaNationalPark_DFrame.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1121,
+        "height": 896,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Ajit Hota",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "10-koala",
+      "name": "Koala",
+      "wikipedia": "Koala",
+      "source": {
+        "file": "Koala climbing tree.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/49/Koala_climbing_tree.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1132,
+        "height": 1113,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Diliff",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "11-dauphin",
+      "name": "Grand dauphin",
+      "wikipedia": "Common bottlenose dolphin",
+      "source": {
+        "file": "Tursiops truncatus 01-cropped.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bc/Tursiops_truncatus_01-cropped.jpg/1280px-Tursiops_truncatus_01-cropped.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1387,
+        "height": 1025,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "NASA",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "12-elephant",
+      "name": "Éléphant d’Afrique",
+      "wikipedia": "African bush elephant",
+      "source": {
+        "file": "178 Male African bush elephant in Etosha National Park Photo by Giles Laurent.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/94/178_Male_African_bush_elephant_in_Etosha_National_Park_Photo_by_Giles_Laurent.jpg/1280px-178_Male_African_bush_elephant_in_Etosha_National_Park_Photo_by_Giles_Laurent.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 8213,
+        "height": 5475,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Giles Laurent",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "13-girafe",
+      "name": "Girafe",
+      "wikipedia": "Giraffe",
+      "source": {
+        "file": "Giraffen.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/68/Giraffen.jpg/1280px-Giraffen.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1408,
+        "height": 1250,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "John Walker",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "14-zebre",
+      "name": "Zèbre",
+      "wikipedia": "Plains zebra",
+      "source": {
+        "file": "Equus quagga.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/60/Equus_quagga.jpg/1280px-Equus_quagga.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3008,
+        "height": 2000,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Joachim Huber 2007-2025 (R.I.P.)",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "15-hippopotame",
+      "name": "Hippopotame",
+      "wikipedia": "Hippopotamus",
+      "source": {
+        "file": "Hippo (Hippopotamus amphibius) (16485955207).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e5/Hippo_%28Hippopotamus_amphibius%29_%2816485955207%29.jpg/1280px-Hippo_%28Hippopotamus_amphibius%29_%2816485955207%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 5472,
+        "height": 3648,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Bernard DUPONT from FRANCE",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "16-rhinoceros",
+      "name": "Rhinocéros blanc",
+      "wikipedia": "White rhinoceros",
+      "source": {
+        "file": "White rhinoceros africa.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e1/White_rhinoceros_africa.jpg/1280px-White_rhinoceros_africa.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 4886,
+        "height": 3260,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Payamfarahani",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "17-gorille",
+      "name": "Gorille",
+      "wikipedia": "Western gorilla",
+      "source": {
+        "file": "Gorille.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Gorille.jpg/1280px-Gorille.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2304,
+        "height": 2304,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Macinate",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "18-lemurien",
+      "name": "Maki catta",
+      "wikipedia": "Ring-tailed lemur",
+      "source": {
+        "file": "Ring tailed lemur portrait.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Ring_tailed_lemur_portrait.jpg/1280px-Ring_tailed_lemur_portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3432,
+        "height": 2574,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Francis C. Franklin",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "19-paresseux",
+      "name": "Paresseux",
+      "wikipedia": "Brown-throated sloth",
+      "source": {
+        "file": "Bradypus.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/18/Bradypus.jpg/1280px-Bradypus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1536,
+        "height": 2048,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Stefan Laube ( Tauchgurke )",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "20-capybara",
+      "name": "Capybara",
+      "wikipedia": "Capybara",
+      "source": {
+        "file": "Capybaras (Hydrochoerus hydrachaeris) female and young suckling ... (48427191032).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c5/Capybaras_%28Hydrochoerus_hydrachaeris%29_female_and_young_suckling_..._%2848427191032%29.jpg/1280px-Capybaras_%28Hydrochoerus_hydrachaeris%29_female_and_young_suckling_..._%2848427191032%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 4753,
+        "height": 2929,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Bernard DUPONT from FRANCE",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "21-manchot-empereur",
+      "name": "Manchot empereur",
+      "wikipedia": "Emperor penguin",
+      "source": {
+        "file": "Emperor-solo hg.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/72/Emperor-solo_hg.jpg/1280px-Emperor-solo_hg.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1718,
+        "height": 2693,
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "author": "Hannes Grobe/AWI",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.3
+      }
+    },
+    {
+      "file": "22-flamant-rose",
+      "name": "Flamant rose",
+      "wikipedia": "Greater flamingo",
+      "source": {
+        "file": "Flamant rose Thyna009.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/15/Flamant_rose_Thyna009.jpg/1280px-Flamant_rose_Thyna009.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1407,
+        "height": 1876,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "El Golli Mohamed",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "23-axolotl",
+      "name": "Axolotl",
+      "wikipedia": "Axolotl",
+      "source": {
+        "file": "Axolotl Portrait.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/Axolotl_Portrait.jpg/1280px-Axolotl_Portrait.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3264,
+        "height": 2448,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "author": "LoKiLeCh",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "24-requin-blanc",
+      "name": "Grand requin blanc",
+      "wikipedia": "Great white shark",
+      "source": {
+        "file": "Carcharodon carcharias.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0e/Carcharodon_carcharias.jpg/1280px-Carcharodon_carcharias.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3264,
+        "height": 2448,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Sharkdiver.com",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ]
+}

@@ -1,0 +1,495 @@
+{
+  "slug": "music_artists",
+  "label": "Stars de la musique",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les portraits Wikimedia Commons doivent être crédités selon la licence indiquée pour chaque image."
+  },
+  "characters": [
+    {
+      "file": "01-bad-bunny",
+      "name": "Bad Bunny",
+      "wikipedia": "Bad Bunny",
+      "source": {
+        "file": "Bad Bunny 2019 by Glenn Francis (cropped).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg/1280px-Bad_Bunny_2019_by_Glenn_Francis_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2650,
+        "height": 4010,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Toglenn",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "02-taylor-swift",
+      "name": "Taylor Swift",
+      "wikipedia": "Taylor Swift",
+      "source": {
+        "file": "Taylor Swift at the 2023 MTV Video Music Awards (3).png",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png/1280px-Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%283%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1801,
+        "height": 2560,
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "author": "iHeartRadioCA",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "03-the-weeknd",
+      "name": "The Weeknd",
+      "wikipedia": "The Weeknd",
+      "source": {
+        "file": "The Weeknd Portrait by Brian Ziff.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a0/The_Weeknd_Portrait_by_Brian_Ziff.jpg/1280px-The_Weeknd_Portrait_by_Brian_Ziff.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1281,
+        "height": 1920,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Brian Ziff",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "04-drake",
+      "name": "Drake",
+      "wikipedia": "Drake (musician)",
+      "source": {
+        "file": "Drake July 2016.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/2/28/Drake_July_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 875,
+        "height": 1126,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "The Come Up Show",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "05-billie-eilish",
+      "name": "Billie Eilish",
+      "wikipedia": "Billie Eilish",
+      "source": {
+        "file": "BillieEilishO2140725-39 - 54665577407 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/BillieEilishO2140725-39_-_54665577407_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 779,
+        "height": 1039,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "06-kendrick-lamar",
+      "name": "Kendrick Lamar",
+      "wikipedia": "Kendrick Lamar",
+      "source": {
+        "file": "Pulitzer2018-portraits-kendrick-lamar.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Pulitzer2018-portraits-kendrick-lamar.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1125,
+        "height": 1768,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Fuzheado",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "07-bruno-mars",
+      "name": "Bruno Mars",
+      "wikipedia": "Bruno Mars",
+      "source": {
+        "file": "BrunoMars24KMagicWorldTourLive (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b0/BrunoMars24KMagicWorldTourLive_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1100,
+        "height": 1505,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "slgckgc",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "08-ariana-grande",
+      "name": "Ariana Grande",
+      "wikipedia": "Ariana Grande",
+      "source": {
+        "file": "Ariana Grande promoting Wicked (2024).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/7c/Ariana_Grande_promoting_Wicked_%282024%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 517,
+        "height": 701,
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "author": "Barbie Simons",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "09-sabrina-carpenter",
+      "name": "Sabrina Carpenter",
+      "wikipedia": "Sabrina Carpenter",
+      "source": {
+        "file": "Sabrina Carpenter - O2 Arena 2025 - 086 (cropped 2).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Sabrina_Carpenter_-_O2_Arena_2025_-_086_%28cropped_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 683,
+        "height": 981,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "10-lady-gaga",
+      "name": "Lady Gaga",
+      "wikipedia": "Lady Gaga",
+      "source": {
+        "file": "Lady Gaga at Oscars 2016.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Lady_Gaga_at_Oscars_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 742,
+        "height": 1027,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Office of the Vice President of the United States",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "11-dua-lipa",
+      "name": "Dua Lipa",
+      "wikipedia": "Dua Lipa",
+      "source": {
+        "file": "Dua Lipa-69798 (cropped).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Dua_Lipa-69798_%28cropped%29.jpg/1280px-Dua_Lipa-69798_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1780,
+        "height": 2737,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Harald Krichel",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "12-olivia-rodrigo",
+      "name": "Olivia Rodrigo",
+      "wikipedia": "Olivia Rodrigo",
+      "source": {
+        "file": "Glasto2025-546 (cropped 2).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Glasto2025-546_%28cropped_2%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1218,
+        "height": 1756,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "13-sza",
+      "name": "SZA",
+      "wikipedia": "SZA",
+      "source": {
+        "file": "KendrickSZASPurs230725-19 - 54683179509 (cropped) (cropped).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f4/KendrickSZASPurs230725-19_-_54683179509_%28cropped%29_%28cropped%29.jpg/1280px-KendrickSZASPurs230725-19_-_54683179509_%28cropped%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1407,
+        "height": 2109,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "14-doja-cat",
+      "name": "Doja Cat",
+      "wikipedia": "Doja Cat",
+      "source": {
+        "file": "DojaCatO2140624 (87 of 105) (53792876988) (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/72/DojaCatO2140624_%2887_of_105%29_%2853792876988%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 821,
+        "height": 1027,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "15-rihanna",
+      "name": "Rihanna",
+      "wikipedia": "Rihanna",
+      "source": {
+        "file": "Rihanna visits U.S. Embassy in Barbados 2024 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/16/Rihanna_visits_U.S._Embassy_in_Barbados_2024_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 262,
+        "height": 382,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "U.S. Embassy Bridgetown",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "16-beyonce",
+      "name": "Beyoncé",
+      "wikipedia": "Beyoncé",
+      "source": {
+        "file": "Beyoncé - Tottenham Hotspur Stadium - 1st June 2023 (10 of 118) (52946364598) (best crop).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Beyonc%C3%A9_-_Tottenham_Hotspur_Stadium_-_1st_June_2023_%2810_of_118%29_%2852946364598%29_%28best_crop%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 900,
+        "height": 1200,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "17-justin-bieber",
+      "name": "Justin Bieber",
+      "wikipedia": "Justin Bieber",
+      "source": {
+        "file": "Justin Bieber in 2015.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Justin_Bieber_in_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 980,
+        "height": 1401,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Lou Stejskal",
+        "restrictions": "personality"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "18-harry-styles",
+      "name": "Harry Styles",
+      "wikipedia": "Harry Styles",
+      "source": {
+        "file": "HarryStylesWembley170623 (14 of 93) (52982076132) (cropped).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b5/HarryStylesWembley170623_%2814_of_93%29_%2852982076132%29_%28cropped%29.jpg/1280px-HarryStylesWembley170623_%2814_of_93%29_%2852982076132%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1999,
+        "height": 2809,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Raph_PH",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "19-ed-sheeran",
+      "name": "Ed Sheeran",
+      "wikipedia": "Ed Sheeran",
+      "source": {
+        "file": "Ed Sheeran-6886 (cropped).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c1/Ed_Sheeran-6886_%28cropped%29.jpg/1280px-Ed_Sheeran-6886_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2698,
+        "height": 3410,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Harald Krichel",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "20-post-malone",
+      "name": "Post Malone",
+      "wikipedia": "Post Malone",
+      "source": {
+        "file": "Post Malone at the 2019 American Music Awards.png",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/12/Post_Malone_at_the_2019_American_Music_Awards.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 727,
+        "height": 1080,
+        "license": "CC BY 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/3.0",
+        "author": "Cosmopolitan UK",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "21-aya-nakamura",
+      "name": "Aya Nakamura",
+      "wikipedia": "Aya Nakamura",
+      "source": {
+        "file": "Aya Nakamura IMG 4756 (cropped).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b1/Aya_Nakamura_IMG_4756_%28cropped%29.jpg/1280px-Aya_Nakamura_IMG_4756_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1584,
+        "height": 1584,
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "author": "Mathis.aclr",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "22-stromae",
+      "name": "Stromae",
+      "wikipedia": "Stromae",
+      "source": {
+        "file": "Le chanteur Stromae.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cc/Le_chanteur_Stromae.jpg/1280px-Le_chanteur_Stromae.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2832,
+        "height": 4256,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Pierre Huguet",
+        "restrictions": "personality-rights"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "23-angele",
+      "name": "Angèle",
+      "wikipedia": "Angèle (singer)",
+      "source": {
+        "file": "Festival des Vieilles Charrues 2018 - Angèle - 011.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Festival_des_Vieilles_Charrues_2018_-_Ang%C3%A8le_-_011.jpg/1280px-Festival_des_Vieilles_Charrues_2018_-_Ang%C3%A8le_-_011.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3648,
+        "height": 5472,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Thesupermat",
+        "restrictions": "personality"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "24-gims",
+      "name": "Gims",
+      "wikipedia": "Gims",
+      "source": {
+        "file": "Maître Gims Cannes 2016.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Ma%C3%AEtre_Gims_Cannes_2016.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 566,
+        "height": 800,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Georges Biard",
+        "restrictions": "personality"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    }
+  ]
+}

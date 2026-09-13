@@ -38,6 +38,8 @@ export class RoomService {
         mode: true,
         deck_id: true,
         custom_library_user_id: true,
+        lobby_revision: true,
+        selection_started_at: true,
       },
       where: { name },
     });
@@ -89,7 +91,10 @@ export class RoomService {
       .where('name = :name', { name })
       .andWhere('status = :status', { status: 'closed' })
       .andWhere(`${characterColumn} IS NULL`)
-      .andWhere('EXISTS (SELECT 1 FROM room_image WHERE fk_room = room.id AND fk_image = :characterId)', { characterId })
+      .andWhere(
+        'EXISTS (SELECT 1 FROM room_image WHERE fk_room = room.id AND fk_image = :characterId)',
+        { characterId },
+      )
       .execute();
 
     if (result.affected !== 1) {
@@ -138,6 +143,7 @@ export class RoomService {
       .where('name = :name', { name })
       .andWhere('status = :status', { status: 'closed' })
       .andWhere('hostcharacterid IS NULL')
+      .andWhere('selection_started_at IS NULL')
       .andWhere('guestcharacterid IS NULL');
 
     if (guestPlayerId !== undefined) {

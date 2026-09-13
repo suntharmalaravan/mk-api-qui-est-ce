@@ -1,0 +1,495 @@
+{
+  "slug": "food_snacks",
+  "label": "Food & snacks",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les photos Wikimedia Commons doivent être créditées selon la licence indiquée pour chaque image."
+  },
+  "characters": [
+    {
+      "file": "01-pizza",
+      "name": "Pizza",
+      "wikipedia": "Pizza",
+      "source": {
+        "file": "Eq it-na pizza-margherita sep2005 sml.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/a3/Eq_it-na_pizza-margherita_sep2005_sml.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1024,
+        "height": 768,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "author": "Valerio Capello at English Wikipedia",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "02-sushi",
+      "name": "Sushi",
+      "wikipedia": "Sushi",
+      "source": {
+        "file": "Various sushi, beautiful October night at midnight.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7a/Various_sushi%2C_beautiful_October_night_at_midnight.jpg/1280px-Various_sushi%2C_beautiful_October_night_at_midnight.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1936,
+        "height": 1296,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Yumi Kimura",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "03-burger",
+      "name": "Burger",
+      "wikipedia": "Hamburger",
+      "source": {
+        "file": "Burger King double cheeseburger.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b7/Burger_King_double_cheeseburger.jpg/1280px-Burger_King_double_cheeseburger.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2592,
+        "height": 1944,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Luke",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "04-tacos",
+      "name": "Tacos",
+      "wikipedia": "Taco",
+      "source": {
+        "file": "Tacos 2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/71/Tacos_2.jpg/1280px-Tacos_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 4160,
+        "height": 2340,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Popo le Chien",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "05-ramen",
+      "name": "Ramen",
+      "wikipedia": "Ramen",
+      "source": {
+        "file": "Ramen, sopa de fideus.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/23/Ramen%2C_sopa_de_fideus.jpg/1280px-Ramen%2C_sopa_de_fideus.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3024,
+        "height": 2929,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Mariaaa05",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "06-bubble-tea",
+      "name": "Bubble tea",
+      "wikipedia": "Bubble tea",
+      "source": {
+        "file": "Pearl Milk Tea in Chun Shui Tang.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/53/Pearl_Milk_Tea_in_Chun_Shui_Tang.jpg/1280px-Pearl_Milk_Tea_in_Chun_Shui_Tang.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3024,
+        "height": 4032,
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "author": "Battlesnake1",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "07-croissant",
+      "name": "Croissant",
+      "wikipedia": "Croissant",
+      "source": {
+        "file": "Croissants au beurre (18953292873).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/dc/Croissants_au_beurre_%2818953292873%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1200,
+        "height": 1600,
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "author": "Herry Wibisono ( herryway )",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "08-donut",
+      "name": "Donut",
+      "wikipedia": "Doughnut",
+      "source": {
+        "file": "Doughnut.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0f/Doughnut.jpg/1280px-Doughnut.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2560,
+        "height": 1920,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Angeldm",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "09-kebab",
+      "name": "Kebab",
+      "wikipedia": "Doner kebab",
+      "source": {
+        "file": "Zwei Doener Kebab.JPG",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Zwei_Doener_Kebab.JPG/1280px-Zwei_Doener_Kebab.JPG?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1300,
+        "height": 1872,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Usien",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "10-mochi",
+      "name": "Mochi",
+      "wikipedia": "Daifuku",
+      "source": {
+        "file": "Daifuku 1.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a5/Daifuku_1.jpg/1280px-Daifuku_1.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1352,
+        "height": 845,
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "author": "No machine-readable author provided. Lyzzy assumed (based on copyright claims).",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "11-tiramisu",
+      "name": "Tiramisu",
+      "wikipedia": "Tiramisu",
+      "source": {
+        "file": "Classic Italian Tiramisu-3 (29989504485).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Classic_Italian_Tiramisu-3_%2829989504485%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1000,
+        "height": 647,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Sharon Chen from Austin, United States",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "12-paella",
+      "name": "Paella",
+      "wikipedia": "Paella",
+      "source": {
+        "file": "Cooking a paella.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d5/Cooking_a_paella.jpg/1280px-Cooking_a_paella.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3344,
+        "height": 2224,
+        "license": "CC0",
+        "licenseUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+        "author": "Jebulon",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "13-couscous",
+      "name": "Couscous",
+      "wikipedia": "Couscous",
+      "source": {
+        "file": "Moroccan cuscus, from Casablanca, September 2018.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Moroccan_cuscus%2C_from_Casablanca%2C_September_2018.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1080,
+        "height": 1191,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Lmmima",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "14-fondue",
+      "name": "Fondue",
+      "wikipedia": "Fondue",
+      "source": {
+        "file": "Fondue dish.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Fondue_dish.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1080,
+        "height": 1080,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Juliano Mendes",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "15-crepe",
+      "name": "Crêpe",
+      "wikipedia": "Crêpe",
+      "source": {
+        "file": "Crepes dsc07085.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/09/Crepes_dsc07085.jpg/1280px-Crepes_dsc07085.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2052,
+        "height": 1240,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "author": "David Monniaux",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "16-gaufre",
+      "name": "Gaufre",
+      "wikipedia": "Waffle",
+      "source": {
+        "file": "Gaufre molle.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/de/Gaufre_molle.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1200,
+        "height": 923,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "No machine-readable author provided. Jrenier assumed (based on copyright claims).",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "17-hot-dog",
+      "name": "Hot-dog",
+      "wikipedia": "Hot dog",
+      "source": {
+        "file": "Hotdog - Evan Swigart.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fb/Hotdog_-_Evan_Swigart.jpg/1280px-Hotdog_-_Evan_Swigart.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3060,
+        "height": 2033,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Evan Swigart from Chicago, USA",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "18-frites",
+      "name": "Frites",
+      "wikipedia": "French fries",
+      "source": {
+        "file": "Papas fritas (plato).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/7/7e/Papas_fritas_%28plato%29.jpg/1280px-Papas_fritas_%28plato%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 4000,
+        "height": 3000,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Horacio Cambeiro",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "19-churros",
+      "name": "Churros",
+      "wikipedia": "Churro",
+      "source": {
+        "file": "Churros en vasos en Londres - A Taste of Spain.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/42/Churros_en_vasos_en_Londres_-_A_Taste_of_Spain.jpg/1280px-Churros_en_vasos_en_Londres_-_A_Taste_of_Spain.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3512,
+        "height": 2341,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Garry Knight from London, England",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "20-macarons",
+      "name": "Macarons",
+      "wikipedia": "Macaron",
+      "source": {
+        "file": "Macarons Marcolini 04.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d1/Macarons_Marcolini_04.jpg/1280px-Macarons_Marcolini_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2848,
+        "height": 2848,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "M0tty",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "21-avocado-toast",
+      "name": "Avocado toast",
+      "wikipedia": "Avocado toast",
+      "source": {
+        "file": "Avocado toast with sesame seeds.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/6c/Avocado_toast_with_sesame_seeds.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 1080,
+        "height": 1080,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jami430",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "22-nuggets",
+      "name": "Nuggets",
+      "wikipedia": "Chicken nugget",
+      "source": {
+        "file": "McDonalds-Chicken-McNuggets.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/McDonalds-Chicken-McNuggets.jpg/1280px-McDonalds-Chicken-McNuggets.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3160,
+        "height": 1380,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Evan-Amos",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "23-glace",
+      "name": "Glace",
+      "wikipedia": "Ice cream",
+      "source": {
+        "file": "A cup of three ice cream in Victoria Peak Hong Kong.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/10/A_cup_of_three_ice_cream_in_Victoria_Peak_Hong_Kong.jpg/1280px-A_cup_of_three_ice_cream_in_Victoria_Peak_Hong_Kong.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 5184,
+        "height": 3888,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Peachyeung316",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    },
+    {
+      "file": "24-falafel",
+      "name": "Falafel",
+      "wikipedia": "Falafel",
+      "source": {
+        "file": "Falafel beim Isarinselfest München 2.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5b/Falafel_beim_Isarinselfest_M%C3%BCnchen_2.jpg/1280px-Falafel_beim_Isarinselfest_M%C3%BCnchen_2.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 5100,
+        "height": 2769,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Burkhard Mücke",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.92,
+        "x": 0.5,
+        "y": 0.5
+      }
+    }
+  ]
+}

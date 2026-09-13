@@ -1,0 +1,498 @@
+{
+  "slug": "brands",
+  "label": "Marques & logos",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84,
+    "fit": "contain",
+    "background": "#ffffff",
+    "padding": 32
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les logos proviennent de Wikimedia Commons. Le droit d’auteur et le droit des marques sont distincts : ces marques restent la propriété de leurs titulaires et leur présence dans le jeu n’implique aucune affiliation ni approbation."
+  },
+  "characters": [
+    {
+      "file": "01-apple",
+      "name": "Apple",
+      "wikipedia": "Apple Inc.",
+      "source": {
+        "file": "Apple logo black.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1280px-Apple_logo_black.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 814,
+        "height": 1000,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Original: Rob Janoff",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "02-nike",
+      "name": "Nike",
+      "wikipedia": "Nike, Inc.",
+      "source": {
+        "file": "Logo NIKE.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/1280px-Logo_NIKE.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1000,
+        "height": 356,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Carolyn Davidson , Nike",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "03-adidas",
+      "name": "Adidas",
+      "wikipedia": "Adidas",
+      "source": {
+        "file": "Adidas 2022 logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1b/Adidas_2022_logo.svg/1280px-Adidas_2022_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 304,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Adidas",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "04-puma",
+      "name": "Puma",
+      "wikipedia": "Puma (brand)",
+      "source": {
+        "file": "Puma-logo-(text).svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/ae/Puma-logo-%28text%29.svg/1280px-Puma-logo-%28text%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 159,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "CarlosEduardoPA",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "05-new-balance",
+      "name": "New Balance",
+      "wikipedia": "New Balance",
+      "source": {
+        "file": "New Balance logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/New_Balance_logo.svg/1280px-New_Balance_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 300,
+        "height": 165,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "New Balance",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "06-tiktok",
+      "name": "TikTok",
+      "wikipedia": "TikTok",
+      "source": {
+        "file": "Tiktok logo text.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Tiktok_logo_text.svg/1280px-Tiktok_logo_text.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 97,
+        "height": 22,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "ByteDance",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "07-instagram",
+      "name": "Instagram",
+      "wikipedia": "Instagram",
+      "source": {
+        "file": "Instagram logo 2022.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Instagram_logo_2022.svg/1280px-Instagram_logo_2022.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1000,
+        "height": 1000,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Instagram",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "08-youtube",
+      "name": "YouTube",
+      "wikipedia": "YouTube",
+      "source": {
+        "file": "YouTube Logo 2017.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1280px-YouTube_Logo_2017.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 114,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "YouTube",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "09-whatsapp",
+      "name": "WhatsApp",
+      "wikipedia": "WhatsApp",
+      "source": {
+        "file": "WhatsApp.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1280px-WhatsApp.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 513,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "WhatsApp",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "10-spotify",
+      "name": "Spotify",
+      "wikipedia": "Spotify",
+      "source": {
+        "file": "Spotify logo with text.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/1280px-Spotify_logo_with_text.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 559,
+        "height": 168,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Spotify",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "11-netflix",
+      "name": "Netflix",
+      "wikipedia": "Netflix",
+      "source": {
+        "file": "Netflix logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/69/Netflix_logo.svg/1280px-Netflix_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1000,
+        "height": 464,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "TM/®Netflix Inc.",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "12-discord",
+      "name": "Discord",
+      "wikipedia": "Discord",
+      "source": {
+        "file": "Discord colour textlogo (2021).svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c7/Discord_colour_textlogo_%282021%29.svg/1280px-Discord_colour_textlogo_%282021%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 448,
+        "height": 72,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "™/®Discord Inc.",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "13-twitch",
+      "name": "Twitch",
+      "wikipedia": "Twitch (service)",
+      "source": {
+        "file": "Twitch logo 2019.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Twitch_logo_2019.svg/1280px-Twitch_logo_2019.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 171,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Twitch Interactive",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "14-playstation",
+      "name": "PlayStation",
+      "wikipedia": "PlayStation",
+      "source": {
+        "file": "PlayStation logo and wordmark.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/5c/PlayStation_logo_and_wordmark.svg/1280px-PlayStation_logo_and_wordmark.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1000,
+        "height": 181,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Sony Interactive Entertainment",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "15-xbox",
+      "name": "Xbox",
+      "wikipedia": "Xbox",
+      "source": {
+        "file": "Xbox logo (2019).svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d7/Xbox_logo_%282019%29.svg/1280px-Xbox_logo_%282019%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 714,
+        "height": 568,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Microsoft Corporation",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "16-nintendo",
+      "name": "Nintendo",
+      "wikipedia": "Nintendo",
+      "source": {
+        "file": "Nintendo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Nintendo.svg/1280px-Nintendo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 600,
+        "height": 200,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Nintendo",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "17-steam",
+      "name": "Steam",
+      "wikipedia": "Steam (service)",
+      "source": {
+        "file": "Steam icon logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/1280px-Steam_icon_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 512,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Steam",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "18-mcdonalds",
+      "name": "McDonald's",
+      "wikipedia": "McDonald's",
+      "source": {
+        "file": "McDonald's Golden Arches.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/1280px-McDonald%27s_Golden_Arches.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 273,
+        "height": 239,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "McDonald's",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "19-coca-cola",
+      "name": "Coca-Cola",
+      "wikipedia": "Coca-Cola",
+      "source": {
+        "file": "Coca-Cola logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/1280px-Coca-Cola_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 161,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "The Coca-Cola Company",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "20-starbucks",
+      "name": "Starbucks",
+      "wikipedia": "Starbucks",
+      "source": {
+        "file": "Starbucks coffee wordmark.png",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5e/Starbucks_coffee_wordmark.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 578,
+        "height": 63,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Unknown author Unknown author",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "21-red-bull",
+      "name": "Red Bull",
+      "wikipedia": "Red Bull",
+      "source": {
+        "file": "Logo of Red bull.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/91/Logo_of_Red_bull.svg/1280px-Logo_of_Red_bull.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 124,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Red Bull GmbH",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "22-amazon",
+      "name": "Amazon",
+      "wikipedia": "Amazon (company)",
+      "source": {
+        "file": "Amazon logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/1280px-Amazon_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 603,
+        "height": 182,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Amazon.com , Inc.",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "23-tesla",
+      "name": "Tesla",
+      "wikipedia": "Tesla, Inc.",
+      "source": {
+        "file": "Tesla Motors.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1280px-Tesla_Motors.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 279,
+        "height": 360,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Tesla",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "24-lego",
+      "name": "Lego",
+      "wikipedia": "Lego",
+      "source": {
+        "file": "LEGO logo.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/LEGO_logo.svg/1280px-LEGO_logo.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 512,
+        "height": 512,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "The Lego Group",
+        "restrictions": "trademarked"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { createHash } from 'crypto';
 import { BadRequestException } from '@nestjs/common';
-import { canonicalRecipe, Recipe } from './catalogContract';
+import { canonicalRecipe, Recipe, visibleKey } from './catalogContract';
 export type { Recipe } from './catalogContract';
 export { ITEMS_V2, HAIR_COLORS, visibleKey } from './catalogContract';
 export const SLOTS = [
@@ -11,7 +11,7 @@ export const SLOTS = [
   'outfit',
   'backdrop',
 ] as const;
-export type Slot = typeof SLOTS[number];
+export type Slot = (typeof SLOTS)[number];
 export const ITEMS = {
   hair: ['hair-none', 'hair-quiff'],
   glasses: ['glasses-none', 'glasses-round'],
@@ -41,7 +41,6 @@ export function recipe(value: unknown): Recipe {
   if (!result) fail('INVALID_RECIPE', 'Version ou équipement inconnu.');
   return result;
 }
-import { visibleKey } from './catalogContract';
 export function portraitHash(r: Recipe): string {
   return hash([`renderer-${r.catalogVersion}`, r]);
 }

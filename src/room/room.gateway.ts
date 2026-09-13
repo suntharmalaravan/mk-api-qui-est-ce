@@ -11,6 +11,7 @@ import { Logger, OnModuleDestroy, Optional } from '@nestjs/common';
 import { AtelierGameService } from '../atelier/atelier-game.service';
 import { Socket, Server } from 'socket.io';
 import { RoomService } from './room.service';
+import { LobbyService } from './lobby.service';
 import { ImageService } from 'src/image/image.service';
 import { RoomImageService } from 'src/room-image/room-image.service';
 import { UserService } from 'src/user/user.service';
@@ -87,6 +88,7 @@ export class RoomGateway
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
     @Optional() private readonly atelierGame?: AtelierGameService,
+    @Optional() private readonly lobby?: LobbyService,
   ) {}
 
   afterInit(server: Server<any, any, any, SocketData>) {
@@ -327,7 +329,9 @@ export class RoomGateway
       if (persistedUserId !== session.userId) return;
 
       const gameStarted =
-        room.hostcharacterid !== null || room.guestcharacterid !== null;
+        !!room.selection_started_at ||
+        room.hostcharacterid !== null ||
+        room.guestcharacterid !== null;
 
       if (session.role === 'guest' && !gameStarted) {
         const reopened = await this.roomService.reopenRoomAfterGuestLeaves(
@@ -339,8 +343,8 @@ export class RoomGateway
             roomId: room.id,
             roomName: room.name,
           });
+          return;
         }
-        return;
       }
 
       const user = await this.userService.findOne(session.userId);
@@ -835,117 +839,65 @@ export class RoomGateway
     }
   }
 
+  @SubscribeMessage('get lobby')
+  async getLobby(socket: Socket, data: any) {
+    const session = this.authorizeRoomEvent(socket, data?.name);
+    if (!session || !this.lobby)
+      return { error: { message: 'Salon indisponible.' } };
+    try {
+      return await this.lobby.snapshot(data.name, session.userId);
+    } catch (e) {
+      return { error: { message: e.message || 'Salon indisponible.' } };
+    }
+  }
+  @SubscribeMessage('change lobby theme')
+  async changeLobbyTheme(socket: Socket, data: any) {
+    const session = this.authorizeRoomEvent(
+      socket,
+      data?.name,
+      undefined,
+      'host',
+    );
+    if (!session || !this.lobby)
+      return { error: { message: 'Seul l’hôte peut changer le thème.' } };
+    try {
+      const settings = await this.lobby.change(
+        data.name,
+        session.userId,
+        data,
+        data.revision,
+      );
+      this.wss.to(data.name).emit('lobby theme changed', settings);
+      return settings;
+    } catch (e) {
+      return { error: { message: e.message || 'Thème indisponible.' } };
+    }
+  }
   @SubscribeMessage('start')
   async startGame(socket: Socket, data: any) {
-    console.log('🚀 Event: start game', {
-      socketId: socket.id,
-      roomName: data?.name,
-      timestamp: new Date().toISOString(),
-    });
-
+    const session = this.authorizeRoomEvent(
+      socket,
+      data?.name,
+      undefined,
+      'host',
+    );
+    if (!session) return;
     try {
-      if (!this.authorizeRoomEvent(socket, data?.name, undefined, 'host'))
-        return;
-      if (!data.name) {
-        console.log('❌ Validation failed for start game:', {
-          socketId: socket.id,
-          missingFields: { name: !data.name },
-        });
-        socket.emit('error', { message: 'Room name is required' });
-        return;
-      }
-
-      // Récupérer les informations de la room
-      console.log('🔍 Looking for room:', data.name);
-      const room = await this.roomService.findByName(data.name);
-      if (!room) {
-        console.log('⚠️ Room not found:', {
-          socketId: socket.id,
-          roomName: data.name,
-        });
-        socket.emit('error', { message: 'Room not found' });
-        return;
-      }
-      if (!room.guestplayerid) {
-        this.emitError(
-          socket,
-          'ROOM_NOT_READY',
-          'A guest must join before the game can start',
-        );
-        return;
-      }
-      if (room.status !== 'closed') {
-        this.emitError(socket, 'INVALID_GAME_STATE', 'Game is not active');
-        return;
-      }
-      console.log('✅ Room found:', {
-        socketId: socket.id,
-        roomId: room.id,
-        roomName: room.name,
-        category: room.category,
-        mode: room.mode,
-        deck_id: room.deck_id,
-      });
-
-      // Récupérer les images selon le mode
-      let images: any[];
-
-      if (room.mode === 'custom' && room.deck_id) {
-        // Mode custom avec deck: récupérer les images du deck
-        console.log('🖼️ Fetching images from deck:', room.deck_id);
-        images = await this.imageService.getDeckImagesById(room.deck_id);
-        console.log('📸 Deck images retrieved:', {
-          deckId: room.deck_id,
-          imageCount: images.length,
-        });
-      } else if (room.mode === 'custom' && room.custom_library_user_id) {
-        // Mode custom legacy: récupérer toutes les images de l'utilisateur
-        console.log(
-          '🖼️ Fetching user library images:',
-          room.custom_library_user_id,
-        );
-        images = await this.imageService.findByUserId(
-          room.custom_library_user_id,
-        );
-        console.log('📸 User library images retrieved:', {
-          userId: room.custom_library_user_id,
-          imageCount: images.length,
-        });
-      } else {
-        // Mode catégorie
-        console.log('🖼️ Fetching images for category:', room.category);
-        images = await this.imageService.getUrlsByCategory(room.category);
-        console.log('📸 Category images retrieved:', {
-          category: room.category,
-          imageCount: images.length,
-        });
-      }
-
-      if (images.length < 18) {
-        console.log('❌ Not enough images:', { count: images.length });
-        socket.emit('error', {
-          message: "Pas assez d'images pour démarrer la partie (minimum 18)",
-        });
-        return;
-      }
-
-      // Envoyer les données avec la catégorie et les images
-      const gameData = {
-        roomName: data.name,
-        category: room.category,
-        images: images,
-      };
-      console.log('📡 Emitting game started event:', {
-        socketId: socket.id,
-        roomName: data.name,
-        imageCount: images.length,
-        mode: room.mode,
-      });
-      socket.to(data.name).emit('game started', gameData);
-      socket.emit('game started', gameData);
+      if (!this.lobby) throw new Error('Salon indisponible.');
+      const game = await this.lobby.start(
+        data.name,
+        session.userId,
+        data.revision,
+      );
+      this.wss.to(data.name).emit('game started', game);
     } catch (error) {
-      console.error('Error starting game:', error);
-      socket.emit('error', { message: 'Failed to start game' });
+      this.emitError(
+        socket,
+        'START_FAILED',
+        error instanceof Error
+          ? error.message
+          : 'Impossible de lancer la partie.',
+      );
     }
   }
 
@@ -1169,14 +1121,26 @@ export class RoomGateway
   async selectCharacter(socket: Socket, data: any) {
     if (this.atelierGame?.enabled) {
       if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
-      if (!this.validPositiveInteger(socket, data?.characterId, 'characterId')) return;
+      if (!this.validPositiveInteger(socket, data?.characterId, 'characterId'))
+        return;
       try {
-        const result = await this.atelierGame.guess(data.name, Number(socket.data.authenticatedUserId), data.player, data.characterId);
+        const result = await this.atelierGame.guess(
+          data.name,
+          Number(socket.data.authenticatedUserId),
+          data.player,
+          data.characterId,
+        );
         socket.emit('select result', result);
-        if (!result.duplicate) socket.to(data.name).emit('select result', result);
+        if (!result.duplicate)
+          socket.to(data.name).emit('select result', result);
       } catch (error) {
-        const response = typeof error.getResponse === 'function' ? error.getResponse() : null;
-        this.emitError(socket, response?.code || 'GUESS_FAILED', response?.message || 'Impossible de valider la tentative.');
+        const response =
+          typeof error.getResponse === 'function' ? error.getResponse() : null;
+        this.emitError(
+          socket,
+          response?.code || 'GUESS_FAILED',
+          response?.message || 'Impossible de valider la tentative.',
+        );
       }
       return;
     }
@@ -1430,7 +1394,11 @@ export class RoomGateway
   async playerLostLifes(socket: Socket, data: any) {
     if (this.atelierGame?.enabled) {
       // Client self-reports can no longer finish a match or mint rewards.
-      this.emitError(socket, 'SERVER_LIVES', 'Les vies sont vérifiées par le serveur.');
+      this.emitError(
+        socket,
+        'SERVER_LIVES',
+        'Les vies sont vérifiées par le serveur.',
+      );
       return;
     }
     try {
@@ -1591,11 +1559,29 @@ export class RoomGateway
         userId,
         data.category,
       );
+      if (this.lobby && data.mode === 'custom') {
+        try {
+          await this.lobby.change(
+            newRoom.name,
+            userId,
+            { mode: 'custom', deckId: Number(data.deckId) },
+            0,
+          );
+        } catch (e) {
+          await this.roomService.remove(newRoom.id);
+          throw e;
+        }
+        newRoom.category = 'custom';
+        newRoom.mode = 'custom';
+        newRoom.deck_id = Number(data.deckId);
+      }
 
       // The invitation must be emitted while the host is still in the old room.
       socket.to(previousSession.roomName).emit('rematch invitation', {
         newRoomName: data.newRoomName,
-        category: data.category,
+        category: newRoom.category,
+        mode: newRoom.mode,
+        deckId: newRoom.deck_id,
         hostId: userId,
         roomId: newRoom.id,
       });
@@ -1714,7 +1700,10 @@ export class RoomGateway
 
       await this.bindSocketToRoom(socket, room, userId, role);
       socket.emit('room resumed', {
-        ...(this.atelierGame?.enabled ? await this.atelierGame.state(room.name) : {}),
+        ...(this.lobby ? await this.lobby.snapshot(room.name, userId) : {}),
+        ...(this.atelierGame?.enabled
+          ? await this.atelierGame.state(room.name)
+          : {}),
         roomId: room.id,
         roomName: room.name,
         role,
@@ -1761,10 +1750,15 @@ export class RoomGateway
 
       delete socket.data.roomSession;
       this.clearPendingDisconnect(this.sessionKey(session));
-      const gameStarted = !!(room.hostcharacterid || room.guestcharacterid);
+      const gameStarted = !!(
+        room.selection_started_at ||
+        room.hostcharacterid ||
+        room.guestcharacterid
+      );
 
+      let reopened = false;
       if (session.role === 'guest' && !gameStarted) {
-        const reopened = await this.roomService.reopenRoomAfterGuestLeaves(
+        reopened = await this.roomService.reopenRoomAfterGuestLeaves(
           room.name,
           session.userId,
         );
@@ -1774,7 +1768,8 @@ export class RoomGateway
             roomName: room.name,
           });
         }
-      } else {
+      }
+      if (!reopened) {
         socket.to(room.name).emit('quit', { player: userId });
         await this.roomImageService.removeRoomImage(room.id);
         await this.roomService.remove(room.id);

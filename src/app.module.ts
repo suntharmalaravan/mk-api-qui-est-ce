@@ -11,6 +11,8 @@ import { RoomModule } from './room/room.module';
 import { ImageModule } from './image/image.module';
 import { RoomImageModule } from './room-image/room-image.module';
 import { AtelierModule } from './atelier/atelier.module';
+import { ProgressionModule } from './progression/progression.module';
+import { LeaderboardModule } from './leaderboard/leaderboard.module';
 
 @Module({
   imports: [
@@ -22,9 +24,10 @@ import { AtelierModule } from './atelier/atelier.module';
     ImageModule,
     RoomImageModule,
     AtelierModule,
+    ProgressionModule,
+    LeaderboardModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoomGateway],
 })
-export class AppModule { }
-
+export class AppModule {}

@@ -1,0 +1,471 @@
+{
+  "slug": "actors",
+  "label": "Acteurs & actrices",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les portraits Wikimedia Commons doivent être crédités selon la licence indiquée pour chaque image."
+  },
+  "characters": [
+    {
+      "file": "01-jenna-ortega",
+      "name": "Jenna Ortega",
+      "wikipedia": "Jenna Ortega",
+      "source": {
+        "file": "Jenna Ortega-63799 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/42/Jenna_Ortega-63799_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1889,
+        "height": 2518,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Harald Krichel"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "02-zendaya",
+      "name": "Zendaya",
+      "wikipedia": "Zendaya",
+      "source": {
+        "file": "Zendaya-byPhilipRomano.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Zendaya-byPhilipRomano.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 4024,
+        "height": 6048,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "PhilipRomano"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "03-tom-holland",
+      "name": "Tom Holland",
+      "wikipedia": "Tom Holland",
+      "source": {
+        "file": "TomHolland-byPhilipRomano.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/18/TomHolland-byPhilipRomano.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 4024,
+        "height": 6048,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "PhilipRomano"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "04-timothee-chalamet",
+      "name": "Timothée Chalamet",
+      "wikipedia": "Timothée Chalamet",
+      "source": {
+        "file": "Timothée Chalamet-63541 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Timoth%C3%A9e_Chalamet-63541_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2641,
+        "height": 3778,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Harald Krichel"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "05-millie-bobby-brown",
+      "name": "Millie Bobby Brown",
+      "wikipedia": "Millie Bobby Brown",
+      "source": {
+        "file": "Millie Bobby Brown - MBB - 4 - SFM5 - July 10, 2022 at Stranger Fan Meet 5 People Convention (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Millie_Bobby_Brown_-_MBB_-_4_-_SFM5_-_July_10%2C_2022_at_Stranger_Fan_Meet_5_People_Convention_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1860,
+        "height": 2349,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Laviru Koruwakankanamge"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "06-anya-taylor-joy",
+      "name": "Anya Taylor-Joy",
+      "wikipedia": "Anya Taylor-Joy",
+      "source": {
+        "file": "Anya Taylor-Joy at the 2025 Toronto International Film Festival. 07 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/7a/Anya_Taylor-Joy_at_the_2025_Toronto_International_Film_Festival._07_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2358,
+        "height": 2822,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Sara Komatsu"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "07-sydney-sweeney",
+      "name": "Sydney Sweeney",
+      "wikipedia": "Sydney Sweeney",
+      "source": {
+        "file": "Sydney Sweeney at the 2024 Toronto International Film Festival 04 (Cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/35/Sydney_Sweeney_at_the_2024_Toronto_International_Film_Festival_04_%28Cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1322,
+        "height": 1762,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jay Dixit"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "08-jacob-elordi",
+      "name": "Jacob Elordi",
+      "wikipedia": "Jacob Elordi",
+      "source": {
+        "file": "JacobElordi-TIFF2025-01 (cropped 2).png",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/JacobElordi-TIFF2025-01_%28cropped_2%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 3094,
+        "height": 4246,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "JoshPopov"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "09-florence-pugh",
+      "name": "Florence Pugh",
+      "wikipedia": "Florence Pugh",
+      "source": {
+        "file": "Florence Pugh at the 2024 Toronto International Film Festival 13 (cropped 2 – color adjusted).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Florence_Pugh_at_the_2024_Toronto_International_Film_Festival_13_%28cropped_2_%E2%80%93_color_adjusted%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 830,
+        "height": 1169,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Frank Sun"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "10-saoirse-ronan",
+      "name": "Saoirse Ronan",
+      "wikipedia": "Saoirse Ronan",
+      "source": {
+        "file": "Mary Queen of Scots premiere (31825261767) (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/61/Mary_Queen_of_Scots_premiere_%2831825261767%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1529,
+        "height": 2202,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Scottish Government"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "11-hunter-schafer",
+      "name": "Hunter Schafer",
+      "wikipedia": "Hunter Schafer",
+      "source": {
+        "file": "Hunter Schafer-64616 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Hunter_Schafer-64616_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2160,
+        "height": 2804,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Harald Krichel"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "12-ayo-edebiri",
+      "name": "Ayo Edebiri",
+      "wikipedia": "Ayo Edebiri",
+      "source": {
+        "file": "Ayo Edebiri After The Hunt-43 (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/98/Ayo_Edebiri_After_The_Hunt-43_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1880,
+        "height": 2250,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Bryan Berlin"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "13-pedro-pascal",
+      "name": "Pedro Pascal",
+      "wikipedia": "Pedro Pascal",
+      "source": {
+        "file": "Pedro Pascal by Gage Skidmore.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Pedro_Pascal_by_Gage_Skidmore.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1464,
+        "height": 2195,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Gage Skidmore"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "14-margot-robbie",
+      "name": "Margot Robbie",
+      "wikipedia": "Margot Robbie",
+      "source": {
+        "file": "SYDNEY, AUSTRALIA - JANUARY 23 Margot Robbie arrives at the Australian Premiere of 'I, Tonya' on January 23, 2018 in Sydney, Australia (25980753838) (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/87/SYDNEY%2C_AUSTRALIA_-_JANUARY_23_Margot_Robbie_arrives_at_the_Australian_Premiere_of_%27I%2C_Tonya%27_on_January_23%2C_2018_in_Sydney%2C_Australia_%2825980753838%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 492,
+        "height": 679,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Eva Rinaldi from Sydney Australia"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "15-ryan-gosling",
+      "name": "Ryan Gosling",
+      "wikipedia": "Ryan Gosling",
+      "source": {
+        "file": "GoslingBFI081223 (22 of 30) (53388157347) (cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/62/GoslingBFI081223_%2822_of_30%29_%2853388157347%29_%28cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 972,
+        "height": 1294,
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "author": "Raph_PH"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "16-keanu-reeves",
+      "name": "Keanu Reeves",
+      "wikipedia": "Keanu Reeves",
+      "source": {
+        "file": "Keanu Reeves at TIFF 2025 02 (Cropped).jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b4/Keanu_Reeves_at_TIFF_2025_02_%28Cropped%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2259,
+        "height": 3010,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Gabriel Hutchinson"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "17-cillian-murphy",
+      "name": "Cillian Murphy",
+      "wikipedia": "Cillian Murphy",
+      "source": {
+        "file": "CillianMurphy-TIFF2025-01-Cropped (cropped).png",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/9/9e/CillianMurphy-TIFF2025-01-Cropped_%28cropped%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2357,
+        "height": 2843,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "JoshPopov"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "18-emma-stone",
+      "name": "Emma Stone",
+      "wikipedia": "Emma Stone",
+      "source": {
+        "file": "Emma Stone at the 2025 Cannes Film Festival 04.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Emma_Stone_at_the_2025_Cannes_Film_Festival_04.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 5504,
+        "height": 8256,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Gabriel Hutchinson"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "19-daniel-radcliffe",
+      "name": "Daniel Radcliffe",
+      "wikipedia": "Daniel Radcliffe",
+      "source": {
+        "file": "Daniel Radcliffe in July 2015.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Daniel_Radcliffe_in_July_2015.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1295,
+        "height": 1860,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Gage Skidmore from Peoria, AZ, United States of America"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "20-emma-watson",
+      "name": "Emma Watson",
+      "wikipedia": "Emma Watson",
+      "source": {
+        "file": "Emma Watson 2013.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/7f/Emma_Watson_2013.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 492,
+        "height": 660,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Georges Biard"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "21-robert-pattinson",
+      "name": "Robert Pattinson",
+      "wikipedia": "Robert Pattinson",
+      "source": {
+        "file": "Robert Pattinson at Berlinale 2025.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/8c/Robert_Pattinson_at_Berlinale_2025.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 2236,
+        "height": 2964,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Elena Ternovaja"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "22-andrew-garfield",
+      "name": "Andrew Garfield",
+      "wikipedia": "Andrew Garfield",
+      "source": {
+        "file": "Andrew Garfield.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/5/53/Andrew_Garfield.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 1688,
+        "height": 2313,
+        "license": "CC BY 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/4.0",
+        "author": "Raph_PH"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "23-lupita-nyongo",
+      "name": "Lupita Nyong'o",
+      "wikipedia": "Lupita Nyong'o",
+      "source": {
+        "file": "LupitaNyongo-byPhilipRomano3.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/LupitaNyongo-byPhilipRomano3.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 4024,
+        "height": 6048,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "PhilipRomano"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    },
+    {
+      "file": "24-austin-butler",
+      "name": "Austin Butler",
+      "wikipedia": "Austin Butler",
+      "source": {
+        "file": "Austin Butler at the 2025 Cannes Film Festival 02.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/05/Austin_Butler_at_the_2025_Cannes_Film_Festival_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+        "width": 4956,
+        "height": 6938,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Gabriel Hutchinson"
+      },
+      "crop": {
+        "zoom": 0.78,
+        "x": 0.5,
+        "y": 0.32
+      }
+    }
+  ]
+}

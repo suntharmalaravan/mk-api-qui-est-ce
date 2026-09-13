@@ -1,0 +1,83 @@
+{
+  "slug": "music_artists",
+  "label": "Stars de la musique",
+  "defaultRestrictions": "personality-rights",
+  "characters": [
+    { "file": "01-bad-bunny", "name": "Bad Bunny", "wikipedia": "Bad Bunny" },
+    {
+      "file": "02-taylor-swift",
+      "name": "Taylor Swift",
+      "wikipedia": "Taylor Swift"
+    },
+    {
+      "file": "03-the-weeknd",
+      "name": "The Weeknd",
+      "wikipedia": "The Weeknd"
+    },
+    { "file": "04-drake", "name": "Drake", "wikipedia": "Drake (musician)" },
+    {
+      "file": "05-billie-eilish",
+      "name": "Billie Eilish",
+      "wikipedia": "Billie Eilish"
+    },
+    {
+      "file": "06-kendrick-lamar",
+      "name": "Kendrick Lamar",
+      "wikipedia": "Kendrick Lamar"
+    },
+    {
+      "file": "07-bruno-mars",
+      "name": "Bruno Mars",
+      "wikipedia": "Bruno Mars"
+    },
+    {
+      "file": "08-ariana-grande",
+      "name": "Ariana Grande",
+      "wikipedia": "Ariana Grande"
+    },
+    {
+      "file": "09-sabrina-carpenter",
+      "name": "Sabrina Carpenter",
+      "wikipedia": "Sabrina Carpenter"
+    },
+    { "file": "10-lady-gaga", "name": "Lady Gaga", "wikipedia": "Lady Gaga" },
+    { "file": "11-dua-lipa", "name": "Dua Lipa", "wikipedia": "Dua Lipa" },
+    {
+      "file": "12-olivia-rodrigo",
+      "name": "Olivia Rodrigo",
+      "wikipedia": "Olivia Rodrigo"
+    },
+    { "file": "13-sza", "name": "SZA", "wikipedia": "SZA" },
+    { "file": "14-doja-cat", "name": "Doja Cat", "wikipedia": "Doja Cat" },
+    { "file": "15-rihanna", "name": "Rihanna", "wikipedia": "Rihanna" },
+    { "file": "16-beyonce", "name": "Beyoncé", "wikipedia": "Beyoncé" },
+    {
+      "file": "17-justin-bieber",
+      "name": "Justin Bieber",
+      "wikipedia": "Justin Bieber"
+    },
+    {
+      "file": "18-harry-styles",
+      "name": "Harry Styles",
+      "wikipedia": "Harry Styles"
+    },
+    {
+      "file": "19-ed-sheeran",
+      "name": "Ed Sheeran",
+      "wikipedia": "Ed Sheeran"
+    },
+    {
+      "file": "20-post-malone",
+      "name": "Post Malone",
+      "wikipedia": "Post Malone"
+    },
+    {
+      "file": "21-aya-nakamura",
+      "name": "Aya Nakamura",
+      "wikipedia": "Aya Nakamura"
+    },
+    { "file": "22-stromae", "name": "Stromae", "wikipedia": "Stromae" },
+    { "file": "23-angele", "name": "Angèle", "wikipedia": "Angèle (singer)" },
+    { "file": "24-gims", "name": "Gims", "wikipedia": "Gims" }
+  ]
+}

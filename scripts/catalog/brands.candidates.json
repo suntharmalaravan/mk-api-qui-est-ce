@@ -1,0 +1,61 @@
+{
+  "slug": "brands",
+  "label": "Marques & logos",
+  "wikidataProperty": "P154",
+  "defaultRestrictions": "trademarked",
+  "render": {
+    "fit": "contain",
+    "background": "#ffffff",
+    "padding": 32
+  },
+  "attributionNote": "Les logos proviennent de Wikimedia Commons. Le droit d’auteur et le droit des marques sont distincts : ces marques restent la propriété de leurs titulaires et leur présence dans le jeu n’implique aucune affiliation ni approbation.",
+  "characters": [
+    { "file": "01-apple", "name": "Apple", "wikipedia": "Apple Inc." },
+    { "file": "02-nike", "name": "Nike", "wikipedia": "Nike, Inc." },
+    { "file": "03-adidas", "name": "Adidas", "wikipedia": "Adidas" },
+    { "file": "04-puma", "name": "Puma", "wikipedia": "Puma (brand)" },
+    {
+      "file": "05-new-balance",
+      "name": "New Balance",
+      "wikipedia": "New Balance"
+    },
+    { "file": "06-tiktok", "name": "TikTok", "wikipedia": "TikTok" },
+    { "file": "07-instagram", "name": "Instagram", "wikipedia": "Instagram" },
+    {
+      "file": "08-youtube",
+      "name": "YouTube",
+      "wikipedia": "YouTube",
+      "sourceFile": "YouTube Logo 2017.svg"
+    },
+    { "file": "09-whatsapp", "name": "WhatsApp", "wikipedia": "WhatsApp" },
+    { "file": "10-spotify", "name": "Spotify", "wikipedia": "Spotify" },
+    { "file": "11-netflix", "name": "Netflix", "wikipedia": "Netflix" },
+    { "file": "12-discord", "name": "Discord", "wikipedia": "Discord" },
+    {
+      "file": "13-twitch",
+      "name": "Twitch",
+      "wikipedia": "Twitch (service)",
+      "sourceFile": "Twitch logo 2019.svg"
+    },
+    {
+      "file": "14-playstation",
+      "name": "PlayStation",
+      "wikipedia": "PlayStation"
+    },
+    { "file": "15-xbox", "name": "Xbox", "wikipedia": "Xbox" },
+    { "file": "16-nintendo", "name": "Nintendo", "wikipedia": "Nintendo" },
+    { "file": "17-steam", "name": "Steam", "wikipedia": "Steam (service)" },
+    {
+      "file": "18-mcdonalds",
+      "name": "McDonald's",
+      "wikipedia": "McDonald's",
+      "sourceFile": "McDonald's Golden Arches.svg"
+    },
+    { "file": "19-coca-cola", "name": "Coca-Cola", "wikipedia": "Coca-Cola" },
+    { "file": "20-starbucks", "name": "Starbucks", "wikipedia": "Starbucks" },
+    { "file": "21-red-bull", "name": "Red Bull", "wikipedia": "Red Bull" },
+    { "file": "22-amazon", "name": "Amazon", "wikipedia": "Amazon (company)" },
+    { "file": "23-tesla", "name": "Tesla", "wikipedia": "Tesla, Inc." },
+    { "file": "24-lego", "name": "Lego", "wikipedia": "Lego" }
+  ]
+}

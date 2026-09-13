@@ -2,6 +2,12 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export class Room {
+  @Column({ default: 0 })
+  lobby_revision: number;
+
+  @Column({ type: 'timestamptz', nullable: true })
+  selection_started_at: Date | null;
+
   @PrimaryGeneratedColumn()
   id: number;
 
