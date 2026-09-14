@@ -4,6 +4,9 @@ import { Repository, IsNull, DataSource } from 'typeorm';
 import { Image as ImageEntity } from './entities/image.entity';
 import { Deck } from './entities/deck.entity';
 
+/** Cards a game needs, as enforced by LobbyService.selection. */
+const MIN_PLAYABLE_CARDS = 18;
+
 @Injectable()
 export class ImageService {
   constructor(
@@ -56,22 +59,25 @@ export class ImageService {
   }
 
   async getCategories() {
-    // 1. Récupérer les noms des catégories distinctes, hors catégories masquées
-    const categoriesRaw = await this.imageRepository
+    // 1. Les catégories jouables, hors catégories masquées. Une catégorie de
+    //    moins de 18 cartes apparaissait dans la liste et n'échouait qu'au
+    //    moment où on la choisissait, dans le lobby comme à la création.
+    const playable = await this.imageRepository
       .createQueryBuilder('image')
-      .select('category')
-      .where('user_id IS NULL')
+      .select('image.category', 'category')
+      .addSelect('COUNT(*)::int', 'count')
+      .where('image.user_id IS NULL')
+      .andWhere('image.category IS NOT NULL')
       .andWhere(
         'NOT EXISTS (SELECT 1 FROM category_setting cs WHERE cs.slug = image.category AND cs.visible = false)',
       )
-      .distinct(true)
-      .getRawMany();
-
-    const categoryNames = categoriesRaw.map((c) => c.category);
+      .groupBy('image.category')
+      .having('COUNT(*) >= :minimum', { minimum: MIN_PLAYABLE_CARDS })
+      .getRawMany<{ category: string; count: number }>();
 
     // 2. Pour chaque catégorie, récupérer 3 images pour la preview
     const categoriesWithImages = await Promise.all(
-      categoryNames.map(async (categoryName) => {
+      playable.map(async ({ category: categoryName, count }) => {
         const images = await this.imageRepository.find({
           where: { category: categoryName, user_id: IsNull() },
           take: 3,
@@ -80,6 +86,7 @@ export class ImageService {
 
         return {
           category: categoryName,
+          count: Number(count),
           previewImages: images,
         };
       }),

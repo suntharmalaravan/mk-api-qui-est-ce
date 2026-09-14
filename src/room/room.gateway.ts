@@ -205,6 +205,31 @@ export class RoomGateway
     return { error: { code, message } };
   }
 
+  /**
+   * A refused lobby request. Business refusals keep their message and code;
+   * anything else is logged and replaced by the fallback, so a database
+   * error never reaches the player's screen.
+   */
+  private lobbyError(error: any, fallback: string) {
+    const response =
+      typeof error?.getResponse === 'function' ? error.getResponse() : null;
+    if (!response) {
+      this.logger.error(
+        `Lobby request failed: ${fallback}`,
+        error instanceof Error ? error.stack : String(error),
+      );
+    }
+    return {
+      error: {
+        code:
+          response && typeof response === 'object' && response.code
+            ? response.code
+            : undefined,
+        message: response ? error.message : fallback,
+      },
+    };
+  }
+
   private other(role: PlayerRole): PlayerRole {
     return role === 'host' ? 'guest' : 'host';
   }
@@ -947,7 +972,7 @@ export class RoomGateway
     try {
       return await this.lobby.snapshot(data.name, session.userId);
     } catch (e) {
-      return { error: { message: e.message || 'Salon indisponible.' } };
+      return this.lobbyError(e, 'Salon indisponible.');
     }
   }
   @SubscribeMessage('change lobby theme')
@@ -970,7 +995,7 @@ export class RoomGateway
       this.wss.to(data.name).emit('lobby theme changed', settings);
       return settings;
     } catch (e) {
-      return { error: { message: e.message || 'Thème indisponible.' } };
+      return this.lobbyError(e, 'Thème indisponible.');
     }
   }
   @SubscribeMessage('start')

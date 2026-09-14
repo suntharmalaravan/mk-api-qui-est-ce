@@ -35,9 +35,14 @@ export class LobbyService {
         [input.deckId],
       );
     } else {
+      // Same rule as room creation: any catalog name up to 50 characters.
+      // A slug-only pattern refused names with accents or spaces that the
+      // catalog lists and room creation accepts, so the lobby could neither
+      // load them nor switch to them. The name only reaches SQL as a parameter.
       if (
         typeof input.category !== 'string' ||
-        !/^[a-zA-Z0-9_-]{1,50}$/.test(input.category)
+        !input.category.trim() ||
+        input.category.length > 50
       )
         throw new BadRequestException('Thème invalide.');
       label = input.category;
@@ -121,8 +126,12 @@ export class LobbyService {
         room.guestcharacterid
       )
         throw new ConflictException('La partie a déjà commencé.');
+      // Coded: the client resynchronises and retries once on its own.
       if (room.lobby_revision !== revision)
-        throw new ConflictException('Le thème a changé. Réessaie.');
+        throw new ConflictException({
+          code: 'STALE_REVISION',
+          message: 'Le thème a changé. Réessaie.',
+        });
       // Only new choices are refused: a lobby already set on a category hidden
       // afterwards stays startable, since payload() does not re-check it.
       if (

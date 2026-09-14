@@ -139,6 +139,26 @@ describe('LobbyService', () => {
       ConflictException,
     );
   });
+  it('accepts catalog names with accents or spaces, like room creation', async () => {
+    const result = await service.change(
+      'ABCDE',
+      1,
+      { mode: 'category', category: 'célébrités du web' },
+      0,
+    );
+    expect(result).toMatchObject({
+      category: 'célébrités du web',
+      revision: 1,
+    });
+  });
+  it('tags a stale revision so the client can resynchronise on its own', async () => {
+    room.lobby_revision = 2;
+    const error = await service
+      .change('ABCDE', 1, { mode: 'category', category: 'animals' }, 0)
+      .catch((e) => e);
+    expect(error).toBeInstanceOf(ConflictException);
+    expect(error.getResponse()).toMatchObject({ code: 'STALE_REVISION' });
+  });
   it('freezes the deck of a started game for character choices and guesses', async () => {
     await service.start('ABCDE', 1, 0);
     expect(frozenDeck).toEqual(images.map((image) => image.id));
