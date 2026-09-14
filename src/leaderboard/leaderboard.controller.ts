@@ -7,6 +7,14 @@ import { LeaderboardService } from './leaderboard.service';
 export class LeaderboardController {
   constructor(private readonly leaderboard: LeaderboardService) {}
 
+  @Get()
+  allTime(
+    @Request() request: { user: { id: number } },
+    @Query('scope') scope?: string,
+  ) {
+    return this.leaderboard.getAllTime(Number(request.user.id), scope);
+  }
+
   /** `?date=YYYY-MM-DD`, defaults to today (Paris time). */
   @Get('daily')
   daily(

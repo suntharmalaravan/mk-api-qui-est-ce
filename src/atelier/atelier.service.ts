@@ -21,7 +21,7 @@ import {
   COLORS,
   fail,
   hash,
-  ITEMS_V2,
+  ITEMS_V3,
   HAIR_COLORS,
   portraitHash,
   recipe,
@@ -146,10 +146,10 @@ export class AtelierService implements OnModuleInit {
   catalog() {
     this.requireEnabled();
     return {
-      catalogVersion: 2,
-      rendererVersion: 2,
-      supportedCatalogVersions: [1, 2],
-      slots: ITEMS_V2,
+      catalogVersion: 3,
+      rendererVersion: 3,
+      supportedCatalogVersions: [1, 2, 3],
+      slots: ITEMS_V3,
       hairColors: HAIR_COLORS,
       colors: COLORS,
       characterLimit: 60,

@@ -8,11 +8,14 @@ export class User {
   @Column()
   username: string;
 
+  @Column()
+  public_identifier: string;
+
   @Column({ default: 0, nullable: false })
   score: number;
 
-  @Column()
-  password: string;
+  @Column({ type: 'varchar', nullable: true })
+  password: string | null;
 
   @Column({ default: 'debutant', nullable: false })
   title: string;

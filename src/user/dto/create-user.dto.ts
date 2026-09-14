@@ -1,3 +1,4 @@
+import { Transform } from 'class-transformer';
 import {
   IsString,
   MinLength,
@@ -14,6 +15,7 @@ export class CreateUserDto {
   @Matches(/^[a-zA-Z0-9_]+$/, {
     message: 'Username can only contain letters, numbers and underscores',
   })
+  @Transform(({ value }) => (typeof value === 'string' ? value.trim() : value))
   username: string;
 
   @IsString()

@@ -66,6 +66,26 @@ describe('RoomGateway socket lifecycle', () => {
     };
   });
 
+  it('uses the authenticated invitation transaction before binding the guest', async () => {
+    const invitationId='58c61d15-35ab-469c-947c-bd04831f6f8d';
+    const social={acceptInvitation:jest.fn().mockResolvedValue({id:42,name:'ABCDE',hostplayerid:7,guestplayerid:9,category:'animals',mode:'category'})};
+    (gateway as any).social=social;
+    const {socket}=createSocket(9);
+    await gateway.joinRoom(socket,{name:'ABCDE',userId:'9',invitationId});
+    expect(social.acceptInvitation).toHaveBeenCalledWith(9,invitationId,'ABCDE');
+    expect(roomService.addGuest).not.toHaveBeenCalled();
+    expect(socket.data.roomSession).toMatchObject({roomName:'ABCDE',userId:9,role:'guest'});
+    expect(socket.emit).toHaveBeenCalledWith('joined',expect.objectContaining({roomId:42,hostId:7}));
+  });
+
+  it('never falls back to a code join if invitation support is absent or the ID is malformed', async () => {
+    const {socket}=createSocket(9);
+    await gateway.joinRoom(socket,{name:'ABCDE',userId:'9',invitationId:'bad'});
+    await gateway.joinRoom(socket,{name:'ABCDE',userId:'9',invitationId:'58c61d15-35ab-469c-947c-bd04831f6f8d'});
+    expect(roomService.addGuest).not.toHaveBeenCalled();
+    expect(socket.join).not.toHaveBeenCalled();
+  });
+
   afterEach(() => gateway.onModuleDestroy());
 
   it('broadcasts only an acknowledged theme and enforces the host role', async () => {

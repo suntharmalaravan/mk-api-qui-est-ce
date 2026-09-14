@@ -124,6 +124,45 @@ export class LeaderboardService {
     };
   }
 
+  /** Permanent ranking, filtered before ranking so friends have their own podium. */
+  async getAllTime(userId: number, scope: string = 'world') {
+    if (scope !== 'world' && scope !== 'friends')
+      throw new BadRequestException('Classement invalide.');
+    const rows = await this.db.query(
+      `WITH participants AS (
+      SELECT winner_id AS user_id,1 AS win,finished_at FROM atelier_match_result
+      UNION ALL SELECT loser_id,0,NULL FROM atelier_match_result
+    ), totals AS (
+      SELECT p.user_id,SUM(win)::int AS wins,COUNT(*)::int AS games,MAX(finished_at) AS last_win_at
+      FROM participants p WHERE $2='world' OR p.user_id=$1 OR EXISTS (
+        SELECT 1 FROM friendship f WHERE f.status='accepted'
+        AND f.user_low=LEAST($1,p.user_id) AND f.user_high=GREATEST($1,p.user_id)
+      ) GROUP BY p.user_id HAVING SUM(win)>0
+    ), ranked AS (
+      SELECT t.user_id,u.username,u.image_url,t.wins,t.games,
+      ROW_NUMBER() OVER(ORDER BY t.wins DESC,t.games ASC,t.last_win_at ASC,t.user_id ASC)::int AS rank,
+      COUNT(*) OVER()::int AS total
+      FROM totals t JOIN "user" u ON u.id=t.user_id
+    ) SELECT * FROM ranked WHERE rank<=$3 OR user_id=$1 ORDER BY rank`,
+      [userId, scope, LEADERBOARD_TOP],
+    );
+    const entries = rows.map((row) => ({
+      rank: Number(row.rank),
+      userId: Number(row.user_id),
+      username: row.username,
+      imageUrl: row.image_url || null,
+      wins: Number(row.wins),
+      games: Number(row.games),
+    }));
+    return {
+      scope,
+      period: 'all-time',
+      entries: entries.filter((e) => e.rank <= LEADERBOARD_TOP),
+      totalPlayers: Number(rows[0]?.total || 0),
+      me: entries.find((e) => e.userId === userId) ?? null,
+    };
+  }
+
   /**
    * Days with at least one ranked player, newest first. Today is always
    * listed, even empty: it is the day players can still climb.
@@ -146,8 +185,7 @@ export class LeaderboardService {
     const days = rows
       .map((row) => ({ date: row.day, players: Number(row.players) }))
       .filter(
-        (day) =>
-          day.date >= oldest && day.date <= today && day.players > 0,
+        (day) => day.date >= oldest && day.date <= today && day.players > 0,
       );
     if (days[0]?.date !== today) days.unshift({ date: today, players: 0 });
     return days;

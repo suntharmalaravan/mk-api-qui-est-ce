@@ -2,7 +2,7 @@ import { createHash } from 'crypto';
 import { BadRequestException } from '@nestjs/common';
 import { canonicalRecipe, Recipe, visibleKey } from './catalogContract';
 export type { Recipe } from './catalogContract';
-export { ITEMS_V2, HAIR_COLORS, visibleKey } from './catalogContract';
+export { ITEMS_V2, ITEMS_V3, HAIR_COLORS, visibleKey } from './catalogContract';
 export const SLOTS = [
   'hair',
   'glasses',

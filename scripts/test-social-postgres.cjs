@@ -1,0 +1,71 @@
+// Opt-in real PostgreSQL checks. All tables/functions live in a random schema.
+// search_path never includes public. No real account or match is read or changed.
+require('ts-node').register({transpileOnly:true,project:require('path').join(__dirname,'../tsconfig.json')});
+const {DataSource}=require('typeorm');
+const {readFileSync}=require('fs');
+const {join}=require('path');
+const {randomBytes}=require('crypto');
+const assert=require('assert/strict');
+const {SocialService}=require('../src/social/social.service');
+const {LeaderboardService}=require('../src/leaderboard/leaderboard.service');
+const schema='social_test_'+randomBytes(10).toString('hex');
+(async()=>{
+  if(!process.env.SOCIAL_TEST_DATABASE_URL)throw Error('SOCIAL_TEST_DATABASE_URL required; no production fallback.');
+  const db=new DataSource({type:'postgres',url:process.env.SOCIAL_TEST_DATABASE_URL,ssl:process.env.SOCIAL_TEST_SSL==='true'?{rejectUnauthorized:false}:undefined,extra:{options:'-c search_path='+schema,max:8},synchronize:false});
+  let created=false;
+  try{
+    await db.initialize();await db.query(`CREATE SCHEMA "${schema}"`);created=true;
+    await db.query(`CREATE TABLE "user"(id serial PRIMARY KEY,username text NOT NULL,password varchar NOT NULL,image_url text);
+      CREATE TABLE room(id serial PRIMARY KEY,name text UNIQUE,hostplayerid integer,guestplayerid integer,status text DEFAULT 'open',selection_started_at timestamptz,category text);
+      CREATE TABLE atelier_match_result(winner_id integer,loser_id integer,finished_at timestamptz);
+      INSERT INTO "user"(id,username,password) VALUES(1,'kenz91','hash'),(2,'Kenz91','hash'),(3,'Rival','hash'),(4,'Other','hash'),(5,'New','hash'); SELECT setval(pg_get_serial_sequence('\"user\"','id'),5);`);
+    const sql=readFileSync(join(__dirname,'../migrations/social_v1.sql'),'utf8');
+    await db.query(sql);await db.query(sql);
+    const handles=await db.query('SELECT public_identifier FROM "user" ORDER BY id');
+    assert.equal(handles[0].public_identifier,'kenz91');assert.equal(handles[1].public_identifier,'kenz91_2');
+    await assert.rejects(db.query(`INSERT INTO "user"(username,password) VALUES('KENZ91','hash')`),e=>e.code==='23505');
+    await db.query(`INSERT INTO "user"(username,password) VALUES('LegacyNew','hash')`);
+    assert.equal((await db.query(`SELECT public_identifier FROM "user" WHERE username='LegacyNew'`))[0].public_identifier,'legacynew');
+    console.log('PASS migration idempotence, distinct legacy handles and old API compatibility');
+    const social=new SocialService(db);
+    await assert.rejects(social.request(1,'kenz91'));
+    await Promise.all([social.request(1,'Rival'),social.request(3,'kenz91')]);
+    assert.equal((await db.query('SELECT count(*)::int AS n FROM friendship'))[0].n,1);
+    const pair=(await db.query('SELECT * FROM friendship'))[0];
+    await assert.rejects(social.respond(pair.requester_id,pair.requester_id===1?3:1,'accept'));
+    await social.respond(pair.requester_id===1?3:1,pair.requester_id,'accept');
+    await social.request(1,'Other');await social.respond(4,1,'accept');
+    await social.request(1,'kenz91_2');await social.respond(2,1,'accept');
+    assert.equal((await social.list(1)).friends.length,3);
+    console.log('PASS crossed friend requests, self-request and recipient-only acceptance');
+    await db.query(`INSERT INTO room(id,name,hostplayerid,status,category) VALUES(1,'ABCDE',1,'open','animals'),(2,'FGHIJ',1,'open','animals'),(3,'KLMNO',1,'open','animals')`);
+    await assert.rejects(social.invite(5,3,'ABCDE'));
+    const [first,repeated]=await Promise.all([social.invite(1,3,'ABCDE'),social.invite(1,3,'ABCDE')]);
+    assert.equal(first.id,repeated.id);
+    const other=await social.invite(1,4,'ABCDE');
+    await assert.rejects(social.acceptInvitation(2,first.id,'ABCDE'));
+    const race=await Promise.allSettled([social.acceptInvitation(3,first.id,'ABCDE'),social.acceptInvitation(4,other.id,'ABCDE')]);
+    assert.equal(race.filter(r=>r.status==='fulfilled').length,1);
+    const winner=race[0].status==='fulfilled'?3:4;
+    const winnerInvite=winner===3?first:other;
+    const room=await social.acceptInvitation(winner,winnerInvite.id,'ABCDE');assert.equal(room.guestplayerid,winner);
+    assert.equal((await social.list(1)).invitations.length,0);
+    const expired=await social.invite(1,3,'FGHIJ');await db.query(`UPDATE duel_invitation SET expires_at=now()-interval '1 second' WHERE id=$1`,[expired.id]);
+    await assert.rejects(social.acceptInvitation(3,expired.id,'FGHIJ'));
+    const cancelled=await social.invite(1,3,'KLMNO');await social.dismiss(1,cancelled.id);await assert.rejects(social.acceptInvitation(3,cancelled.id,'KLMNO'));
+    console.log('PASS duplicate invites, wrong recipient, concurrent acceptance, retry, expiry and cancellation');
+    const removed=await social.invite(1,3,'KLMNO');await social.respond(1,3,'remove');await assert.rejects(social.acceptInvitation(3,removed.id,'KLMNO'));
+    await assert.rejects(social.opponent(5,'ABCDE'));
+    await db.query(`UPDATE room SET status='finished' WHERE id=1`);
+    assert.ok((await social.opponent(1,'ABCDE')).identifier);
+    await db.query(`INSERT INTO atelier_match_result VALUES(1,2,'2025-01-01'),(1,2,'2025-01-02'),(3,4,'2026-09-14'),(3,4,'2026-09-13'),(3,4,'2026-09-12')`);
+    const boards=new LeaderboardService(db);
+    const world=await boards.getAllTime(1,'world');assert.equal(world.entries[0].userId,3);assert.equal(world.me.wins,2);
+    const friends=await boards.getAllTime(1,'friends');assert.equal(friends.entries.length,1);assert.equal(friends.me.rank,1);
+    await assert.rejects(boards.getAllTime(1,'invalid'));
+    console.log('PASS removed friends, opponent privacy, permanent ranking and friends ranked separately');
+  }finally{
+    if(created)await db.query(`DROP SCHEMA "${schema}" CASCADE`);
+    if(db.isInitialized)await db.destroy();
+  }
+})().catch(e=>{console.error(e.message);process.exitCode=1});

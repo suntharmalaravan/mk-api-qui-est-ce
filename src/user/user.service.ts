@@ -16,6 +16,7 @@ export class UserService {
   create(createUserDto: CreateUserDto) {
     const newUser = this.userRepository.create({
       ...createUserDto,
+      public_identifier: createUserDto.username.trim().toLowerCase(),
       score: 0, // Valeur par défaut explicite
       title: 'debutant', // Valeur par défaut explicite
     });
@@ -27,6 +28,7 @@ export class UserService {
       select: {
         id: true,
         username: true,
+        public_identifier: true,
         score: true,
         title: true,
         image_url: true,
@@ -86,11 +88,18 @@ export class UserService {
   }
 
   findOneUsername(username: string) {
-    const user = this.userRepository.findOne({
-      select: { id: true, username: true, password: true },
-      where: { username },
-    });
-    return user;
+    // Exact legacy login first, then the canonical public handle. Existing
+    // accounts that differed only in case keep their original credentials.
+    return this.userRepository
+      .createQueryBuilder('u')
+      .select(['u.id', 'u.username', 'u.password', 'u.public_identifier'])
+      .where(
+        'u.username = :exact OR lower(u.public_identifier) = :identifier',
+        { exact: username.trim(), identifier: username.trim().toLowerCase() },
+      )
+      .orderBy('CASE WHEN u.username = :exact THEN 0 ELSE 1 END', 'ASC')
+      .addOrderBy('u.id', 'ASC')
+      .getOne();
   }
 
   async updateScore(id: number, score: number) {

@@ -5,6 +5,7 @@ import {
   ASSET_FILES,
   canonicalRecipe,
   ITEMS_V2,
+  ITEMS_V3,
   HAIR_COLORS,
   upgradeRecipe,
   visibleKey,
@@ -47,6 +48,12 @@ describe('atelier v2', () => {
     expect(compatible.jpeg.equals(result.jpeg)).toBe(true);
     expect(visibleKey(upgradeRecipe(legacy))).toBe(visibleKey(legacy));
     expect(compatible.hash).not.toBe(result.hash);
+  });
+  it('preserves published v2 JPEG bytes', async () => {
+    const result = await new PortraitService().render(modern);
+    expect(createHash('sha256').update(result.jpeg).digest('hex')).toBe(
+      'a1841536cf91e139e3c6d8c6a3e8b053c53c0e21ea2a9f08dd89011cccf903ed',
+    );
   });
   it('validates v2, canonicalizes property order and rejects forged v1 or colors', () => {
     expect(
@@ -116,58 +123,69 @@ describe('atelier v2', () => {
         (await renderer.render(hidden)).jpeg,
       ),
     ).toBe(true);
-  });
-  it('stores all v2 slots, uses the v2 cache key and returns the same recipe on list', async () => {
-    let row: any;
-    const query = jest.fn(async (sql: string, args: any[] = []) => {
-      if (sql.startsWith('SELECT count')) return [{ count: 0 }];
-      if (sql.startsWith('INSERT INTO atelier_character')) {
-        row = {
-          id: args[1],
-          name: args[2],
-          recipe: JSON.parse(args[3]),
-          portrait_hash: args[4],
-          visible_key: args[5],
-          revision: 1,
-          updated_at: new Date(),
-        };
-        return [row];
-      }
-      if (sql.includes('ORDER BY updated_at')) return [row];
-      return [];
-    });
-    const db: any = {
-      query,
-      manager: { query },
-      transaction: async (run) => run({ query }),
-    };
-    const renderer = new PortraitService();
-    const atelier = new AtelierService(
-      db,
-      new ConfigService({
-        ATELIER_ENABLED: 'true',
-        ATELIER_PUBLIC_URL: 'https://api.example.test',
-      }),
-      renderer,
-    );
-    const result = await atelier.save(7, {
-      id: 'v2-suspect',
-      operationId: 'save-v2',
-      expectedRevision: 0,
-      name: 'Alex rose',
-      recipe: modern,
-    });
-    expect(result.recipe).toEqual(modern);
-    expect(result.portrait.endsWith(portraitHash(modern))).toBe(true);
-    expect(query).toHaveBeenCalledWith(
-      'SELECT hash FROM atelier_portrait WHERE hash=$1',
-      [portraitHash(modern)],
-    );
-    expect((await atelier.list(7)).characters[0].recipe).toEqual(modern);
-    expect(atelier.catalog()).toMatchObject({
-      catalogVersion: 2,
-      supportedCatalogVersions: [1, 2],
-      slots: ITEMS_V2,
-    });
-  });
+  }, 20000);
+  it.each([
+    modern,
+    recipe({
+      ...upgradeRecipe(modern, 3),
+      face: 'face-umber',
+      neckwear: 'neckwear-scarf',
+      outfit: 'outfit-varsity',
+    }),
+  ])(
+    'stores every slot and returns the same recipe on list: %j',
+    async (savedRecipe) => {
+      let row: any;
+      const query = jest.fn(async (sql: string, args: any[] = []) => {
+        if (sql.startsWith('SELECT count')) return [{ count: 0 }];
+        if (sql.startsWith('INSERT INTO atelier_character')) {
+          row = {
+            id: args[1],
+            name: args[2],
+            recipe: JSON.parse(args[3]),
+            portrait_hash: args[4],
+            visible_key: args[5],
+            revision: 1,
+            updated_at: new Date(),
+          };
+          return [row];
+        }
+        if (sql.includes('ORDER BY updated_at')) return [row];
+        return [];
+      });
+      const db: any = {
+        query,
+        manager: { query },
+        transaction: async (run) => run({ query }),
+      };
+      const renderer = new PortraitService();
+      const atelier = new AtelierService(
+        db,
+        new ConfigService({
+          ATELIER_ENABLED: 'true',
+          ATELIER_PUBLIC_URL: 'https://api.example.test',
+        }),
+        renderer,
+      );
+      const result = await atelier.save(7, {
+        id: 'v2-suspect',
+        operationId: 'save-v2',
+        expectedRevision: 0,
+        name: 'Alex rose',
+        recipe: savedRecipe,
+      });
+      expect(result.recipe).toEqual(savedRecipe);
+      expect(result.portrait.endsWith(portraitHash(savedRecipe))).toBe(true);
+      expect(query).toHaveBeenCalledWith(
+        'SELECT hash FROM atelier_portrait WHERE hash=$1',
+        [portraitHash(savedRecipe)],
+      );
+      expect((await atelier.list(7)).characters[0].recipe).toEqual(savedRecipe);
+      expect(atelier.catalog()).toMatchObject({
+        catalogVersion: 3,
+        supportedCatalogVersions: [1, 2, 3],
+        slots: ITEMS_V3,
+      });
+    },
+  );
 });

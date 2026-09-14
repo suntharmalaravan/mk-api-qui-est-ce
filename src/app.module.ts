@@ -1,3 +1,4 @@
+import { SocialModule } from './social/social.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -26,6 +27,7 @@ import { LeaderboardModule } from './leaderboard/leaderboard.module';
     AtelierModule,
     ProgressionModule,
     LeaderboardModule,
+    SocialModule,
   ],
   controllers: [AppController],
   providers: [AppService, RoomGateway],

@@ -1,3 +1,4 @@
+import { SocialService } from '../social/social.service';
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
@@ -105,6 +106,7 @@ export class RoomGateway
     private readonly jwtService: JwtService,
     @Optional() private readonly atelierGame?: AtelierGameService,
     @Optional() private readonly lobby?: LobbyService,
+    @Optional() private readonly social?: SocialService,
   ) {}
 
   afterInit(server: Server<any, any, any, SocketData>) {
@@ -849,9 +851,21 @@ export class RoomGateway
 
       // Vérifier et rejoindre la room en base de données d'abord
       console.log('📝 Adding guest to room in database...');
-      const joinedRoom = await this.roomService.addGuest(data.name, {
-        guestplayerid: userId,
-      });
+      if (
+        data.invitationId !== undefined &&
+        (typeof data.invitationId !== 'string' ||
+          !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(data.invitationId))
+      ) {
+        this.emitError(socket, 'INVALID_INVITATION', 'Invitation invalide.');
+        return;
+      }
+      if (data.invitationId && !this.social) {
+        this.emitError(socket, 'SOCIAL_UNAVAILABLE', 'Les invitations sont indisponibles.');
+        return;
+      }
+      const joinedRoom = data.invitationId
+        ? await this.social.acceptInvitation(userId, data.invitationId, data.name)
+        : await this.roomService.addGuest(data.name, { guestplayerid: userId });
       console.log('✅ Guest added to room successfully:', {
         socketId: socket.id,
         roomId: joinedRoom.id,
@@ -960,7 +974,11 @@ export class RoomGateway
       socket.emit('joined', hostJoinedData);
     } catch (error) {
       console.error('Error joining room:', error);
-      socket.emit('error', { message: 'Failed to join room' });
+      socket.emit('error', {
+        message: data?.invitationId && error.getStatus
+          ? error.message
+          : 'Failed to join room',
+      });
     }
   }
 
