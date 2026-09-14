@@ -145,17 +145,23 @@ export class LobbyService {
       )
         throw new BadRequestException('Ce thème n’est plus disponible.');
       await this.selection(tx, userId, input);
+      await tx.query(
+        'UPDATE room SET category=$2,mode=$3,deck_id=$4,custom_library_user_id=$5,lobby_revision=lobby_revision+1 WHERE id=$1',
+        [
+          room.id,
+          input.mode === 'category' ? input.category : 'custom',
+          input.mode,
+          input.mode === 'custom' ? input.deckId : null,
+          input.mode === 'custom' ? userId : null,
+        ],
+      );
+      // Re-read the row rather than relying on `UPDATE ... RETURNING`: the
+      // TypeORM Postgres driver answers an UPDATE with `[rows, rowCount]`, so
+      // `[0]` was the rows array, not the room. payload() then saw an undefined
+      // category and every theme change failed with "Thème invalide." and
+      // rolled back.
       const updated = (
-        await tx.query(
-          'UPDATE room SET category=$2,mode=$3,deck_id=$4,custom_library_user_id=$5,lobby_revision=lobby_revision+1 WHERE id=$1 RETURNING *',
-          [
-            room.id,
-            input.mode === 'category' ? input.category : 'custom',
-            input.mode,
-            input.mode === 'custom' ? input.deckId : null,
-            input.mode === 'custom' ? userId : null,
-          ],
-        )
+        await tx.query('SELECT * FROM room WHERE id=$1', [room.id])
       )[0];
       return this.payload(tx, updated);
     });

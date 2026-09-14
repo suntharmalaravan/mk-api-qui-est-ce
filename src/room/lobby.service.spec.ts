@@ -44,6 +44,9 @@ describe('LobbyService', () => {
       if (sql.startsWith('SELECT name FROM deck'))
         return owned ? [{ name: 'Les amis' }] : [];
       if (sql.startsWith('SELECT id,url')) return images;
+      // UPDATE results mirror the TypeORM Postgres driver: `[rows, rowCount]`.
+      // The mock used to return the rows directly, which hid a service that
+      // read `[0]` as the updated room.
       if (sql.startsWith('UPDATE room SET category')) {
         room = {
           ...room,
@@ -53,11 +56,11 @@ describe('LobbyService', () => {
           custom_library_user_id: args[4],
           lobby_revision: room.lobby_revision + 1,
         };
-        return [{ ...room }];
+        return [[], 1];
       }
       if (sql.startsWith('UPDATE room SET selection_started_at')) {
         room.selection_started_at = new Date();
-        return [];
+        return [[], 1];
       }
       if (sql.startsWith('DELETE FROM room_image')) {
         frozenDeck = [];
