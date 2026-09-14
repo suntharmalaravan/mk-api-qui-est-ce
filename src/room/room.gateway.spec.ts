@@ -182,6 +182,28 @@ describe('RoomGateway socket lifecycle', () => {
     });
   });
 
+  it('refuses to create a room on a category hidden from the back office', async () => {
+    const { socket } = createSocket(7);
+    roomService.findByName.mockResolvedValue(null);
+    imageService.isCategoryVisible.mockResolvedValue(false);
+
+    await gateway.createRoom(socket, {
+      name: 'room-42',
+      userId: 7,
+      category: 'animals',
+    });
+
+    expect(imageService.isCategoryVisible).toHaveBeenCalledWith('animals');
+    expect(imageService.getUrlsByCategory).not.toHaveBeenCalled();
+    expect(roomService.create).not.toHaveBeenCalled();
+    expect(socket.emit).toHaveBeenCalledWith(
+      'error',
+      expect.objectContaining({
+        message: expect.stringContaining('plus disponible'),
+      }),
+    );
+  });
+
   it('blocks room events when a socket spoofs the other player role', async () => {
     const { socket, roomBroadcast } = createSocket(7);
     socket.rooms.add('room-42');

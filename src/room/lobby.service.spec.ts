@@ -13,8 +13,10 @@ describe('LobbyService', () => {
   let images: any[];
   let owned: boolean;
   let frozenDeck: number[] | null;
+  let hidden: string[];
   beforeEach(() => {
     frozenDeck = null;
+    hidden = [];
     room = {
       id: 4,
       name: 'ABCDE',
@@ -37,6 +39,8 @@ describe('LobbyService', () => {
       if (sql.startsWith('SELECT id,username'))
         return [{ id: 2, username: 'Guest' }];
       if (sql.startsWith('SELECT * FROM room')) return [{ ...room }];
+      if (sql.startsWith('SELECT 1 FROM category_setting'))
+        return hidden.includes(args[0]) ? [{ '?column?': 1 }] : [];
       if (sql.startsWith('SELECT name FROM deck'))
         return owned ? [{ name: 'Les amis' }] : [];
       if (sql.startsWith('SELECT id,url')) return images;
@@ -158,5 +162,15 @@ describe('LobbyService', () => {
     await expect(
       service.change('ABCDE', 1, { mode: 'custom' }, 0),
     ).rejects.toBeInstanceOf(BadRequestException);
+  });
+  it('refuses a category hidden from the back office but keeps a lobby already set on it startable', async () => {
+    hidden = ['animals'];
+    await expect(
+      service.change('ABCDE', 1, { mode: 'category', category: 'animals' }, 0),
+    ).rejects.toBeInstanceOf(BadRequestException);
+    expect(room.lobby_revision).toBe(0);
+    expect(await service.start('ABCDE', 1, 0)).toMatchObject({
+      started: true,
+    });
   });
 });
