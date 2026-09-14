@@ -75,6 +75,18 @@ describe('mixed publication transaction', () => {
     expect(query.mock.calls.at(-1)[0]).toContain('INSERT INTO atelier_operation');
     expect(query.mock.calls.find(([sql]) => sql.startsWith('SELECT * FROM atelier_character'))[1]).toEqual([7, 'alex']);
   });
+  it('chooses an available automatic name instead of failing on the second deck', async () => {
+    const { service, query } = setup();
+    const original = query.getMockImplementation();
+    query.mockImplementation(async (sql, params) => {
+      if (sql.startsWith('SELECT name FROM deck')) return [{ name: 'Mes suspects' }, { name: 'Mes suspects 2' }] as any;
+      return original(sql, params);
+    });
+    await service.publish(7, input, { photos, order: cards });
+    const insert = query.mock.calls.find(([sql]) => sql.startsWith('INSERT INTO deck'));
+    expect(insert[0]).toContain('ON CONFLICT (user_id,name) DO NOTHING');
+    expect(insert[1]).toEqual([7, 'Mes suspects 3']);
+  });
   it('rejects a stale/foreign character before creating a deck or image', async () => {
     const { service, query } = setup(3);
     await expect(service.publish(7, input, { photos, order: cards })).rejects.toMatchObject({ status: 409 });

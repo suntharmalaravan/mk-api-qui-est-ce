@@ -15,7 +15,9 @@ import {
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { FirebaseService } from '../firebase/firebase.service';
 import { createHash } from 'crypto';
-import sharp from 'sharp';
+// Sharp exposes a CommonJS function; allowSyntheticDefaultImports does not
+// create a runtime default export with this project's compiler settings.
+const sharp: typeof import('sharp').default = require('sharp');
 import { MixedPhoto, parseMixedManifest } from './mixed-deck';
 import { Response } from 'express';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';

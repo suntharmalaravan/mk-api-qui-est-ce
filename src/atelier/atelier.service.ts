@@ -465,12 +465,26 @@ export class AtelierService implements OnModuleInit {
           const name = input.name?.trim() || 'Mes suspects';
           if (name.length < 2 || name.length > 50)
             fail('INVALID_NAME', 'Nom de deck invalide.');
-          deck = (
-            await tx.query(
-              'INSERT INTO deck(user_id,name,created_at) VALUES($1,$2,now()) RETURNING *',
-              [userId, name],
-            )
-          )[0];
+          // The database enforces UNIQUE(user_id, name). Automatic names must
+          // remain available after the first deck, including concurrent renames.
+          for (let attempt = 0; attempt < 3 && !deck; attempt++) {
+            let candidate = name;
+            if (!input.name?.trim()) {
+              const taken = new Set((await tx.query(
+                'SELECT name FROM deck WHERE user_id=$1', [userId],
+              )).map(row => row.name));
+              let suffix = 2;
+              while (taken.has(candidate)) candidate = `${name} ${suffix++}`;
+            }
+            deck = (await tx.query(
+              'INSERT INTO deck(user_id,name,created_at) VALUES($1,$2,now()) ON CONFLICT (user_id,name) DO NOTHING RETURNING *',
+              [userId, candidate],
+            ))[0];
+            if (input.name?.trim()) break;
+          }
+          if (!deck) throw new ConflictException({
+            code: 'DECK_NAME_TAKEN', message: 'Ce nom de deck est déjà utilisé. Choisis un autre nom ou réessaie.',
+          });
         }
         const cards = mixed ? mixed.order.map(card => {
           if (card.kind === 'photo') {
