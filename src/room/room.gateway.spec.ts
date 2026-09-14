@@ -449,4 +449,157 @@ describe('RoomGateway socket lifecycle', () => {
     expect((gateway as any).pendingDisconnects.size).toBe(1);
     expect(roomService.remove).not.toHaveBeenCalled();
   });
+
+  describe('turns', () => {
+    const turnOf = () => (gateway as any).turns.get('room-42')?.turn;
+    const giveTurnTo = (turn: 'host' | 'guest', since = Date.now()) =>
+      (gateway as any).turns.set('room-42', { turn, since });
+
+    it('lets the player holding the turn pass it, exactly once', () => {
+      const { socket } = createSocket(7);
+      bindToRoom(socket, 'host');
+      giveTurnTo('host');
+      const pass = { name: 'room-42', player: 'host', intent: 'pass' };
+
+      expect(gateway.changeTurn(socket, pass)).toEqual({ turn: 'guest' });
+      expect(serverBroadcast.emit).toHaveBeenCalledWith('start turn', {
+        turn: 'guest',
+      });
+
+      // A double tap, or the timer racing the button, must not flip it back.
+      expect(gateway.changeTurn(socket, pass)).toEqual({ turn: 'guest' });
+      expect(serverBroadcast.emit).toHaveBeenCalledTimes(1);
+    });
+
+    it('refuses a turn change signed with the opponent role', () => {
+      const { socket } = createSocket(7);
+      bindToRoom(socket, 'host');
+      giveTurnTo('host');
+
+      expect(
+        gateway.changeTurn(socket, {
+          name: 'room-42',
+          player: 'guest',
+          intent: 'pass',
+        }),
+      ).toMatchObject({ error: { code: 'FORBIDDEN' } });
+      expect(turnOf()).toBe('host');
+    });
+
+    it('lets the waiting player take a stalled turn only once it has overrun', () => {
+      const now = jest.spyOn(Date, 'now');
+      try {
+        const { socket } = createSocket(7);
+        bindToRoom(socket, 'guest');
+        giveTurnTo('host', 1_000_000);
+        const claim = { name: 'room-42', player: 'guest', intent: 'claim' };
+
+        now.mockReturnValue(1_000_000 + 30_000);
+        expect(gateway.changeTurn(socket, claim)).toEqual({ turn: 'host' });
+        expect(serverBroadcast.emit).not.toHaveBeenCalled();
+
+        now.mockReturnValue(1_000_000 + 68_000);
+        expect(gateway.changeTurn(socket, claim)).toEqual({ turn: 'guest' });
+        expect(serverBroadcast.emit).toHaveBeenCalledWith('start turn', {
+          turn: 'guest',
+        });
+      } finally {
+        now.mockRestore();
+      }
+    });
+
+    it('hands the turn over after a wrong guess, but not after the last one', async () => {
+      const guess = jest.fn().mockResolvedValue({
+        player: 'host',
+        right: false,
+        livesLeft: 1,
+        terminal: false,
+      });
+      (gateway as any).atelierGame = { enabled: true, guess };
+      const { socket } = createSocket(7);
+      bindToRoom(socket, 'host');
+      giveTurnTo('host');
+
+      await gateway.selectCharacter(socket, {
+        name: 'room-42',
+        player: 'host',
+        characterId: 5,
+      });
+      expect(guess).toHaveBeenCalledWith('room-42', 7, 'host', 5);
+      expect(serverBroadcast.emit).toHaveBeenCalledWith('start turn', {
+        turn: 'guest',
+      });
+
+      guess.mockResolvedValue({
+        player: 'guest',
+        right: false,
+        livesLeft: 0,
+        terminal: true,
+      });
+      serverBroadcast.emit.mockClear();
+      const { socket: guest } = createSocket(1);
+      bindToRoom(guest, 'guest', 1);
+      await gateway.selectCharacter(guest, {
+        name: 'room-42',
+        player: 'guest',
+        characterId: 3,
+      });
+      expect(serverBroadcast.emit).not.toHaveBeenCalledWith(
+        'start turn',
+        expect.anything(),
+      );
+      expect(turnOf()).toBeUndefined();
+    });
+
+    it('refuses a question or a guess from the player without the turn', async () => {
+      const guess = jest.fn();
+      (gateway as any).atelierGame = { enabled: true, guess };
+      const { socket, roomBroadcast } = createSocket(7);
+      bindToRoom(socket, 'guest');
+      giveTurnTo('host');
+
+      await gateway.selectCharacter(socket, {
+        name: 'room-42',
+        player: 'guest',
+        characterId: 5,
+      });
+      await gateway.askQuestion(socket, {
+        name: 'room-42',
+        player: 'guest',
+        question: 'Lunettes ?',
+      });
+
+      expect(guess).not.toHaveBeenCalled();
+      expect(roomBroadcast.emit).not.toHaveBeenCalled();
+      expect(socket.emit).toHaveBeenCalledWith(
+        'error',
+        expect.objectContaining({ code: 'NOT_YOUR_TURN', action: 'select' }),
+      );
+      expect(socket.emit).toHaveBeenCalledWith(
+        'error',
+        expect.objectContaining({ code: 'NOT_YOUR_TURN', action: 'question' }),
+      );
+    });
+
+    it('gives the first turn to the host once both characters are chosen', async () => {
+      const { socket } = createSocket(7);
+      bindToRoom(socket, 'guest');
+      roomService.chooseCharacter = jest.fn().mockResolvedValue({
+        ...startedRoom,
+        hostcharacterid: 3,
+        guestcharacterid: 5,
+      });
+
+      await gateway.chooseCharacter(socket, {
+        name: 'room-42',
+        player: 'guest',
+        characterId: 5,
+      });
+
+      expect(serverBroadcast.emit).toHaveBeenCalledWith('start turn', {
+        turn: 'host',
+      });
+      expect(turnOf()).toBe('host');
+    });
+  });
 });

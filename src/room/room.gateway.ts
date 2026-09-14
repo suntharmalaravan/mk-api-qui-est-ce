@@ -33,6 +33,14 @@ interface SocketData {
 
 const ROOM_NAME_PATTERN = /^[a-zA-Z0-9_-]{3,30}$/;
 
+/** A turn lasts 60 s, like the client countdown. */
+const TURN_DURATION_MS = 60_000;
+/**
+ * Extra time the player holding the turn keeps before the opponent may take
+ * it (client TURN_STALL_GRACE_SECONDS): JS timers freeze in background.
+ */
+const TURN_STALL_GRACE_MS = 8_000;
+
 function socketCorsOrigin(
   origin: string | undefined,
   callback: (error: Error | null, allowed?: boolean) => void,
@@ -76,6 +84,14 @@ export class RoomGateway
 
   private readonly logger = new Logger(RoomGateway.name);
   private readonly pendingDisconnects = new Map<string, NodeJS.Timeout>();
+  /**
+   * Whose turn it is, per room. Kept in memory like the Socket.IO adapter,
+   * hence the single-instance constraint documented in SOCKET_AUDIT.md.
+   */
+  private readonly turns = new Map<
+    string,
+    { turn: PlayerRole; since: number }
+  >();
   private readonly disconnectGraceMs = Math.max(
     0,
     Number(process.env.SOCKET_DISCONNECT_GRACE_MS || 10_000),
@@ -167,6 +183,7 @@ export class RoomGateway
   onModuleDestroy() {
     for (const timer of this.pendingDisconnects.values()) clearTimeout(timer);
     this.pendingDisconnects.clear();
+    this.turns.clear();
   }
 
   private sessionKey(session: RoomSocketSession): string {
@@ -188,14 +205,59 @@ export class RoomGateway
     return { error: { code, message } };
   }
 
+  private other(role: PlayerRole): PlayerRole {
+    return role === 'host' ? 'guest' : 'host';
+  }
+
+  /** Records whose turn it is and tells both players. */
+  private announceTurn(roomName: string, turn: PlayerRole) {
+    this.turns.set(roomName, { turn, since: Date.now() });
+    this.wss.to(roomName).emit('start turn', { turn });
+  }
+
   /**
-   * Detaches every socket still bound to a room that is being closed.
+   * Questions and guesses belong to the player holding the turn. An unknown
+   * state — server restarted mid-game — stays permissive rather than locking
+   * both players out.
+   */
+  private holdsTurn(
+    socket: Socket,
+    session: RoomSocketSession,
+    action: 'question' | 'select',
+  ) {
+    const state = this.turns.get(session.roomName);
+    if (!state || state.turn === session.role) return true;
+    socket.emit('error', {
+      code: 'NOT_YOUR_TURN',
+      action,
+      message: 'Ce n’est plus ton tour.',
+    });
+    return false;
+  }
+
+  /** A wrong guess hands the turn over; a winning or final one ends the game. */
+  private afterGuess(
+    session: RoomSocketSession,
+    right: boolean,
+    terminal: boolean,
+  ) {
+    if (right || terminal) {
+      this.turns.delete(session.roomName);
+      return;
+    }
+    this.announceTurn(session.roomName, this.other(session.role));
+  }
+
+  /**
+   * Detaches every socket still bound to a room that is being closed, and
+   * forgets its game state.
    *
    * Without this the remaining player kept a session on a deleted room: each
    * later `create` or `join` was refused with ALREADY_IN_ROOM until the app
    * reconnected.
    */
   private async detachRoomSockets(room: { id: number; name: string }) {
+    this.turns.delete(room.name);
     const sockets = await this.wss.in(room.name).fetchSockets();
     for (const candidate of sockets) {
       if (candidate.data.roomSession?.roomId === room.id) {
@@ -948,7 +1010,8 @@ export class RoomGateway
     });
 
     try {
-      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
+      const session = this.authorizeRoomEvent(socket, data?.name, data?.player);
+      if (!session || !this.holdsTurn(socket, session, 'question')) return;
       if (!this.validString(socket, data?.question, 'question', 500)) return;
       if (!data.name || !data.player || !data.question) {
         console.log('❌ Validation failed for ask question:', {
@@ -1066,6 +1129,11 @@ export class RoomGateway
         // When both players confirm at the same instant, both requests can
         // observe the completed pair: clients treat `go board` as idempotent.
         this.wss.to(session.roomName).emit('go board', { turn: 'host' });
+        // Announced now, not left to a client fallback. A repeated choice
+        // must never reset a game already under way.
+        if (!this.turns.has(session.roomName)) {
+          this.announceTurn(session.roomName, 'host');
+        }
       } else {
         // Only the chooser learns which character was recorded.
         socket
@@ -1090,58 +1158,64 @@ export class RoomGateway
     }
   }
 
+  /**
+   * Hands the turn over.
+   *
+   * `pass` — the player holding the turn ends it (button or expired timer).
+   * `claim` — the waiting player takes a turn its holder never handed back
+   * (app frozen in background); accepted only once that turn has overrun.
+   *
+   * Both are idempotent: a double tap, or a timer racing the button, cannot
+   * flip the turn twice. `player` is always the sender's own role — clients
+   * used to send the next player's role, which the role guard refused, so
+   * "Passer" did nothing. The acknowledgement carries the authoritative turn.
+   */
   @SubscribeMessage('change turn')
-  async changeTurn(socket: Socket, data: any) {
-    console.log('🔄 Event: change turn', {
-      socketId: socket.id,
-      roomName: data?.name,
-      timestamp: new Date().toISOString(),
-    });
-
-    try {
-      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
-      if (!data.name || !data.player) {
-        console.log('❌ Validation failed for change turn:', {
-          socketId: socket.id,
-          missingFields: {
-            name: !data.name,
-            player: !data.player,
-          },
-        });
-        socket.emit('error', {
-          message: 'Missing required data: name and player are required',
-        });
-        return;
-      }
-
-      console.log('📡 Emitting turn change events:', {
-        socketId: socket.id,
-        roomName: data.name,
-        player: data.player,
-      });
-      socket.to(data.name).emit('start turn', { turn: data.player });
-      socket.emit('start turn', { turn: data.player });
-    } catch (error) {
-      socket.emit('error', { message: 'Failed to change turn' });
+  changeTurn(socket: Socket, data: any) {
+    const session = this.authorizeRoomEvent(socket, data?.name, data?.player);
+    if (!session) {
+      return this.ackError(
+        'FORBIDDEN',
+        'Tu ne fais plus partie de cette partie.',
+      );
     }
+
+    const mine = session.role;
+    const state = this.turns.get(session.roomName);
+    if (data?.intent === 'pass') {
+      if (!state || state.turn === mine) {
+        this.announceTurn(session.roomName, this.other(mine));
+      }
+    } else if (
+      !state ||
+      (state.turn !== mine &&
+        Date.now() - state.since >= TURN_DURATION_MS + TURN_STALL_GRACE_MS)
+    ) {
+      this.announceTurn(session.roomName, mine);
+    }
+
+    return { turn: this.turns.get(session.roomName)?.turn ?? null };
   }
 
   @SubscribeMessage('select')
   async selectCharacter(socket: Socket, data: any) {
     if (this.atelierGame?.enabled) {
-      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
+      const session = this.authorizeRoomEvent(socket, data?.name, data?.player);
+      if (!session || !this.holdsTurn(socket, session, 'select')) return;
       if (!this.validPositiveInteger(socket, data?.characterId, 'characterId'))
         return;
       try {
         const result = await this.atelierGame.guess(
-          data.name,
-          Number(socket.data.authenticatedUserId),
-          data.player,
-          data.characterId,
+          session.roomName,
+          session.userId,
+          session.role,
+          Number(data.characterId),
         );
         socket.emit('select result', result);
-        if (!result.duplicate)
-          socket.to(data.name).emit('select result', result);
+        if (!result.duplicate) {
+          socket.to(session.roomName).emit('select result', result);
+          this.afterGuess(session, result.right, result.terminal);
+        }
       } catch (error) {
         const response =
           typeof error.getResponse === 'function' ? error.getResponse() : null;
@@ -1160,7 +1234,8 @@ export class RoomGateway
     });
 
     try {
-      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
+      const session = this.authorizeRoomEvent(socket, data?.name, data?.player);
+      if (!session || !this.holdsTurn(socket, session, 'select')) return;
       if (!data.name || !data.player || !data.characterId) {
         console.log('❌ Validation failed for select character:', {
           socketId: socket.id,
@@ -1357,6 +1432,7 @@ export class RoomGateway
           hostCharacterId,
           guestCharacterId,
         });
+        this.afterGuess(session, true, true);
       } else {
         // Émettre les événements de victoire/défaite même en cas de perte
         console.log(
@@ -1392,6 +1468,9 @@ export class RoomGateway
         socket
           .to(data.name)
           .emit('select result', { player: data.player, right: false });
+        // Legacy mode does not count lives server-side: the client ends the
+        // game on its last one, and ignores this turn once the game is over.
+        this.afterGuess(session, false, false);
       }
     } catch (error) {
       console.error('Error selecting character', error);
@@ -1654,6 +1733,7 @@ export class RoomGateway
       if (previousRoom?.id === previousSession.roomId) {
         await this.roomImageService.removeRoomImage(previousRoom.id);
         await this.roomService.remove(previousRoom.id);
+        this.turns.delete(previousRoom.name);
       }
 
       console.log('✅ Guest joined rematch room successfully:', {
@@ -1730,6 +1810,9 @@ export class RoomGateway
         status: room.status,
         hostCharacterChosen: room.hostcharacterid !== null,
         guestCharacterChosen: room.guestcharacterid !== null,
+        ...(this.turns.has(room.name)
+          ? { turn: this.turns.get(room.name).turn }
+          : {}),
       });
       socket.to(room.name).emit('player reconnected', { userId, role });
     } catch (error) {
