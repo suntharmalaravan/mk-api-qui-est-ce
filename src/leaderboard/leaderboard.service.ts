@@ -1,3 +1,4 @@
+import { rankForScore } from '../atelier/loupe-economy';
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { DataSource } from 'typeorm';
 
@@ -31,6 +32,7 @@ export type LeaderboardDay = {
 };
 
 type RankingRow = {
+  score: number | string;
   user_id: number | string;
   username: string;
   image_url: string | null;
@@ -139,7 +141,7 @@ export class LeaderboardService {
         AND f.user_low=LEAST($1,p.user_id) AND f.user_high=GREATEST($1,p.user_id)
       ) GROUP BY p.user_id HAVING SUM(win)>0
     ), ranked AS (
-      SELECT t.user_id,u.username,u.image_url,t.wins,t.games,
+      SELECT t.user_id,u.username,u.image_url,u.score,t.wins,t.games,
       ROW_NUMBER() OVER(ORDER BY t.wins DESC,t.games ASC,t.last_win_at ASC,t.user_id ASC)::int AS rank,
       COUNT(*) OVER()::int AS total
       FROM totals t JOIN "user" u ON u.id=t.user_id
@@ -151,6 +153,7 @@ export class LeaderboardService {
       userId: Number(row.user_id),
       username: row.username,
       imageUrl: row.image_url || null,
+      grade: rankForScore(Number(row.score ?? 0)),
       wins: Number(row.wins),
       games: Number(row.games),
     }));
@@ -223,6 +226,7 @@ export class LeaderboardService {
          t.user_id,
          u.username,
          u.image_url,
+         u.score,
          t.wins,
          t.games,
          ROW_NUMBER() OVER (
@@ -239,6 +243,7 @@ export class LeaderboardService {
       userId: Number(row.user_id),
       username: row.username,
       imageUrl: row.image_url || null,
+      grade: rankForScore(Number(row.score ?? 0)),
       wins: Number(row.wins),
       games: Number(row.games),
     }));

@@ -1,0 +1,182 @@
+{
+  "slug": "video_games",
+  "mode": "built-in image_gen",
+  "styleReference": "assets/catalog/video_games/style-reference.png",
+  "characters": [
+    {
+      "id": "rayman",
+      "name": "Rayman",
+      "file": "01-rayman.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Rayman from Rayman. friendly Rayman with peach face, very large rounded nose, swept blond hair tufts, large eyes, purple hooded top with white ring chest emblem and red scarf, preserve iconic limbless anatomy.",
+      "reference": "assets/catalog/video_games/references/rayman.jpg"
+    },
+    {
+      "id": "ratchet",
+      "name": "Ratchet",
+      "file": "02-ratchet.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Ratchet from Ratchet & Clank. orange golden furry lombax, very large long pointed ears with brown stripes, green eyes, small brown nose, tuft atop head, brown aviator cap and orange brown mechanic outfit, no weapons. Image 2 shows two characters; portray only Ratchet, the orange lombax on the left. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/ratchet.jpg"
+    },
+    {
+      "id": "clank",
+      "name": "Clank",
+      "file": "03-clank.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Clank from Ratchet & Clank. small silver robot with rectangular rounded head, two large circular glowing green eyes, short antenna topped with red sphere, small friendly smile, silver torso, no human face. Image 2 shows two characters; portray only Clank, the small silver robot on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/clank.jpg"
+    },
+    {
+      "id": "crash",
+      "name": "Crash Bandicoot",
+      "file": "04-crash.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Crash Bandicoot from Crash Bandicoot. orange anthropomorphic bandicoot, large pointy ears, green eyes, broad tan muzzle, big black nose, spiky brownish orange hair tuft, thick eyebrows, tan chest, playful grin.",
+      "reference": "assets/catalog/video_games/references/crash.jpg"
+    },
+    {
+      "id": "coco",
+      "name": "Coco Bandicoot",
+      "file": "05-coco.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Coco Bandicoot from Crash Bandicoot. friendly orange female bandicoot, green eyes, tan muzzle, little black nose, long blond side ponytail with pink flower, white T-shirt under blue denim overalls, big pointed ears. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/coco.jpg"
+    },
+    {
+      "id": "spyro",
+      "name": "Spyro",
+      "file": "06-spyro.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Spyro from Spyro. small friendly purple dragon, two curved golden horns, orange crest spikes, golden yellow underside of muzzle and chest, violet eyes, purple snout and small nostrils, wing hints behind shoulders, no human anatomy. If reference shows two versions, use only the modern character on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/spyro.jpg"
+    },
+    {
+      "id": "sonic",
+      "name": "Sonic",
+      "file": "07-sonic.png",
+      "prompt": "Create one square portrait of Sonic the Hedgehog as a friendly 3D cartoon avatar on a plain pale lavender background. Use image 1 as the rendering style reference and image 2 as Sonic's character reference. Show modern Sonic (the design on the right of image 2) alone, front facing, with green eyes, blue quills, tan muzzle and chest, and a friendly smile. Frame the head and shoulders, with both ears and all quills fully visible. Soft studio lighting, rounded sculpted forms, clean vibrant colors. No text or border.",
+      "reference": "assets/catalog/video_games/references/sonic.jpg"
+    },
+    {
+      "id": "tails",
+      "name": "Tails",
+      "file": "08-tails.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Tails from Sonic the Hedgehog. orange anthropomorphic fox, two large pointed ears, blue eyes, fluffy white cheek tufts and chest fur, orange forehead tufts, small black nose, warm cheerful smile, twins tails optional only if naturally behind shoulders. If reference shows two versions, use only the modern character on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/tails.jpg"
+    },
+    {
+      "id": "knuckles",
+      "name": "Knuckles",
+      "file": "09-knuckles.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Knuckles from Sonic the Hedgehog. red anthropomorphic echidna, long sculpted red dreadlock-like quills framing face, violet eyes, tan muzzle, black nose, white crescent chest marking, friendly determined expression. If reference shows two versions, use only the modern character on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/knuckles.jpg"
+    },
+    {
+      "id": "shadow",
+      "name": "Shadow",
+      "file": "10-shadow.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Shadow from Sonic the Hedgehog. black anthropomorphic hedgehog with sharp sculpted quills and bold red streaks, red eyes, tan muzzle, white chest fur tuft, black nose, composed confident expression. If reference shows two versions, use only the modern character on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/shadow.jpg"
+    },
+    {
+      "id": "amy",
+      "name": "Amy Rose",
+      "file": "11-amy.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Amy Rose from Sonic the Hedgehog. pink anthropomorphic hedgehog, green eyes, tan muzzle, black nose, short pink quills framing face, pointed pink ears, red headband and red dress with white collar, cheerful smile. Image 2 shows many characters; portray only Amy Rose, the pink hedgehog wearing red near the lower left. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/amy.jpg"
+    },
+    {
+      "id": "eggman",
+      "name": "Dr Eggman",
+      "file": "12-eggman.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Dr Eggman from Sonic the Hedgehog. stylized round bald adult man, enormous reddish brown moustache fanning to both sides, small blue round glasses, goggles on top of bald head, red jacket with yellow and white details, playful confident grin. Image 2 shows two versions; portray only the modern character on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/eggman.jpg"
+    },
+    {
+      "id": "pac-man",
+      "name": "Pac-Man",
+      "file": "13-pac-man-v2.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Pac-Man from Pac-Man. friendly round yellow spherical Pac-Man with two tall black oval eyes, expressive black eyebrows, big smile and small tongue, orange gloves only if at lower sides, red boots out of frame, retain simple round body no human anatomy. Image 2 shows two versions; portray only the modern character on the right. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/pac-man.jpg",
+      "edit": {
+        "prompt": "Edit image 1 (Pac-Man portrait): preserve the character, shape, expression, colors and framing exactly. Replace all transparent or black background outside the character with a fully opaque pale lavender background matching image 2. Keep a clean square 3D portrait, soft studio lighting, no text or border. The dark interior of the mouth and the black eyes must remain unchanged.",
+        "references": [
+          "assets/catalog/video_games/13-pac-man.png",
+          "assets/catalog/video_games/style-reference.png"
+        ]
+      }
+    },
+    {
+      "id": "mega-man",
+      "name": "Mega Man",
+      "file": "14-mega-man.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Mega Man from Mega Man. friendly youthful robot hero, blue rounded helmet with cyan central stripe and blue ear discs, visible peach face, large blue eyes, blue and cyan armored suit shoulders, no arm cannon in frame. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/mega-man.jpg"
+    },
+    {
+      "id": "ryu",
+      "name": "Ryu",
+      "file": "15-ryu.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Ryu from Street Fighter. adult Japanese martial artist, short spiky black hair, thick dark eyebrows, brown eyes, red cloth headband with ends behind head, white karate gi with frayed sleeves, strong rounded face, calm confident expression. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/ryu.jpg"
+    },
+    {
+      "id": "chun-li",
+      "name": "Chun-Li",
+      "file": "16-chun-li.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Chun-Li from Street Fighter. adult Chinese martial artist, brown eyes, black hair in two round ox-horn buns wrapped in white cloth with white ribbons, blue qipao with gold trim and high collar, friendly determined expression. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/chun-li.jpg"
+    },
+    {
+      "id": "ken",
+      "name": "Ken",
+      "file": "17-ken.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Ken from Street Fighter. adult martial artist, shoulder length blond hair with parted fringe, brown eyes, thick brows, red karate gi, friendly confident expression. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/ken.jpg"
+    },
+    {
+      "id": "lara-croft",
+      "name": "Lara Croft",
+      "file": "18-lara-croft.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Lara Croft from Tomb Raider. adult female adventurer, brown hair in long braid behind head with loose front strands, brown eyes, teal sleeveless top with covered neckline, brown backpack shoulder straps, confident friendly expression, no weapons. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/lara-croft.jpg"
+    },
+    {
+      "id": "kratos",
+      "name": "Kratos",
+      "file": "19-kratos.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Kratos from God of War. bald adult warrior with pale ash skin, bold red diagonal tattoo across scalp and left eye, full dark brown beard, brown eyes, brown leather and fur shoulder armor, calm stern expression, no blood or weapons. Leave 5 percent clear background above the whole head.",
+      "reference": "assets/catalog/video_games/references/kratos.jpg"
+    },
+    {
+      "id": "aloy",
+      "name": "Aloy",
+      "file": "20-aloy.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Aloy from Horizon. adult female hunter, copper red hair with thin side braids and voluminous swept back top, green eyes, freckles, small triangular blue Focus at right temple, blue scarf and brown leather armor, warm determined expression. Leave 5 percent clear background above the whole head. Background must be opaque pale lavender.",
+      "reference": "assets/catalog/video_games/references/aloy.jpg"
+    },
+    {
+      "id": "steve",
+      "name": "Steve",
+      "file": "21-steve.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Steve from Minecraft. recognizable Steve from Minecraft adapted to soft 3D toy avatar, block-shaped rounded square head, short dark brown blocky hair, blue eyes, pixel-like square beard stubble, medium tan skin, turquoise T-shirt, preserve square head silhouette and simplified block-like details. Translate the pixelated reference into softly rounded stylized 3D avatar shapes, retaining the recognizable square head silhouette and hair and clothing colors. Leave 5 percent clear background above the whole head. Background must be opaque pale lavender.",
+      "reference": "assets/catalog/video_games/references/steve.jpg"
+    },
+    {
+      "id": "alex",
+      "name": "Alex",
+      "file": "22-alex.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Alex from Minecraft. Minecraft Alex as soft 3D toy avatar, rounded block-shaped square head, light peach skin, long orange hair swept over one shoulder, green eyes, light green shirt, preserve simplified block-like details. Translate the pixelated reference into softly rounded stylized 3D avatar shapes, retaining the recognizable square head silhouette and hair and clothing colors. Leave 5 percent clear background above the whole head. Background must be opaque pale lavender.",
+      "reference": "assets/catalog/video_games/references/alex.jpg"
+    },
+    {
+      "id": "sackboy",
+      "name": "Sackboy",
+      "file": "23-sackboy.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Sackboy from LittleBigPlanet. small friendly brown knitted fabric doll, large glossy black button eyes, wide stitched smile, rounded sack head with visible knit loops, central silver zipper on brown knitted torso, no clothing or human features. Leave 5 percent clear background above the whole head. Background must be opaque pale lavender.",
+      "reference": "assets/catalog/video_games/references/sackboy.jpg"
+    },
+    {
+      "id": "sly",
+      "name": "Sly Cooper",
+      "file": "24-sly.png",
+      "prompt": "Create one square portrait of the following video game character as a friendly stylized 3D cartoon avatar. Use image 1 as the reference for soft volumetric rendering, rounded forms, large expressive eyes, soft studio lighting, and plain pale lavender background. Use image 2 for character identity. Show just one character, facing viewer, head and shoulders, with entire head, ears, hat and hair visible and some clear background margin around them. Keep the character's own species and anatomy. No text, border, weapons or scenery. Character: Sly Cooper from Sly Cooper. friendly grey anthropomorphic raccoon, black raccoon eye mask markings, yellow brown eyes, pointed ears, long muzzle and black nose, blue flat cap, blue shirt and yellow collar accents, no cane. Leave 5 percent clear background above the whole head. Background must be opaque pale lavender.",
+      "reference": "assets/catalog/video_games/references/sly.jpg"
+    }
+  ]
+}

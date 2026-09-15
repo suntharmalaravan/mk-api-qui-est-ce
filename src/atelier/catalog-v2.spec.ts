@@ -5,7 +5,7 @@ import {
   ASSET_FILES,
   canonicalRecipe,
   ITEMS_V2,
-  ITEMS_V3,
+  ITEMS_V4,
   HAIR_COLORS,
   upgradeRecipe,
   visibleKey,
@@ -125,6 +125,13 @@ describe('atelier v2', () => {
     ).toBe(true);
   }, 20000);
   it.each([
+    recipe({
+      ...upgradeRecipe(modern, 4),
+      hair: 'hair-braids',
+      outfit: 'outfit-denim',
+      neckwear: 'neckwear-bowtie',
+      glasses: 'glasses-rectangular',
+    }),
     modern,
     recipe({
       ...upgradeRecipe(modern, 3),
@@ -182,9 +189,9 @@ describe('atelier v2', () => {
       );
       expect((await atelier.list(7)).characters[0].recipe).toEqual(savedRecipe);
       expect(atelier.catalog()).toMatchObject({
-        catalogVersion: 3,
-        supportedCatalogVersions: [1, 2, 3],
-        slots: ITEMS_V3,
+        catalogVersion: 4,
+        supportedCatalogVersions: [1, 2, 3, 4],
+        slots: ITEMS_V4,
       });
     },
   );

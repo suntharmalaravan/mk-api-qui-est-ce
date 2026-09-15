@@ -1,3 +1,4 @@
+import { rankForScore } from '../atelier/loupe-economy';
 import {
   BadRequestException,
   ConflictException,
@@ -13,7 +14,7 @@ export class SocialService {
   constructor(private readonly db: DataSource) {}
   async list(userId: number) {
     const friends = await this.db.query(
-      `SELECT u.id::text AS "userId",u.username,u.public_identifier AS identifier,u.image_url AS "imageUrl",f.status,
+      `SELECT u.id::text AS "userId",u.username,u.score,u.public_identifier AS identifier,u.image_url AS "imageUrl",f.status,
       CASE WHEN f.requester_id=$1 THEN 'outgoing' ELSE 'incoming' END AS direction
       FROM friendship f JOIN "user" u ON u.id=CASE WHEN f.user_low=$1 THEN f.user_high ELSE f.user_low END
       WHERE $1 IN (f.user_low,f.user_high) ORDER BY f.status,u.username,u.id`,
@@ -34,22 +35,22 @@ export class SocialService {
         userId,
       ])
     )[0];
-    return { friends, invitations, identifier: me?.public_identifier };
+    return { friends: friends.map(friend => ({ ...friend, grade: rankForScore(Number(friend.score)) })), invitations, identifier: me?.public_identifier };
   }
   async player(userId: number, otherId: number) {
     const rows = await this.db.query(
-      `SELECT u.id::text AS "userId",u.username,u.public_identifier AS identifier,u.image_url AS "imageUrl",f.status,
+      `SELECT u.id::text AS "userId",u.username,u.score,u.public_identifier AS identifier,u.image_url AS "imageUrl",f.status,
       CASE WHEN f.requester_id=$1 THEN 'outgoing' ELSE 'incoming' END AS direction
       FROM "user" u LEFT JOIN friendship f ON f.user_low=LEAST($1,u.id) AND f.user_high=GREATEST($1,u.id)
       WHERE u.id=$2 AND u.id<>$1`,
       [userId, otherId],
     );
     if (!rows.length) throw new NotFoundException('Joueur introuvable.');
-    return rows[0];
+    return { ...rows[0], grade: rankForScore(Number(rows[0].score)) };
   }
   async opponent(userId: number, roomName: string) {
     const rows = await this.db.query(
-      `SELECT u.id::text AS "userId",u.username,u.public_identifier AS identifier,u.image_url AS "imageUrl",f.status,
+      `SELECT u.id::text AS "userId",u.username,u.score,u.public_identifier AS identifier,u.image_url AS "imageUrl",f.status,
       CASE WHEN f.requester_id=$1 THEN 'outgoing' ELSE 'incoming' END AS direction
       FROM room r JOIN "user" u ON u.id=CASE WHEN r.hostplayerid=$1 THEN r.guestplayerid ELSE r.hostplayerid END
       LEFT JOIN friendship f ON f.user_low=LEAST($1,u.id) AND f.user_high=GREATEST($1,u.id)
@@ -57,7 +58,7 @@ export class SocialService {
       [userId, roomName],
     );
     if (!rows.length) throw new NotFoundException('Adversaire introuvable.');
-    return rows[0];
+    return { ...rows[0], grade: rankForScore(Number(rows[0].score)) };
   }
   async request(userId: number, identifier: string) {
     return this.db.transaction(async (tx) => {

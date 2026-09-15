@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { rankForScore } from '../atelier/loupe-economy';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -46,6 +47,7 @@ export class UserService {
       ...user,
       title: levelInfo.title,
       currentLevel: levelInfo.levelId,
+      rank: rankForScore(user.score),
       minScore: levelInfo.minScore,
       maxScore: levelInfo.maxScore,
     };
@@ -103,46 +105,7 @@ export class UserService {
   }
 
   async updateScore(id: number, score: number) {
-    console.log('📊 [updateScore] Début de la mise à jour du score:', {
-      userId: id,
-      newScore: score,
-    });
-
-    if (!id) {
-      console.error('❌ [updateScore] User ID is null or undefined');
-      throw new Error('User ID is required for updateScore');
-    }
-
-    const user = await this.userRepository.findOne({
-      select: { score: true },
-      where: { id },
-    });
-
-    console.log('🔍 [updateScore] Utilisateur trouvé:', {
-      userId: id,
-      userFound: !!user,
-      currentScore: user?.score,
-    });
-
-    if (!user) {
-      console.error('❌ [updateScore] User not found:', { userId: id });
-      throw new Error(`User with ID ${id} not found`);
-    }
-
-    console.log('💾 [updateScore] Mise à jour du score en base de données:', {
-      userId: id,
-      oldScore: user.score,
-      newScore: score,
-    });
-
-    await this.userRepository.update(id, { score });
-
-    console.log('✅ [updateScore] Score mis à jour avec succès:', {
-      userId: id,
-      newScore: score,
-    });
-
-    return { ...user, score };
+    throw new ForbiddenException({ code: 'SERVER_PROGRESSION', message: 'La progression est calculée à la fin des duels.' });
   }
 
   async incrementScore(id: number, points: number): Promise<void> {

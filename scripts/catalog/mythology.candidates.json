@@ -1,0 +1,47 @@
+{
+  "slug": "mythology",
+  "label": "Mythologie",
+  "defaultCrop": { "zoom": 0.9, "x": 0.5, "y": 0.45 },
+  "attributionNote": "Les œuvres et photographies Wikimedia Commons doivent être créditées selon la licence indiquée pour chaque image.",
+  "characters": [
+    {
+      "file": "01-zeus",
+      "name": "Zeus",
+      "wikipedia": "Zeus",
+      "sourceFile": "Zeus Otricoli Pio-Clementino Inv257.jpg"
+    },
+    { "file": "02-poseidon", "name": "Poséidon", "wikipedia": "Poseidon" },
+    { "file": "03-hades", "name": "Hadès", "wikipedia": "Hades" },
+    { "file": "04-athena", "name": "Athéna", "wikipedia": "Athena" },
+    { "file": "05-ares", "name": "Arès", "wikipedia": "Ares" },
+    { "file": "06-hermes", "name": "Hermès", "wikipedia": "Hermes" },
+    { "file": "07-aphrodite", "name": "Aphrodite", "wikipedia": "Aphrodite" },
+    { "file": "08-apollon", "name": "Apollon", "wikipedia": "Apollo" },
+    { "file": "09-artemis", "name": "Artémis", "wikipedia": "Artemis" },
+    { "file": "10-hercule", "name": "Hercule", "wikipedia": "Heracles" },
+    { "file": "11-meduse", "name": "Méduse", "wikipedia": "Medusa" },
+    { "file": "12-minotaure", "name": "Minotaure", "wikipedia": "Minotaur" },
+    { "file": "13-odin", "name": "Odin", "wikipedia": "Odin" },
+    { "file": "14-thor", "name": "Thor", "wikipedia": "Thor" },
+    { "file": "15-loki", "name": "Loki", "wikipedia": "Loki" },
+    {
+      "file": "16-freyja",
+      "name": "Freyja",
+      "wikipedia": "Freyja",
+      "sourceFile": "Freyja and cats and angels by Blommer.jpg"
+    },
+    { "file": "17-heimdall", "name": "Heimdall", "wikipedia": "Heimdall" },
+    {
+      "file": "18-fenrir",
+      "name": "Fenrir",
+      "wikipedia": "Fenrir",
+      "sourceFile": "Fenrir (Manual of Mythology).jpg"
+    },
+    { "file": "19-ra", "name": "Râ", "wikipedia": "Ra" },
+    { "file": "20-anubis", "name": "Anubis", "wikipedia": "Anubis" },
+    { "file": "21-horus", "name": "Horus", "wikipedia": "Horus" },
+    { "file": "22-bastet", "name": "Bastet", "wikipedia": "Bastet" },
+    { "file": "23-osiris", "name": "Osiris", "wikipedia": "Osiris" },
+    { "file": "24-isis", "name": "Isis", "wikipedia": "Isis" }
+  ]
+}

@@ -6,6 +6,7 @@ import {
 } from '@nestjs/common';
 import { DataSource, EntityManager } from 'typeorm';
 import { AtelierService } from './atelier.service';
+import { settleLoupeDuel } from './loupe-economy';
 
 @Injectable()
 export class AtelierGameService {
@@ -156,28 +157,16 @@ export class AtelierGameService {
           'INSERT INTO atelier_match_result(match_id,winner_id,loser_id,reason) VALUES($1,$2,$3,$4)',
           [room.match_id, winnerId, loserId, right ? 'guess' : 'lives'],
         );
-        await tx.query('UPDATE "user" SET score=score+8 WHERE id=$1', [
-          winnerId,
-        ]);
-        const elapsed = room.match_started_at
-          ? Date.now() - new Date(room.match_started_at).getTime()
-          : 0;
-        if (
-          this.atelier.economyEnabled &&
-          elapsed >= this.atelier.amount('ATELIER_MIN_MATCH_SECONDS', 60) * 1000
-        ) {
-          await this.reward(
-            tx,
-            winnerId,
-            room.match_id,
-            this.atelier.amount('ATELIER_WIN_COINS', 10),
-          );
-          await this.reward(
-            tx,
-            loserId,
-            room.match_id,
-            this.atelier.amount('ATELIER_LOSS_COINS', 3),
-          );
+        if (this.atelier.loupeEconomyEnabled) {
+          const winningMisses = winnerId === actor ? misses : winnerId === room.hostplayerid ? room.host_misses : room.guest_misses;
+          await settleLoupeDuel(tx, room, winnerId, loserId, winningMisses);
+        } else {
+          await tx.query('UPDATE "user" SET score=score+8 WHERE id=$1', [winnerId]);
+          const elapsed = room.match_started_at ? Date.now() - new Date(room.match_started_at).getTime() : 0;
+          if (this.atelier.economyEnabled && elapsed >= this.atelier.amount('ATELIER_MIN_MATCH_SECONDS', 60) * 1000) {
+            await this.reward(tx, winnerId, room.match_id, this.atelier.amount('ATELIER_WIN_COINS', 10));
+            await this.reward(tx, loserId, room.match_id, this.atelier.amount('ATELIER_LOSS_COINS', 3));
+          }
         }
       }
       const result = {

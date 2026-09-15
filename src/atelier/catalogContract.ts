@@ -70,6 +70,19 @@ export const ITEMS_V3: Record<Slot, readonly string[]> = {
   outfit: [...ITEMS_V2.outfit, 'outfit-varsity'],
   neckwear: ['neckwear-none', 'neckwear-scarf'],
 };
+/** New creations exclude the retired hoodie; v1-v3 remain readable. */
+export const ITEMS_V4: Record<Slot, readonly string[]> = {
+  ...ITEMS_V3,
+  hair: [...ITEMS_V3.hair, 'hair-pixie', 'hair-braids'],
+  glasses: [...ITEMS_V3.glasses, 'glasses-rectangular'],
+  hat: [...ITEMS_V3.hat, 'hat-beret', 'hat-bucket'],
+  outfit: [
+    ...ITEMS_V3.outfit.filter(id => id !== 'outfit-hoodie'),
+    'outfit-denim',
+    'outfit-mariniere',
+  ],
+  neckwear: [...ITEMS_V3.neckwear, 'neckwear-bowtie'],
+};
 export function recipeSlots(r: Recipe): readonly Slot[] {
   return r.catalogVersion === 1
     ? LEGACY_SLOTS
@@ -85,7 +98,8 @@ export function canonicalRecipe(value: unknown): Recipe | null {
   if (
     r.catalogVersion !== 1 &&
     r.catalogVersion !== 2 &&
-    r.catalogVersion !== 3
+    r.catalogVersion !== 3 &&
+    r.catalogVersion !== 4
   ) {
     return null;
   }
@@ -95,7 +109,9 @@ export function canonicalRecipe(value: unknown): Recipe | null {
       ? LEGACY_ITEMS
       : r.catalogVersion === 2
       ? ITEMS_V2
-      : ITEMS_V3;
+      : r.catalogVersion === 3
+      ? ITEMS_V3
+      : ITEMS_V4;
   if (
     Object.keys(r).length !== slots.length + 1 ||
     !slots.every(
@@ -109,12 +125,15 @@ export function canonicalRecipe(value: unknown): Recipe | null {
     ...slots.map(slot => [slot, r[slot]]),
   ]) as Recipe;
 }
-export function upgradeRecipe(r: Recipe, version: 2 | 3 = 2): Recipe {
+export function upgradeRecipe(r: Recipe, version: 2 | 3 | 4 = 2): Recipe {
   const target = Math.max(r.catalogVersion, version);
   return {
-    ...(target === 3 ? V3_DEFAULTS : V2_DEFAULTS),
+    ...(target >= 3 ? V3_DEFAULTS : V2_DEFAULTS),
     ...r,
     catalogVersion: target,
+    ...(target === 4 && r.outfit === 'outfit-hoodie'
+      ? { outfit: 'outfit-tee' }
+      : {}),
   };
 }
 /** Keep the old visible keys, including across v1/v2, when the pixels are unchanged. */
@@ -134,11 +153,19 @@ export function visibleKey(r: Recipe): string {
     color === V2_DEFAULTS.hairColor
       ? legacy
       : `${legacy}|${face}|${color}|${accessory}`;
-  return r.catalogVersion === 3 && r.neckwear !== V3_DEFAULTS.neckwear
+  return r.catalogVersion >= 3 && r.neckwear !== V3_DEFAULTS.neckwear
     ? `${key}|${r.neckwear}`
     : key;
 }
 export const ANCHORS = {
+  pixie: { scale: 0.8, y: -0.12 },
+  braids: { scale: 0.8, y: 0.02 },
+  beret: { scale: 0.59, y: -0.17 },
+  bucket: { scale: 0.58, y: -0.232 },
+  rectangular: { scale: 0.7, y: -0.014 },
+  denim: { scale: 1, y: 0 },
+  mariniere: { scale: 1.1, y: -0.028 },
+  bowtie: { scale: 0.55, y: 0.14 },
   base: { scale: 1, y: 0 },
   hair: { scale: 0.72, y: -0.088 },
   glasses: { scale: 0.7, y: -0.014 },
@@ -161,6 +188,15 @@ export const ANCHORS = {
 };
 export type ArtKey = keyof typeof ANCHORS;
 export const ASSET_FILES: Record<ArtKey, string> = {
+  pixie: 'v4/pixie.png',
+  braids: 'v4/braids.png',
+  beret: 'v4/beret.png',
+  bucket: 'v4/bucket.png',
+  rectangular: 'v4/rectangular.png',
+  denim: 'v4/denim.png',
+  mariniere: 'v4/mariniere.png',
+  bowtie: 'v4/bowtie.png',
+
   base: 'base.png',
   hair: 'hair.png',
   glasses: 'glasses.png',
@@ -189,7 +225,8 @@ export interface RenderLayer {
 /** Native source-in tint + translucent original shading. No blend-mode dependency. */
 export function renderLayers(r: Recipe): RenderLayer[] {
   const v2 = r.catalogVersion >= 2;
-  const v3 = r.catalogVersion === 3;
+  const v3 = r.catalogVersion >= 3;
+  const v4 = r.catalogVersion === 4;
   const layers: RenderLayer[] = [
     {
       art:
@@ -211,6 +248,9 @@ export function renderLayers(r: Recipe): RenderLayer[] {
   if (v3 && r.outfit === 'outfit-varsity') {
     layers.push({ art: 'varsity' });
   }
+  if (v4 && r.outfit === 'outfit-denim') layers.push({ art: 'denim' });
+  if (v4 && r.outfit === 'outfit-mariniere') layers.push({ art: 'mariniere' });
+  if (v4 && r.neckwear === 'neckwear-bowtie') layers.push({ art: 'bowtie' });
   if (v3 && r.neckwear === 'neckwear-scarf') {
     layers.push({ art: 'scarf' });
   }
@@ -222,7 +262,11 @@ export function renderLayers(r: Recipe): RenderLayer[] {
       layers.push({ art: 'hair' });
     } else {
       const art: ArtKey =
-        r.hair === 'hair-bob'
+        v4 && r.hair === 'hair-pixie'
+          ? 'pixie'
+          : v4 && r.hair === 'hair-braids'
+          ? 'braids'
+          : r.hair === 'hair-bob'
           ? 'bob'
           : r.hair === 'hair-curls'
           ? 'curls'
@@ -247,6 +291,10 @@ export function renderLayers(r: Recipe): RenderLayer[] {
   if (v3 && r.glasses === 'glasses-aviators') {
     layers.push({ art: 'aviators' });
   }
+  if (v4 && r.glasses === 'glasses-rectangular')
+    layers.push({ art: 'rectangular' });
+  if (v4 && r.hat === 'hat-beret') layers.push({ art: 'beret' });
+  if (v4 && r.hat === 'hat-bucket') layers.push({ art: 'bucket' });
   if (v3 && r.hat === 'hat-beanie') {
     layers.push({ art: 'beanie' });
   }

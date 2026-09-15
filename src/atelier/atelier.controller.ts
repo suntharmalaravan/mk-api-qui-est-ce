@@ -42,6 +42,12 @@ export class AtelierController {
   account(@Request() req) {
     return this.atelier.account(req.user.id);
   }
+  @Get('economy')
+  @UseGuards(JwtAuthGuard)
+  economy(@Request() req) { return this.atelier.economy(req.user.id); }
+  @Post('rewards/:id/acknowledge')
+  @UseGuards(JwtAuthGuard)
+  acknowledge(@Request() req, @Param('id') id: string) { return this.atelier.acknowledgeReward(req.user.id,id); }
   @Get('characters')
   @UseGuards(JwtAuthGuard)
   list(@Request() req) {

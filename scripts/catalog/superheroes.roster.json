@@ -1,0 +1,294 @@
+{
+  "slug": "superheroes",
+  "label": "Super-héros",
+  "characters": [
+    {
+      "id": "superman",
+      "name": "Superman",
+      "universe": "DC",
+      "wiki": "Superman",
+      "details": "short sculpted black hair with iconic forehead curl, blue eyes, royal blue superhero suit, red cape at shoulders, raised red and yellow S shield on chest, warm confident smile",
+      "file": "01-superman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Superman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/3/35/Supermanflying.png"
+      }
+    },
+    {
+      "id": "batman",
+      "name": "Batman",
+      "universe": "DC",
+      "wiki": "Batman",
+      "details": "black bat cowl with two tall pointed ears, white eye lenses, exposed clean-shaven lower face, charcoal grey armored suit, black cape, bat chest emblem, serious composed expression",
+      "file": "02-batman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Batman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c7/Batman_Infobox.jpg"
+      }
+    },
+    {
+      "id": "wonder-woman",
+      "name": "Wonder Woman",
+      "universe": "DC",
+      "wiki": "Wonder_Woman",
+      "details": "long flowing black hair, blue eyes, golden tiara with red star, red and gold armored bodice, warm confident expression",
+      "file": "03-wonder-woman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Wonder_Woman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/6b/Wonder_Woman_750.jpg"
+      }
+    },
+    {
+      "id": "flash",
+      "name": "Flash",
+      "universe": "DC",
+      "wiki": "Flash_(Barry_Allen)",
+      "details": "Barry Allen in bright red cowl covering head and ears, exposed lower face, blue eyes visible, small gold lightning ear pieces, red suit, gold lightning bolt in white chest circle, cheerful smile",
+      "file": "04-flash.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Flash_(Barry_Allen)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b7/Flash_%28Barry_Allen%29.png"
+      }
+    },
+    {
+      "id": "aquaman",
+      "name": "Aquaman",
+      "universe": "DC",
+      "wiki": "Aquaman",
+      "details": "classic comic Arthur Curry, short blond hair, blue eyes, clean shaven, orange gold scale armor, green collar accents, confident smile",
+      "file": "05-aquaman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Aquaman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/9/9d/Aquaman_Rebirth_1.png"
+      }
+    },
+    {
+      "id": "green-lantern",
+      "name": "Green Lantern",
+      "universe": "DC",
+      "wiki": "Hal_Jordan",
+      "details": "Hal Jordan, short brown hair, green domino eye mask, green eyes, emerald green and black superhero suit, white and green lantern chest emblem, confident smile",
+      "file": "06-green-lantern.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Hal_Jordan",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/9/90/Green_Lantern_%28Hal_Jordan%29.png"
+      }
+    },
+    {
+      "id": "cyborg",
+      "name": "Cyborg",
+      "universe": "DC",
+      "wiki": "Cyborg_(DC_Comics)",
+      "details": "Victor Stone, young Black man with brown skin, half face silver cybernetic plating, one red glowing robotic eye and one visible brown human eye, silver armored shoulders and subtle red chest light, friendly composed expression",
+      "file": "07-cyborg.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Cyborg_(DC_Comics)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/58/Cyborg_%28Victor_Stone%29.jpg"
+      }
+    },
+    {
+      "id": "supergirl",
+      "name": "Supergirl",
+      "universe": "DC",
+      "wiki": "Supergirl_(Kara_Zor-El)",
+      "details": "Kara, long blond hair, blue eyes, royal blue suit, red cape at shoulders, red and yellow S shield, friendly smile",
+      "file": "08-supergirl.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Supergirl_(Kara_Zor-El)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/20/Supergirl_%28Kara_Zor-El_circa_2016%29.png"
+      }
+    },
+    {
+      "id": "batgirl",
+      "name": "Batgirl",
+      "universe": "DC",
+      "wiki": "Barbara_Gordon",
+      "details": "Barbara Gordon, long copper red hair visible below dark purple bat cowl with small pointed ears, green eyes, exposed lower face, dark purple superhero suit, yellow bat emblem and golden cape lining",
+      "file": "09-batgirl.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Barbara_Gordon",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/6c/Barbara_Gordon.jpg"
+      }
+    },
+    {
+      "id": "shazam",
+      "name": "Shazam",
+      "universe": "DC",
+      "wiki": "Captain_Marvel_(DC_Comics)",
+      "details": "short glossy black hair, brown eyes, red superhero suit with golden lightning chest emblem, white hooded cape with gold trim draped over shoulders, cheerful confident smile",
+      "file": "10-shazam.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Captain_Marvel_(DC_Comics)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/d5/Billy_Batson%2C_Shazam_Captain_Marvel_%28Modern%29.png"
+      }
+    },
+    {
+      "id": "green-arrow",
+      "name": "Green Arrow",
+      "universe": "DC",
+      "wiki": "Green_Arrow",
+      "details": "Oliver Queen, short blond hair, short blond goatee and moustache, green domino eye mask, green hood raised, emerald leather superhero suit, relaxed confident smile, no bow",
+      "file": "11-green-arrow.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Green_Arrow",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/61/Green_Arrow_-_Infobox_image.png"
+      }
+    },
+    {
+      "id": "martian-manhunter",
+      "name": "Martian Manhunter",
+      "universe": "DC",
+      "wiki": "Martian_Manhunter",
+      "details": "Jonn Jonzz, green skin, bald elongated smooth head with strong brow ridge, red eyes, blue high collar cape, red X straps across blue superhero suit, friendly dignified expression",
+      "file": "12-martian-manhunter.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Martian_Manhunter",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/3/34/Martian_Manhunter_Alex_Ross.png"
+      }
+    },
+    {
+      "id": "spider-man",
+      "name": "Spider-Man",
+      "universe": "Marvel",
+      "wiki": "Spider-Man",
+      "details": "classic red and blue Spider-Man suit, full red fabric mask covering entire head with raised black web pattern, large white almond-shaped eye lenses outlined black, small black spider emblem, no visible human face",
+      "file": "13-spider-man.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Spider-Man",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/21/Web_of_Spider-Man_Vol_1_129-1.png"
+      }
+    },
+    {
+      "id": "iron-man",
+      "name": "Iron Man",
+      "universe": "Marvel",
+      "wiki": "Iron_Man",
+      "details": "classic Iron Man red and gold metallic helmet, faceplate closed, narrow glowing white-blue eye slits, red and gold armor at shoulders, circular glowing arc reactor in chest, friendly stylized rounded armor",
+      "file": "14-iron-man.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Iron_Man",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/47/Iron_Man_%28circa_2018%29.png"
+      }
+    },
+    {
+      "id": "captain-america",
+      "name": "Captain America",
+      "universe": "Marvel",
+      "wiki": "Captain_America",
+      "details": "Steve Rogers, blue cowl with white A on forehead and white temple wing motifs, blue eyes, exposed lower face, blue uniform with silver white chest star and red white accents, confident friendly expression, no shield",
+      "file": "15-captain-america.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Captain_America",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f4/Captain_America.png"
+      }
+    },
+    {
+      "id": "thor",
+      "name": "Thor",
+      "universe": "Marvel",
+      "wiki": "Thor_(Marvel_Comics)",
+      "details": "long blond hair, short blond beard, blue eyes, silver winged helmet with both wings fully visible, black and silver armor with round silver disks and red cape, friendly mighty expression, no hammer",
+      "file": "16-thor.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Thor_(Marvel_Comics)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/1a/Thor_%28Marvel_Comics%29.png"
+      }
+    },
+    {
+      "id": "hulk",
+      "name": "Hulk",
+      "universe": "Marvel",
+      "wiki": "Hulk",
+      "details": "green skin, short tousled black hair, large broad rounded head, thick dark brows, green eyes, huge muscular bare green shoulders, mild friendly grin, no violence",
+      "file": "17-hulk.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Hulk",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/aa/Hulk_%28circa_2019%29.png"
+      }
+    },
+    {
+      "id": "black-widow",
+      "name": "Black Widow",
+      "universe": "Marvel",
+      "wiki": "Black_Widow_(Natasha_Romanova)",
+      "details": "Natasha Romanoff, shoulder length red auburn bob hair, green eyes, black tactical superhero suit with high collar and subtle red accents, confident smile, no weapons",
+      "file": "18-black-widow.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Black_Widow_(Natasha_Romanova)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/3/37/Natasha_Romanova_incarnations.jpg"
+      }
+    },
+    {
+      "id": "hawkeye",
+      "name": "Hawkeye",
+      "universe": "Marvel",
+      "wiki": "Hawkeye_(Clint_Barton)",
+      "details": "classic Clint Barton comic costume, purple cowl with angular pointed side fins and white H on forehead, exposed lower face, blue eyes, purple and dark blue costume, confident expression, no bow",
+      "file": "19-hawkeye.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Hawkeye_(Clint_Barton)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/1b/Hawkeye_%28circa_2022%29.webp"
+      }
+    },
+    {
+      "id": "black-panther",
+      "name": "Black Panther",
+      "universe": "Marvel",
+      "wiki": "Black_Panther_(character)",
+      "details": "full black panther mask, subtle rounded cat ears, silver detailing, white eye lenses, black suit with silver claw necklace, dignified posture, no human face visible",
+      "file": "20-black-panther.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Black_Panther_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f7/Black_Panther_%28T%27Challa%29.png"
+      }
+    },
+    {
+      "id": "doctor-strange",
+      "name": "Doctor Strange",
+      "universe": "Marvel",
+      "wiki": "Doctor_Strange",
+      "details": "short dark hair with silver grey temples, neat moustache and pointed goatee, blue eyes, blue tunic, red cloak with high collar, round gold Eye of Agamotto amulet, warm thoughtful expression",
+      "file": "21-doctor-strange.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Doctor_Strange",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/4f/Doctor_Strange_Vol_4_2_Ross_Variant_Textless.jpg"
+      }
+    },
+    {
+      "id": "captain-marvel",
+      "name": "Captain Marvel",
+      "universe": "Marvel",
+      "wiki": "Carol_Danvers",
+      "details": "Carol Danvers, shoulder length blond hair, blue eyes, navy blue and red suit with gold piping and gold eight pointed star emblem, no helmet, friendly confident smile",
+      "file": "22-captain-marvel.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Carol_Danvers",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/02/Carol_Danvers_-_%28evolution%29.jpg"
+      }
+    },
+    {
+      "id": "wolverine",
+      "name": "Wolverine",
+      "universe": "Marvel",
+      "wiki": "Wolverine_(character)",
+      "details": "classic yellow and blue Wolverine costume, yellow cowl with tall black pointed side fins, white eye lenses, exposed clean shaven lower face with subtle stubble, determined expression, no claws",
+      "file": "23-wolverine.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Wolverine_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/d3/Wolverine_%28circa_2024%29.jpg"
+      }
+    },
+    {
+      "id": "scarlet-witch",
+      "name": "Scarlet Witch",
+      "universe": "Marvel",
+      "wiki": "Scarlet_Witch",
+      "details": "Wanda Maximoff, long wavy auburn hair, green eyes, distinctive crimson pointed tiara crown, deep red costume with high neckline, friendly composed expression, no magic effects",
+      "file": "24-scarlet-witch.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Scarlet_Witch",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/e/ec/Scarlet_Witch_Various_incarnations_2021.jpg"
+      }
+    }
+  ]
+}

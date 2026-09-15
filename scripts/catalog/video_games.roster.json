@@ -1,0 +1,294 @@
+{
+  "slug": "video_games",
+  "label": "Jeux vidéo",
+  "characters": [
+    {
+      "id": "rayman",
+      "name": "Rayman",
+      "universe": "Rayman",
+      "wiki": "Rayman_(character)",
+      "details": "friendly Rayman with peach face, very large rounded nose, swept blond hair tufts, large eyes, purple hooded top with white ring chest emblem and red scarf, preserve iconic limbless anatomy",
+      "file": "01-rayman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Rayman_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/19/Rayman_Legends_Title_Character_Art.png"
+      }
+    },
+    {
+      "id": "ratchet",
+      "name": "Ratchet",
+      "universe": "Ratchet & Clank",
+      "wiki": "Ratchet_(Ratchet_%26_Clank)",
+      "details": "orange golden furry lombax, very large long pointed ears with brown stripes, green eyes, small brown nose, tuft atop head, brown aviator cap and orange brown mechanic outfit, no weapons",
+      "file": "02-ratchet.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Ratchet_(Ratchet_%26_Clank)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c0/Ratchet_%26_Clank_%282021%29.png"
+      }
+    },
+    {
+      "id": "clank",
+      "name": "Clank",
+      "universe": "Ratchet & Clank",
+      "wiki": "Clank_(Ratchet_%26_Clank)",
+      "details": "small silver robot with rectangular rounded head, two large circular glowing green eyes, short antenna topped with red sphere, small friendly smile, silver torso, no human face",
+      "file": "03-clank.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Clank_(Ratchet_%26_Clank)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c0/Ratchet_%26_Clank_%282021%29.png"
+      }
+    },
+    {
+      "id": "crash",
+      "name": "Crash Bandicoot",
+      "universe": "Crash Bandicoot",
+      "wiki": "Crash_Bandicoot_(character)",
+      "details": "orange anthropomorphic bandicoot, large pointy ears, green eyes, broad tan muzzle, big black nose, spiky brownish orange hair tuft, thick eyebrows, tan chest, playful grin",
+      "file": "04-crash.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Crash_Bandicoot_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a3/IAT_Crash_Bandicoot.png"
+      }
+    },
+    {
+      "id": "coco",
+      "name": "Coco Bandicoot",
+      "universe": "Crash Bandicoot",
+      "wiki": "Coco_Bandicoot",
+      "details": "friendly orange female bandicoot, green eyes, tan muzzle, little black nose, long blond side ponytail with pink flower, white T-shirt under blue denim overalls, big pointed ears",
+      "file": "05-coco.png",
+      "reference": {
+        "pageUrl": "https://www.hiclipart.com/free-transparent-background-png-clipart-fctri",
+        "imageUrl": "https://p7.hiclipart.com/preview/309/331/660/crash-bandicoot-n-sane-trilogy-crash-mind-over-mutant-coco-bandicoot-hot-coco.jpg"
+      }
+    },
+    {
+      "id": "spyro",
+      "name": "Spyro",
+      "universe": "Spyro",
+      "wiki": "Spyro_(character)",
+      "details": "small friendly purple dragon, two curved golden horns, orange crest spikes, golden yellow underside of muzzle and chest, violet eyes, purple snout and small nostrils, wing hints behind shoulders, no human anatomy",
+      "file": "06-spyro.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Spyro_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/53/Spyro.png"
+      }
+    },
+    {
+      "id": "sonic",
+      "name": "Sonic",
+      "universe": "Sonic the Hedgehog",
+      "wiki": "Sonic_the_Hedgehog_(character)",
+      "details": "blue anthropomorphic hedgehog, sculpted swept back blue quills, two pointed blue ears with tan interiors, green eyes, tan muzzle and chest patch, small black nose, friendly confident smile",
+      "file": "07-sonic.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Sonic_the_Hedgehog_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f4/Sonic_modern_and_classic_designs.png"
+      }
+    },
+    {
+      "id": "tails",
+      "name": "Tails",
+      "universe": "Sonic the Hedgehog",
+      "wiki": "Tails_(Sonic_the_Hedgehog)",
+      "details": "orange anthropomorphic fox, two large pointed ears, blue eyes, fluffy white cheek tufts and chest fur, orange forehead tufts, small black nose, warm cheerful smile, twins tails optional only if naturally behind shoulders",
+      "file": "08-tails.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Tails_(Sonic_the_Hedgehog)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/1a/Miles_%22Tails%22_Prower_Sonic_and_All-Stars_Racing_Transformed.png"
+      }
+    },
+    {
+      "id": "knuckles",
+      "name": "Knuckles",
+      "universe": "Sonic the Hedgehog",
+      "wiki": "Knuckles_the_Echidna",
+      "details": "red anthropomorphic echidna, long sculpted red dreadlock-like quills framing face, violet eyes, tan muzzle, black nose, white crescent chest marking, friendly determined expression",
+      "file": "09-knuckles.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Knuckles_the_Echidna",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/06/Knuckles_the_Echidna.png"
+      }
+    },
+    {
+      "id": "shadow",
+      "name": "Shadow",
+      "universe": "Sonic the Hedgehog",
+      "wiki": "Shadow_the_Hedgehog",
+      "details": "black anthropomorphic hedgehog with sharp sculpted quills and bold red streaks, red eyes, tan muzzle, white chest fur tuft, black nose, composed confident expression",
+      "file": "10-shadow.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Shadow_the_Hedgehog",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/41/ShadowTheHedgehogSA2.png"
+      }
+    },
+    {
+      "id": "amy",
+      "name": "Amy Rose",
+      "universe": "Sonic the Hedgehog",
+      "wiki": "Amy_Rose",
+      "details": "pink anthropomorphic hedgehog, green eyes, tan muzzle, black nose, short pink quills framing face, pointed pink ears, red headband and red dress with white collar, cheerful smile",
+      "file": "11-amy.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Amy_Rose",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/85/MajorSonicCharacters.png"
+      }
+    },
+    {
+      "id": "eggman",
+      "name": "Dr Eggman",
+      "universe": "Sonic the Hedgehog",
+      "wiki": "Doctor_Eggman",
+      "details": "stylized round bald adult man, enormous reddish brown moustache fanning to both sides, small blue round glasses, goggles on top of bald head, red jacket with yellow and white details, playful confident grin",
+      "file": "12-eggman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Doctor_Eggman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/7/72/Doctor_EggmanSDT.png"
+      }
+    },
+    {
+      "id": "pac-man",
+      "name": "Pac-Man",
+      "universe": "Pac-Man",
+      "wiki": "Pac-Man_(character)",
+      "details": "friendly round yellow spherical Pac-Man with two tall black oval eyes, expressive black eyebrows, big smile and small tongue, orange gloves only if at lower sides, red boots out of frame, retain simple round body no human anatomy",
+      "file": "13-pac-man-v2.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Pac-Man_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Pac-Man_ingame_and_2D_alternative_design.png"
+      }
+    },
+    {
+      "id": "mega-man",
+      "name": "Mega Man",
+      "universe": "Mega Man",
+      "wiki": "Mega_Man_(character)",
+      "details": "friendly youthful robot hero, blue rounded helmet with cyan central stripe and blue ear discs, visible peach face, large blue eyes, blue and cyan armored suit shoulders, no arm cannon in frame",
+      "file": "14-mega-man.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Mega_Man_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/7/7e/Mega_Man_11_Artwork.png"
+      }
+    },
+    {
+      "id": "ryu",
+      "name": "Ryu",
+      "universe": "Street Fighter",
+      "wiki": "Ryu_(Street_Fighter)",
+      "details": "adult Japanese martial artist, short spiky black hair, thick dark eyebrows, brown eyes, red cloth headband with ends behind head, white karate gi with frayed sleeves, strong rounded face, calm confident expression",
+      "file": "15-ryu.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Ryu_(Street_Fighter)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/50/RyuStreetFighterTwoHadoken.png"
+      }
+    },
+    {
+      "id": "chun-li",
+      "name": "Chun-Li",
+      "universe": "Street Fighter",
+      "wiki": "Chun-Li",
+      "details": "adult Chinese martial artist, brown eyes, black hair in two round ox-horn buns wrapped in white cloth with white ribbons, blue qipao with gold trim and high collar, friendly determined expression",
+      "file": "16-chun-li.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Chun-Li",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/53/Chun-Li.png"
+      }
+    },
+    {
+      "id": "ken",
+      "name": "Ken",
+      "universe": "Street Fighter",
+      "wiki": "Ken_Masters",
+      "details": "adult martial artist, shoulder length blond hair with parted fringe, brown eyes, thick brows, red karate gi, friendly confident expression",
+      "file": "17-ken.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Ken_Masters",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2f/Ken_Masters_%28SF3_-_Third_Strike%29.png"
+      }
+    },
+    {
+      "id": "lara-croft",
+      "name": "Lara Croft",
+      "universe": "Tomb Raider",
+      "wiki": "Lara_Croft",
+      "details": "adult female adventurer, brown hair in long braid behind head with loose front strands, brown eyes, teal sleeveless top with covered neckline, brown backpack shoulder straps, confident friendly expression, no weapons",
+      "file": "18-lara-croft.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Lara_Croft",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a8/LaraCroftInfobox.png"
+      }
+    },
+    {
+      "id": "kratos",
+      "name": "Kratos",
+      "universe": "God of War",
+      "wiki": "Kratos_(God_of_War)",
+      "details": "bald adult warrior with pale ash skin, bold red diagonal tattoo across scalp and left eye, full dark brown beard, brown eyes, brown leather and fur shoulder armor, calm stern expression, no blood or weapons",
+      "file": "19-kratos.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Kratos_(God_of_War)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2f/Kratos_PS4.png"
+      }
+    },
+    {
+      "id": "aloy",
+      "name": "Aloy",
+      "universe": "Horizon",
+      "wiki": "Aloy",
+      "details": "adult female hunter, copper red hair with thin side braids and voluminous swept back top, green eyes, freckles, small triangular blue Focus at right temple, blue scarf and brown leather armor, warm determined expression",
+      "file": "20-aloy.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Aloy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b0/Aloy_%28Horizon_Zero_Dawn%29.png"
+      }
+    },
+    {
+      "id": "steve",
+      "name": "Steve",
+      "universe": "Minecraft",
+      "wiki": "Steve_(Minecraft)",
+      "details": "recognizable Steve from Minecraft adapted to soft 3D toy avatar, block-shaped rounded square head, short dark brown blocky hair, blue eyes, pixel-like square beard stubble, medium tan skin, turquoise T-shirt, preserve square head silhouette and simplified block-like details",
+      "file": "21-steve.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Steve_(Minecraft)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/e/e7/Steve_%28Minecraft%29.png"
+      }
+    },
+    {
+      "id": "alex",
+      "name": "Alex",
+      "universe": "Minecraft",
+      "wiki": "Alex_(Minecraft)",
+      "details": "Minecraft Alex as soft 3D toy avatar, rounded block-shaped square head, light peach skin, long orange hair swept over one shoulder, green eyes, light green shirt, preserve simplified block-like details",
+      "file": "22-alex.png",
+      "reference": {
+        "pageUrl": "https://in.pinterest.com/pin/mincraft-alex-minecraft-hd-png-download411x795-pngfind--34269647156997727/",
+        "imageUrl": "https://i.pinimg.com/736x/34/b4/66/34b466676c6becc0111aa7f790458ab4.jpg"
+      }
+    },
+    {
+      "id": "sackboy",
+      "name": "Sackboy",
+      "universe": "LittleBigPlanet",
+      "wiki": "Sackboy",
+      "details": "small friendly brown knitted fabric doll, large glossy black button eyes, wide stitched smile, rounded sack head with visible knit loops, central silver zipper on brown knitted torso, no clothing or human features",
+      "file": "23-sackboy.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Sackboy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/19/SackboySony.png"
+      }
+    },
+    {
+      "id": "sly",
+      "name": "Sly Cooper",
+      "universe": "Sly Cooper",
+      "wiki": "Sly_Cooper_(character)",
+      "details": "friendly grey anthropomorphic raccoon, black raccoon eye mask markings, yellow brown eyes, pointed ears, long muzzle and black nose, blue flat cap, blue shirt and yellow collar accents, no cane",
+      "file": "24-sly.png",
+      "reference": {
+        "pageUrl": "https://www.pngfind.com/mpng/hTRbii_sly-cooper-thieves-in-time-sly-hd-png/",
+        "imageUrl": "https://www.pngfind.com/pngs/m/35-357329_sly-cooper-thieves-in-time-sly-hd-png.png"
+      }
+    }
+  ]
+}

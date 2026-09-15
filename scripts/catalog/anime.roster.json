@@ -1,0 +1,294 @@
+{
+  "slug": "anime",
+  "label": "Personnages d’anime",
+  "characters": [
+    {
+      "id": "goku",
+      "name": "Goku",
+      "universe": "Dragon Ball",
+      "wiki": "Goku",
+      "details": "black spiky hair, orange gi, navy undershirt",
+      "file": "01-goku.png",
+      "reference": {
+        "pageUrl": "https://en.bandainamcoent.eu/dragon-ball/dragon-ball-sparking-zero/fighters",
+        "imageUrl": "https://p325k7wa.twic.pics/high/dragon-ball/dragon-ball-sparking-zero/04-characters/RosterThumbnails/dbsz-character-thumbnail-goku-z-early.jpg"
+      }
+    },
+    {
+      "id": "vegeta",
+      "name": "Vegeta",
+      "universe": "Dragon Ball",
+      "wiki": "Vegeta",
+      "details": "very tall upright black hair, pronounced widow's peak, dark eyes, royal blue bodysuit and white Saiyan armor with gold abdominal panel, proud confident expression",
+      "file": "02-vegeta-v2.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Vegeta",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/88/Vegeta_Dragon_Ball.jpg"
+      }
+    },
+    {
+      "id": "bulma",
+      "name": "Bulma",
+      "universe": "Dragon Ball",
+      "wiki": "Bulma",
+      "details": "short turquoise bob hair, blue eyes, red hair bow, pink collared outfit, cheerful ingenious woman",
+      "file": "03-bulma.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Bulma",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/8f/BulmaToriyama.png"
+      }
+    },
+    {
+      "id": "piccolo",
+      "name": "Piccolo",
+      "universe": "Dragon Ball",
+      "wiki": "Piccolo_(Dragon_Ball)",
+      "details": "green Namekian skin, two forehead antennae, pointed ears, bald head, white cape over purple gi, calm stern expression, no turban so antennae visible",
+      "file": "04-piccolo.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Piccolo_(Dragon_Ball)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/00/Piccolo_Dragon_Ball.png"
+      }
+    },
+    {
+      "id": "naruto",
+      "name": "Naruto",
+      "universe": "Naruto",
+      "wiki": "Naruto_Uzumaki",
+      "details": "spiky blond hair, blue eyes, three whisker marks per cheek, Leaf metal forehead protector, orange and black jacket",
+      "file": "05-naruto.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Naruto_Uzumaki",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/9/9a/NarutoUzumaki.png"
+      }
+    },
+    {
+      "id": "sasuke",
+      "name": "Sasuke",
+      "universe": "Naruto",
+      "wiki": "Sasuke_Uchiha",
+      "details": "spiky black hair with long bangs framing face, dark eyes, grey high open collar shirt, serious expression",
+      "file": "06-sasuke.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Sasuke_Uchiha",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/42/SasukeKishimoto.jpg"
+      }
+    },
+    {
+      "id": "sakura",
+      "name": "Sakura",
+      "universe": "Naruto",
+      "wiki": "Sakura_Haruno",
+      "details": "short pink hair, green eyes, red sleeveless high collar top, Leaf headband worn on crown, purple diamond forehead mark",
+      "file": "07-sakura.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Sakura_Haruno",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/80/SakuraKishimoto.jpg"
+      }
+    },
+    {
+      "id": "kakashi",
+      "name": "Kakashi",
+      "universe": "Naruto",
+      "wiki": "Kakashi_Hatake",
+      "details": "silver grey spiky hair, tilted Leaf forehead protector covers one eye, other dark eye visible, dark mask covers nose and mouth, green ninja flak vest",
+      "file": "08-kakashi.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Kakashi_Hatake",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2b/Kakashikishimoto.jpg"
+      }
+    },
+    {
+      "id": "luffy",
+      "name": "Luffy",
+      "universe": "One Piece",
+      "wiki": "Monkey_D._Luffy",
+      "details": "straw hat with red band, messy black hair, large dark eyes, small scar under his left eye, red vest, big cheerful smile",
+      "file": "09-luffy.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Monkey_D._Luffy",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/cb/Monkey_D_Luffy.png"
+      }
+    },
+    {
+      "id": "zoro",
+      "name": "Zoro",
+      "universe": "One Piece",
+      "wiki": "Roronoa_Zoro",
+      "details": "short spiky green hair, scar across closed left eye, three gold earrings on left ear, dark green open robe, confident expression",
+      "file": "10-zoro.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Roronoa_Zoro",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a4/Roronoa_Zoro.jpg"
+      }
+    },
+    {
+      "id": "nami",
+      "name": "Nami",
+      "universe": "One Piece",
+      "wiki": "Nami_(One_Piece)",
+      "details": "long bright orange hair, warm brown eyes, white and blue striped top, blue tattoo on left upper arm if visible, confident smile",
+      "file": "11-nami.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Nami_(One_Piece)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Nami_%28One_Piece_Odyssey%29.jpg"
+      }
+    },
+    {
+      "id": "chopper",
+      "name": "Chopper",
+      "universe": "One Piece",
+      "wiki": "Tony_Tony_Chopper",
+      "details": "small friendly anthropomorphic reindeer, tan brown fur, blue nose, dark eyes, antlers and iconic pink hat with white X, blue hat trim, orange top, no human face",
+      "file": "12-chopper.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Tony_Tony_Chopper",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f6/Tony_Tony_Chopper.jpg"
+      }
+    },
+    {
+      "id": "tanjiro",
+      "name": "Tanjiro",
+      "universe": "Demon Slayer",
+      "wiki": "Tanjiro_Kamado",
+      "details": "burgundy black swept spiky hair, burgundy eyes, scar on upper forehead, hanafuda rectangular earrings, green and black checkered haori over dark uniform",
+      "file": "13-tanjiro.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Tanjiro_Kamado",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/e/ea/Tanjirou_manga.png"
+      }
+    },
+    {
+      "id": "nezuko",
+      "name": "Nezuko",
+      "universe": "Demon Slayer",
+      "wiki": "Nezuko_Kamado",
+      "details": "long black hair fading orange at ends, pink eyes, pink ribbon, bamboo muzzle, pink patterned kimono and dark brown haori, gentle expression",
+      "file": "14-nezuko.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Nezuko_Kamado",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c0/NezukoKamado.png"
+      }
+    },
+    {
+      "id": "zenitsu",
+      "name": "Zenitsu",
+      "universe": "Demon Slayer",
+      "wiki": "Zenitsu_Agatsuma",
+      "details": "golden yellow bowl shaped choppy hair with orange tips, warm brown eyes, yellow haori with white triangles over dark uniform, slightly timid friendly expression",
+      "file": "15-zenitsu.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Zenitsu_Agatsuma",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2e/KnY_characters.png"
+      }
+    },
+    {
+      "id": "inosuke",
+      "name": "Inosuke",
+      "universe": "Demon Slayer",
+      "wiki": "Inosuke_Hashibira",
+      "details": "iconic furry grey boar head mask with blue eyes, pink snout and two short ivory tusks, bare upper shoulders, playful friendly stylization",
+      "file": "16-inosuke.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Zenitsu_Agatsuma",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/2/2e/KnY_characters.png"
+      }
+    },
+    {
+      "id": "light",
+      "name": "Light",
+      "universe": "Death Note",
+      "wiki": "Light_Yagami",
+      "details": "neatly side parted chestnut brown hair with fringe, brown eyes, tan blazer over white shirt with red tie, composed confident expression",
+      "file": "17-light.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Light_Yagami",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/0c/Light_from_Death_Note.jpg"
+      }
+    },
+    {
+      "id": "l",
+      "name": "L",
+      "universe": "Death Note",
+      "wiki": "L_(Death_Note)",
+      "details": "messy jet black hair, very large dark eyes with subtle under eye shadows, pale skin, plain white crew neck shirt, curious neutral expression",
+      "file": "18-l.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/L_(Death_Note)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/6/6c/L_from_Death_Note.png"
+      }
+    },
+    {
+      "id": "eren",
+      "name": "Eren",
+      "universe": "L’Attaque des Titans",
+      "wiki": "Eren_Yeager",
+      "details": "short brown hair, green eyes, youthful scout uniform brown cropped military jacket over light shirt and harness, determined expression",
+      "file": "19-eren.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Eren_Yeager",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f0/ErenYeagerIsayama.png"
+      }
+    },
+    {
+      "id": "mikasa",
+      "name": "Mikasa",
+      "universe": "L’Attaque des Titans",
+      "wiki": "Mikasa_Ackerman",
+      "details": "short straight black bob, grey eyes, red scarf, brown scout jacket, small scar below right eye, calm expression",
+      "file": "20-mikasa.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Mikasa_Ackerman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/14/MikasaAkerman.png"
+      }
+    },
+    {
+      "id": "livai",
+      "name": "Livaï",
+      "universe": "L’Attaque des Titans",
+      "wiki": "Levi_Ackerman",
+      "details": "black undercut with neat middle parted bangs, narrow grey eyes, white cravat, brown scout jacket and green cloak, composed stern expression",
+      "file": "21-livai.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Levi_Ackerman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/4b/Leviackerman.png"
+      }
+    },
+    {
+      "id": "deku",
+      "name": "Deku",
+      "universe": "My Hero Academia",
+      "wiki": "Izuku_Midoriya",
+      "details": "messy dark green hair with black roots, large green eyes, four freckles on each cheek, green hero costume with grey protective neck guard, no mask over face",
+      "file": "22-deku.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Izuku_Midoriya",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/db/Izuku_Midoriya_%28My_Hero_Academia_character%29.png"
+      }
+    },
+    {
+      "id": "bakugo",
+      "name": "Bakugo",
+      "universe": "My Hero Academia",
+      "wiki": "Katsuki_Bakugo",
+      "details": "spiky ash blond hair, red eyes, black angular eye mask, orange and black hero costume with orange X chest straps, confident grin, no weapons in frame",
+      "file": "23-bakugo.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Katsuki_Bakugo",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/02/BakugoMHAVol13.png"
+      }
+    },
+    {
+      "id": "ichigo",
+      "name": "Ichigo",
+      "universe": "Bleach",
+      "wiki": "Ichigo_Kurosaki",
+      "details": "spiky vivid orange hair, warm brown eyes, black shinigami robe with white collar, determined calm expression",
+      "file": "24-ichigo.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Ichigo_Kurosaki",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/1/1e/IchigoKurosakiBleach.jpg"
+      }
+    }
+  ]
+}

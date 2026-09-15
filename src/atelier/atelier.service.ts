@@ -21,7 +21,7 @@ import {
   COLORS,
   fail,
   hash,
-  ITEMS_V3,
+  ITEMS_V4,
   HAIR_COLORS,
   portraitHash,
   recipe,
@@ -30,6 +30,7 @@ import {
 } from './catalog';
 import { PortraitService } from './portrait.service';
 import { MixedCard, MixedPhoto } from './mixed-deck';
+import { LOUPE_PRICES, RANKS, rankForScore } from './loupe-economy';
 
 @Injectable()
 export class AtelierService implements OnModuleInit {
@@ -38,17 +39,21 @@ export class AtelierService implements OnModuleInit {
     private readonly config: ConfigService,
     private readonly portraits: PortraitService,
   ) {}
+  private loupeActive = false;
+  get loupeEconomyEnabled() { return this.enabled && this.loupeActive; }
   get enabled() {
     return this.config.get('ATELIER_ENABLED') === 'true';
   }
   get economyEnabled() {
     return (
-      this.enabled && this.config.get('ATELIER_ECONOMY_ENABLED') === 'true'
+      this.enabled && (this.loupeActive || this.config.get('ATELIER_ECONOMY_ENABLED') === 'true')
     );
   }
   async onModuleInit() {
     if (!this.enabled) return;
     this.portraitUrl('0'.repeat(64));
+    const configTable = await this.db.query("SELECT to_regclass('game_economy_config') AS name");
+    if (configTable[0]?.name) this.loupeActive = (await this.db.query('SELECT enabled FROM game_economy_config WHERE id=1 AND version=1'))[0]?.enabled === true;
     for (const [key, fallback] of Object.entries({
       ATELIER_GOLD_PRICE: 50,
       ATELIER_WIN_COINS: 10,
@@ -131,7 +136,7 @@ export class AtelierService implements OnModuleInit {
       version: account?.version ?? 0,
       owned,
       prices: this.economyEnabled
-        ? { 'backdrop-gold': this.amount('ATELIER_GOLD_PRICE', 50) }
+        ? this.loupeActive ? LOUPE_PRICES : { 'backdrop-gold': this.amount('ATELIER_GOLD_PRICE', 50) }
         : {},
       purchasesEnabled: this.economyEnabled,
     };
@@ -143,13 +148,28 @@ export class AtelierService implements OnModuleInit {
       return this.snapshot(tx, userId);
     });
   }
+  async economy(userId: number) {
+    this.requireEnabled();
+    return this.db.transaction(async tx => {
+      await this.accountLock(tx,userId);
+      const account = await this.snapshot(tx,userId);
+      const [{ score }] = await tx.query('SELECT score FROM "user" WHERE id=$1', [userId]);
+      const rewards = this.loupeActive ? await tx.query('SELECT id::text AS id,payload FROM loupe_reward WHERE user_id=$1 AND acknowledged_at IS NULL ORDER BY id LIMIT 50',[userId]) : [];
+      return { ...account, currency: 'loupes', enabled: this.loupeEconomyEnabled, rank: rankForScore(Number(score)), ranks: RANKS, rewards };
+    });
+  }
+  async acknowledgeReward(userId: number, id: string) {
+    if (!/^\d{1,19}$/.test(id)) fail('INVALID_REWARD', 'Récompense inconnue.');
+    if (this.loupeActive) await this.db.query('UPDATE loupe_reward SET acknowledged_at=COALESCE(acknowledged_at,now()) WHERE user_id=$1 AND id=$2',[userId,id]);
+    return { acknowledged: true };
+  }
   catalog() {
     this.requireEnabled();
     return {
-      catalogVersion: 3,
-      rendererVersion: 3,
-      supportedCatalogVersions: [1, 2, 3],
-      slots: ITEMS_V3,
+      catalogVersion: 4,
+      rendererVersion: 4,
+      supportedCatalogVersions: [1, 2, 3, 4],
+      slots: ITEMS_V4,
       hairColors: HAIR_COLORS,
       colors: COLORS,
       characterLimit: 60,
@@ -262,16 +282,11 @@ export class AtelierService implements OnModuleInit {
     });
   }
   private async entitled(tx: EntityManager, userId: number, r: Recipe) {
-    if (r.backdrop !== 'backdrop-gold') return;
-    const owned = await tx.query(
-      'SELECT 1 FROM atelier_inventory WHERE user_id=$1 AND item_id=$2',
-      [userId, r.backdrop],
-    );
-    if (!owned.length)
-      throw new ForbiddenException({
-        code: 'ITEM_NOT_OWNED',
-        message: 'Débloque cet équipement avant de sauvegarder.',
-      });
+    const required = Object.values(r).filter(value => typeof value === 'string' &&
+      (value === 'backdrop-gold' || (this.loupeActive && Object.prototype.hasOwnProperty.call(LOUPE_PRICES,value))));
+    if (!required.length) return;
+    const owned = (await tx.query('SELECT item_id FROM atelier_inventory WHERE user_id=$1', [userId])).map(row => row.item_id);
+    if (required.some(item => !owned.includes(item))) throw new ForbiddenException({ code: 'ITEM_NOT_OWNED', message: 'Débloque cet équipement avec tes loupes avant de l’enregistrer.' });
   }
   async save(userId: number, input: CharacterDto) {
     this.requireEnabled();
@@ -368,12 +383,12 @@ export class AtelierService implements OnModuleInit {
             code: 'PURCHASES_DISABLED',
             message: 'Les achats ne sont pas encore ouverts.',
           });
-        if (input.itemId !== 'backdrop-gold')
+        if (!(Object.prototype.hasOwnProperty.call(this.loupeActive ? LOUPE_PRICES : { 'backdrop-gold': true }, input.itemId)))
           fail('ITEM_UNAVAILABLE', 'Cet équipement ne peut pas être acheté.');
         const account = await this.snapshot(tx, userId);
         if (account.owned.includes(input.itemId))
           return { account, operationId: input.operationId, charged: 0 };
-        const price = this.amount('ATELIER_GOLD_PRICE', 50);
+        const price = this.loupeActive ? LOUPE_PRICES[input.itemId] : this.amount('ATELIER_GOLD_PRICE', 50);
         if (price !== input.expectedPrice)
           throw new ConflictException({
             code: 'PRICE_CHANGED',
@@ -383,7 +398,7 @@ export class AtelierService implements OnModuleInit {
         if (account.balance < price)
           throw new ConflictException({
             code: 'INSUFFICIENT_FUNDS',
-            message: 'Il te manque des pièces.',
+            message: 'Il te manque des loupes.',
           });
         await tx.query(
           'UPDATE atelier_account SET balance=balance-$2,version=version+1 WHERE user_id=$1',

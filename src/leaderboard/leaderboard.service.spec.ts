@@ -69,6 +69,7 @@ describe('LeaderboardService', () => {
       rank: 1,
       userId: 1,
       username: 'joueur-1',
+      grade: { id: 'recrue', title: 'Recrue', score: 0 },
       imageUrl: 'https://cdn/1.png',
       wins: 60,
       games: 61,

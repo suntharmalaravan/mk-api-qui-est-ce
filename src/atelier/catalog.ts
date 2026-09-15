@@ -2,7 +2,13 @@ import { createHash } from 'crypto';
 import { BadRequestException } from '@nestjs/common';
 import { canonicalRecipe, Recipe, visibleKey } from './catalogContract';
 export type { Recipe } from './catalogContract';
-export { ITEMS_V2, ITEMS_V3, HAIR_COLORS, visibleKey } from './catalogContract';
+export {
+  ITEMS_V2,
+  ITEMS_V3,
+  ITEMS_V4,
+  HAIR_COLORS,
+  visibleKey,
+} from './catalogContract';
 export const SLOTS = [
   'hair',
   'glasses',
@@ -11,7 +17,7 @@ export const SLOTS = [
   'outfit',
   'backdrop',
 ] as const;
-export type Slot = (typeof SLOTS)[number];
+export type Slot = typeof SLOTS[number];
 export const ITEMS = {
   hair: ['hair-none', 'hair-quiff'],
   glasses: ['glasses-none', 'glasses-round'],

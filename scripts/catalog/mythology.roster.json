@@ -1,0 +1,495 @@
+{
+  "slug": "mythology",
+  "label": "Mythologie",
+  "render": {
+    "size": 512,
+    "format": "jpeg",
+    "quality": 84
+  },
+  "attribution": {
+    "required": true,
+    "note": "Les œuvres et photographies Wikimedia Commons doivent être créditées selon la licence indiquée pour chaque image."
+  },
+  "characters": [
+    {
+      "file": "01-zeus",
+      "name": "Zeus",
+      "wikipedia": "Zeus",
+      "source": {
+        "file": "Zeus Otricoli Pio-Clementino Inv257.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/20/Zeus_Otricoli_Pio-Clementino_Inv257.jpg/1280px-Zeus_Otricoli_Pio-Clementino_Inv257.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1840,
+        "height": 2800,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Unknown artist Unknown artist",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "02-poseidon",
+      "name": "Poséidon",
+      "wikipedia": "Poseidon",
+      "source": {
+        "file": "Poseidon sculpture Copenhagen 2005.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Poseidon_sculpture_Copenhagen_2005.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 757,
+        "height": 933,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+        "author": "Auteur inconnu",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "03-hades",
+      "name": "Hadès",
+      "wikipedia": "Hades",
+      "source": {
+        "file": "Detail of Pluto-Serapis, Statue group of Persephone (as Isis) and Pluto (as Serapis), from the Sanctuary of the Egyptian Gods at Gortyna, mid-2nd century AD, Heraklion Archaeological Museum (30305313721).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/Detail_of_Pluto-Serapis%2C_Statue_group_of_Persephone_%28as_Isis%29_and_Pluto_%28as_Serapis%29%2C_from_the_Sanctuary_of_the_Egyptian_Gods_at_Gortyna%2C_mid-2nd_century_AD%2C_Heraklion_Archaeological_Museum_%2830305313721%29.jpg/1280px-thumbnail.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2963,
+        "height": 4678,
+        "license": "CC BY-SA 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+        "author": "Carole Raddato from Frankfurt, Germany",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "04-athena",
+      "name": "Athéna",
+      "wikipedia": "Athena",
+      "source": {
+        "file": "Bust Athena Velletri Glyptothek Munich 213.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ea/Bust_Athena_Velletri_Glyptothek_Munich_213.jpg/1280px-Bust_Athena_Velletri_Glyptothek_Munich_213.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1821,
+        "height": 1971,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Unknown (Greek original by Kresilas)",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "05-ares",
+      "name": "Arès",
+      "wikipedia": "Ares",
+      "source": {
+        "file": "Ο Άρης (Borghese-Λούβρου).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a1/%CE%9F_%CE%86%CF%81%CE%B7%CF%82_%28Borghese-%CE%9B%CE%BF%CF%8D%CE%B2%CF%81%CE%BF%CF%85%29.jpg/1280px-%CE%9F_%CE%86%CF%81%CE%B7%CF%82_%28Borghese-%CE%9B%CE%BF%CF%8D%CE%B2%CF%81%CE%BF%CF%85%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2848,
+        "height": 4288,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Wikipedia Commons",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "06-hermes",
+      "name": "Hermès",
+      "wikipedia": "Hermes",
+      "source": {
+        "file": "Hermes Logios Altemps Inv8624 n2bb.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/84/Hermes_Logios_Altemps_Inv8624_n2bb.jpg/1280px-Hermes_Logios_Altemps_Inv8624_n2bb.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2594,
+        "height": 3715,
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "author": "Phidias (?)",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "07-aphrodite",
+      "name": "Aphrodite",
+      "wikipedia": "Aphrodite",
+      "source": {
+        "file": "Aphrodite8.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/7/70/Aphrodite8.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 495,
+        "height": 660,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Ricardo André Frantz ( User:Tetraktys )",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "08-apollon",
+      "name": "Apollon",
+      "wikipedia": "Apollo",
+      "source": {
+        "file": "Apollo of the Belvedere.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/1/19/Apollo_of_the_Belvedere.jpg/1280px-Apollo_of_the_Belvedere.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 3113,
+        "height": 5305,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Livioandronico2013",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "09-artemis",
+      "name": "Artémis",
+      "wikipedia": "Artemis",
+      "source": {
+        "file": "Artemis, Diana (Museum Capitolinum).png",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Artemis%2C_Diana_%28Museum_Capitolinum%29.png/1280px-Artemis%2C_Diana_%28Museum_Capitolinum%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1652,
+        "height": 1900,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Illustrated by Engravings on Wood.",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "10-hercule",
+      "name": "Hercule",
+      "wikipedia": "Heracles",
+      "source": {
+        "file": "Antonio del Pollaiolo - Ercole e l'Idra e Ercole e Anteo - Google Art Project.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Antonio_del_Pollaiolo_-_Ercole_e_l%27Idra_e_Ercole_e_Anteo_-_Google_Art_Project.jpg/1280px-Antonio_del_Pollaiolo_-_Ercole_e_l%27Idra_e_Ercole_e_Anteo_-_Google_Art_Project.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2217,
+        "height": 3147,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Antonio del Pollaiuolo",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "11-meduse",
+      "name": "Méduse",
+      "wikipedia": "Medusa",
+      "source": {
+        "file": "Medusa by Carvaggio.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Medusa_by_Carvaggio.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 935,
+        "height": 955,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Caravaggio",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "12-minotaure",
+      "name": "Minotaure",
+      "wikipedia": "Minotaur",
+      "source": {
+        "file": "Tondo Minotaur London E4 MAN.jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/56/Tondo_Minotaur_London_E4_MAN.jpg/1280px-Tondo_Minotaur_London_E4_MAN.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 2100,
+        "height": 2100,
+        "license": "CC BY 2.5",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.5",
+        "author": "Painter of London E 4",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "13-odin",
+      "name": "Odin",
+      "wikipedia": "Odin",
+      "source": {
+        "file": "NKS 1867 4to, 97v, Odin on Sleipnir.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/NKS_1867_4to%2C_97v%2C_Odin_on_Sleipnir.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 600,
+        "height": 777,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Ólafur Brynjúlfsson [2]",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "14-thor",
+      "name": "Thor",
+      "wikipedia": "Thor",
+      "source": {
+        "file": "Thor (Walhall).png",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/Thor_%28Walhall%29.png/1280px-Thor_%28Walhall%29.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1848,
+        "height": 2414,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Johannes Gehrts (1855–1921)",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "15-loki",
+      "name": "Loki",
+      "wikipedia": "Loki",
+      "source": {
+        "file": "Processed SAM loki.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Processed_SAM_loki.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 903,
+        "height": 1125,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Auteur inconnu",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "16-freyja",
+      "name": "Freyja",
+      "wikipedia": "Freyja",
+      "source": {
+        "file": "Freyja and cats and angels by Blommer.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Freyja_and_cats_and_angels_by_Blommer.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 900,
+        "height": 595,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Nils Blommér",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "17-heimdall",
+      "name": "Heimdall",
+      "wikipedia": "Heimdall",
+      "source": {
+        "file": "SÁM 66, 80r, Heimdallr.jpg",
+        "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/S%C3%81M_66%2C_80r%2C_Heimdallr.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail_unscaled",
+        "width": 959,
+        "height": 1187,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "Jakob Sigurðsson [2]",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "18-fenrir",
+      "name": "Fenrir",
+      "wikipedia": "Fenrir",
+      "source": {
+        "file": "Fenrir (Manual of Mythology).jpg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bf/Fenrir_%28Manual_of_Mythology%29.jpg/1280px-Fenrir_%28Manual_of_Mythology%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 1666,
+        "height": 1264,
+        "license": "Public domain",
+        "licenseUrl": null,
+        "author": "The image is signed A. Fleming",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "19-ra",
+      "name": "Râ",
+      "wikipedia": "Ra",
+      "source": {
+        "file": "Re-Horakhty.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/0/0d/Re-Horakhty.svg/1280px-Re-Horakhty.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 350,
+        "height": 768,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jeff Dahl",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "20-anubis",
+      "name": "Anubis",
+      "wikipedia": "Anubis",
+      "source": {
+        "file": "Anubis standing.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6d/Anubis_standing.svg/1280px-Anubis_standing.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 350,
+        "height": 750,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jeff Dahl",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "21-horus",
+      "name": "Horus",
+      "wikipedia": "Horus",
+      "source": {
+        "file": "Horus standing.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/Horus_standing.svg/1280px-Horus_standing.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 350,
+        "height": 800,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jeff Dahl",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "22-bastet",
+      "name": "Bastet",
+      "wikipedia": "Bastet",
+      "source": {
+        "file": "Bastet.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d9/Bastet.svg/1280px-Bastet.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 350,
+        "height": 757,
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "author": "Gunawan Kartapranata",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "23-osiris",
+      "name": "Osiris",
+      "wikipedia": "Osiris",
+      "source": {
+        "file": "Standing Osiris.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/8/8b/Standing_Osiris.svg/1280px-Standing_Osiris.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 350,
+        "height": 760,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jeff Dahl",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    },
+    {
+      "file": "24-isis",
+      "name": "Isis",
+      "wikipedia": "Isis",
+      "source": {
+        "file": "Isis.svg",
+        "url": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ec/Isis.svg/1280px-Isis.svg.png?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+        "width": 350,
+        "height": 768,
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "author": "Jeff Dahl",
+        "restrictions": null
+      },
+      "crop": {
+        "zoom": 0.9,
+        "x": 0.5,
+        "y": 0.45
+      }
+    }
+  ]
+}
