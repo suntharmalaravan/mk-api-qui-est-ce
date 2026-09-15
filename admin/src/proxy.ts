@@ -17,6 +17,7 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  // Fichiers publics exclus : sans session, l'icône de la page de connexion serait redirigée elle aussi.
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|icon.svg|robots.txt).*)'],
+  // L’optimiseur Next charge la loupe sans cookie : sa source doit être publique.
+  // Exclusion limitée à cet asset, les pages et exports restent protégés.
+  matcher: ['/((?!_next/static|_next/image|images/loupe[.]png$|favicon.ico|icon.svg|robots.txt).*)'],
 };
