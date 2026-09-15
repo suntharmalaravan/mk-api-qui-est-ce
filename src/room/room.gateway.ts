@@ -8,7 +8,12 @@ import {
   WebSocketServer,
 } from '@nestjs/websockets';
 import { JwtService } from '@nestjs/jwt';
-import { Logger, OnModuleDestroy, Optional } from '@nestjs/common';
+import {
+  ForbiddenException,
+  Logger,
+  OnModuleDestroy,
+  Optional,
+} from '@nestjs/common';
 import { AtelierGameService } from '../atelier/atelier-game.service';
 import { Socket, Server } from 'socket.io';
 import { RoomService } from './room.service';
@@ -24,6 +29,24 @@ interface RoomSocketSession {
   roomName: string;
   userId: number;
   role: PlayerRole;
+}
+
+interface RematchState {
+  roomId: number;
+  roomName: string;
+  hostId: number;
+  guestId: number;
+  requested: Set<PlayerRole>;
+  phase: 'waiting' | 'ready' | 'starting';
+  target?: {
+    id: number;
+    name: string;
+    category: string;
+    mode?: string;
+    deck_id?: number | null;
+  };
+  joining?: boolean;
+  hostReady?: boolean;
 }
 
 interface SocketData {
@@ -84,6 +107,9 @@ export class RoomGateway
   @WebSocketServer() wss: Server<any, any, any, SocketData>;
 
   private readonly logger = new Logger(RoomGateway.name);
+  // Room state belongs to the gateway, never to fetchSockets() data copies.
+  // Like turns and the Socket.IO adapter, this session state is single-instance.
+  private readonly rematches = new Map<string, RematchState>();
   private readonly pendingDisconnects = new Map<string, NodeJS.Timeout>();
   /**
    * Whose turn it is, per room. Kept in memory like the Socket.IO adapter,
@@ -186,6 +212,7 @@ export class RoomGateway
     for (const timer of this.pendingDisconnects.values()) clearTimeout(timer);
     this.pendingDisconnects.clear();
     this.turns.clear();
+    this.rematches.clear();
   }
 
   private sessionKey(session: RoomSocketSession): string {
@@ -285,6 +312,24 @@ export class RoomGateway
    */
   private async detachRoomSockets(room: { id: number; name: string }) {
     this.turns.delete(room.name);
+    const related = [...this.rematches.values()].filter(
+      (state) =>
+        state.roomName === room.name || state.target?.name === room.name,
+    );
+    for (const state of related) this.rematches.delete(state.roomName);
+    // A player can quit while the other is still in the previous room.
+    // Close both sides of that transition; otherwise one player waits forever.
+    for (const state of related) {
+      const otherName =
+        state.roomName === room.name ? state.target?.name : state.roomName;
+      if (!otherName) continue;
+      const otherRoom = await this.roomService.findByName(otherName);
+      if (!otherRoom) continue;
+      this.wss.to(otherName).emit('quit', { player: 0 });
+      await this.detachRoomSockets(otherRoom);
+      await this.roomImageService.removeRoomImage(otherRoom.id);
+      await this.roomService.remove(otherRoom.id);
+    }
     const sockets = await this.wss.in(room.name).fetchSockets();
     for (const candidate of sockets) {
       if (candidate.data.roomSession?.roomId === room.id) {
@@ -411,6 +456,7 @@ export class RoomGateway
   ) {
     const previous = socket.data.roomSession as RoomSocketSession | undefined;
     if (previous && previous.roomName !== room.name) {
+      this.clearPendingDisconnect(this.sessionKey(previous));
       await socket.leave(previous.roomName);
     }
 
@@ -459,6 +505,7 @@ export class RoomGateway
           session.userId,
         );
         if (reopened) {
+          this.releaseRematchReservation(room.name);
           this.wss.to(room.name).emit('guestLeftBeforeStart', {
             roomId: room.id,
             roomName: room.name,
@@ -514,6 +561,13 @@ export class RoomGateway
    * Ajoute un guest à une room (méthode réutilisable)
    */
   private async addGuestToRoom(roomName: string, userId: number) {
+    const invitation = [...this.rematches.values()].find(
+      (state) => state.target?.name === roomName,
+    );
+    if (invitation && invitation.guestId !== userId)
+      throw new ForbiddenException(
+        'Cette revanche est réservée à l’adversaire invité.',
+      );
     const joinedRoom = await this.roomService.addGuest(roomName, {
       guestplayerid: userId,
     });
@@ -854,17 +908,27 @@ export class RoomGateway
       if (
         data.invitationId !== undefined &&
         (typeof data.invitationId !== 'string' ||
-          !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(data.invitationId))
+          !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+            data.invitationId,
+          ))
       ) {
         this.emitError(socket, 'INVALID_INVITATION', 'Invitation invalide.');
         return;
       }
       if (data.invitationId && !this.social) {
-        this.emitError(socket, 'SOCIAL_UNAVAILABLE', 'Les invitations sont indisponibles.');
+        this.emitError(
+          socket,
+          'SOCIAL_UNAVAILABLE',
+          'Les invitations sont indisponibles.',
+        );
         return;
       }
       const joinedRoom = data.invitationId
-        ? await this.social.acceptInvitation(userId, data.invitationId, data.name)
+        ? await this.social.acceptInvitation(
+            userId,
+            data.invitationId,
+            data.name,
+          )
         : await this.roomService.addGuest(data.name, { guestplayerid: userId });
       console.log('✅ Guest added to room successfully:', {
         socketId: socket.id,
@@ -975,9 +1039,10 @@ export class RoomGateway
     } catch (error) {
       console.error('Error joining room:', error);
       socket.emit('error', {
-        message: data?.invitationId && error.getStatus
-          ? error.message
-          : 'Failed to join room',
+        message:
+          data?.invitationId && error.getStatus
+            ? error.message
+            : 'Failed to join room',
       });
     }
   }
@@ -1596,196 +1661,307 @@ export class RoomGateway
     }
   }
 
+  private releaseRematchReservation(roomName: string) {
+    for (const [name, state] of this.rematches) {
+      if (state.target?.name === roomName) this.rematches.delete(name);
+    }
+  }
+
+  private rematchSnapshot(state: RematchState) {
+    return {
+      roomName: state.roomName,
+      requested: [...state.requested],
+      phase: state.phase,
+    };
+  }
+
+  private publishRematch(state: RematchState) {
+    this.wss
+      .to(state.roomName)
+      .emit('rematch state', this.rematchSnapshot(state));
+  }
+
+  private rematchInvitation(state: RematchState) {
+    const room = state.target;
+    return {
+      oldRoomName: state.roomName,
+      newRoomName: room.name,
+      roomId: room.id,
+      hostId: state.hostId,
+      category: room.category,
+      mode: room.mode,
+      deckId: room.deck_id,
+    };
+  }
+
+  @SubscribeMessage('rematch status')
+  async rematchStatus(socket: Socket, data: any) {
+    const session = this.authorizeRoomEvent(socket, data?.name);
+    if (!session) return;
+    const state = this.rematches.get(session.roomName);
+    if (!state) {
+      socket.emit('rematch state', {
+        roomName: session.roomName,
+        requested: [],
+        phase: 'waiting',
+      });
+      return;
+    }
+    socket.emit('rematch state', this.rematchSnapshot(state));
+    // Recover notifications missed while mounting the result screen or reconnecting.
+    if (state.phase === 'ready' || (state.target && session.role === 'host'))
+      socket.emit('rematch can start', { roomName: state.roomName });
+    if (state.target && state.hostReady && session.role === 'guest')
+      socket.emit('rematch invitation', this.rematchInvitation(state));
+  }
+
   @SubscribeMessage('ask rematch')
   async askRematch(socket: Socket, data: any) {
+    const session = this.authorizeRoomEvent(socket, data?.name, data?.player);
+    if (!session) return;
     try {
-      if (!this.authorizeRoomEvent(socket, data?.name, data?.player)) return;
-      if (!data.name || !data.player) {
-        console.log('❌ Validation failed for ask rematch:', {
-          socketId: socket.id,
-          missingFields: {
-            name: !data.name,
-            player: !data.player,
-          },
-        });
+      const room = await this.roomService.findByName(session.roomName);
+      if (
+        !room ||
+        room.id !== session.roomId ||
+        room.status !== 'finished' ||
+        !room.guestplayerid
+      ) {
         socket.emit('error', {
-          message: 'Missing required data: name and player are required',
+          action: 'rematch',
+          roomName: session.roomName,
+          message: 'La partie doit être terminée pour proposer une revanche.',
         });
         return;
       }
-
-      console.log('🔄 Event: ask rematch', {
-        socketId: socket.id,
-        roomName: data?.name,
-        timestamp: new Date().toISOString(),
-      });
-
-      const roomName = data.name;
-      const player = data.player;
-
-      // Récupérer tous les sockets de la room
-      const roomSockets = await this.wss.in(roomName).fetchSockets();
-      console.log('🔍 Room sockets for rematch:', roomSockets.length);
-
-      // Trouver le socket actuel et l'autre socket
-      const currentSocket = roomSockets.find((s) => s.id === socket.id);
-      const otherSockets = roomSockets.filter((s) => s.id !== socket.id);
-
-      // Vérifier si l'autre joueur a déjà demandé un rematch
-      const otherSocket = otherSockets[0]; // Prendre le premier autre socket
-      const hasOtherRequested = otherSocket?.data?.playAgainRequested;
-
-      if (hasOtherRequested) {
-        // L'autre joueur a déjà demandé, on peut procéder
-        console.log('✅ Les deux joueurs veulent rejouer');
-
-        // Nettoyer les flags
-        if (currentSocket) currentSocket.data.playAgainRequested = false;
-        if (otherSocket) otherSocket.data.playAgainRequested = false;
-
-        // Émettre l'événement final
-        socket.to(roomName).emit('rematch can start', { event: 'play_again' });
-        socket.emit('rematch can start', { event: 'play_again' });
-      } else {
-        // Marquer que ce joueur attend
-        if (currentSocket) currentSocket.data.playAgainRequested = true;
-
-        console.log(`⏳ Joueur ${player} attend la réponse de l'autre`);
-        socket.to(roomName).emit('ask play again', { player });
-        socket.emit('ask play again', { player });
+      for (const [name, prior] of this.rematches) {
+        if (prior.target?.name === room.name) this.rematches.delete(name);
+      }
+      if (
+        socket.data.roomSession?.roomName !== session.roomName ||
+        !socket.rooms.has(session.roomName)
+      )
+        return;
+      let state = this.rematches.get(room.name);
+      if (!state) {
+        state = {
+          roomId: room.id,
+          roomName: room.name,
+          hostId: room.hostplayerid,
+          guestId: room.guestplayerid,
+          requested: new Set(),
+          phase: 'waiting',
+        };
+        this.rematches.set(room.name, state);
+      }
+      if (state.phase !== 'waiting') {
+        socket.emit('rematch state', this.rematchSnapshot(state));
+        if (state.phase === 'ready')
+          socket.emit('rematch can start', { roomName: room.name });
+        return;
+      }
+      if (data.cancel === true) state.requested.delete(session.role);
+      else state.requested.add(session.role);
+      if (state.requested.size === 2) state.phase = 'ready';
+      this.publishRematch(state);
+      if (state.phase === 'ready') {
+        this.wss
+          .to(room.name)
+          .emit('rematch can start', { roomName: room.name });
+      } else if (data.cancel !== true) {
+        // Compatibility with clients released before the shared state.
+        this.wss.to(room.name).emit('ask play again', {
+          roomName: room.name,
+          player: session.role,
+        });
       }
     } catch (error) {
-      console.error('Error asking rematch', error);
-      socket.emit('error', { message: 'Failed to ask rematch' });
+      this.logger.error('Failed to request rematch', error);
+      socket.emit('error', {
+        action: 'rematch',
+        roomName: session.roomName,
+        message: 'La proposition n’a pas été confirmée. Réessaie.',
+      });
     }
   }
 
   @SubscribeMessage('rematch')
   async rematch(socket: Socket, data: any) {
-    console.log('🔄 Event: rematch', {
-      socketId: socket.id,
-      roomName: data?.oldRoomName,
-      timestamp: new Date().toISOString(),
-    });
-
+    const userId = this.authenticatedUserId(socket, data?.hostId);
+    if (
+      !userId ||
+      !this.validRoomName(socket, data?.oldRoomName) ||
+      !this.validRoomName(socket, data?.newRoomName)
+    )
+      return;
+    const state = this.rematches.get(data.oldRoomName);
+    if (!state || state.hostId !== userId || state.requested.size !== 2) {
+      socket.emit('error', {
+        action: 'rematch',
+        roomName: data.oldRoomName,
+        message: 'Les deux joueurs doivent accepter la revanche.',
+      });
+      return;
+    }
+    // A duplicate after a lost acknowledgement returns the same room, never creates another.
+    if (
+      state.target &&
+      [state.roomName, state.target.name].includes(
+        socket.data.roomSession?.roomName,
+      )
+    ) {
+      await this.bindSocketToRoom(socket, state.target, userId, 'host');
+      await this.notifyRoomCreation(socket, state.target, userId);
+      state.hostReady = true;
+      this.wss
+        .to(state.roomName)
+        .emit('rematch invitation', this.rematchInvitation(state));
+      return;
+    }
+    const previous = this.authorizeRoomEvent(
+      socket,
+      data.oldRoomName,
+      undefined,
+      'host',
+    );
+    if (!previous || state.phase === 'starting') return;
+    state.phase = 'starting'; // Lock synchronously, before the first database await.
+    this.publishRematch(state);
+    let newRoom: any;
     try {
-      const previousSession = this.authorizeRoomEvent(
-        socket,
-        data?.oldRoomName,
-        undefined,
-        'host',
-      );
-      const userId = this.authenticatedUserId(socket, data?.hostId);
+      const oldRoom = await this.roomService.findByName(previous.roomName);
       if (
-        !previousSession ||
-        !userId ||
-        !this.validRoomName(socket, data?.newRoomName) ||
-        !this.validString(socket, data?.category, 'category', 50)
-      ) {
-        return;
-      }
+        !oldRoom ||
+        oldRoom.id !== previous.roomId ||
+        oldRoom.status !== 'finished'
+      )
+        throw new Error('La partie précédente est fermée.');
       if (
-        data.mode !== 'custom' &&
-        !(await this.imageService.isCategoryVisible(data.category))
+        oldRoom.mode !== 'custom' &&
+        !(await this.imageService.isCategoryVisible(oldRoom.category))
       ) {
-        this.emitError(
-          socket,
-          'CATEGORY_UNAVAILABLE',
-          `La catégorie "${data.category}" n'est plus disponible`,
+        throw new Error(
+          'Ce thème n’est plus disponible. Lance une nouvelle partie depuis l’accueil.',
         );
-        return;
       }
-
-      const newRoom = await this.createRoomWithHost(
+      newRoom = await this.createRoomWithHost(
         data.newRoomName,
         userId,
-        data.category,
+        oldRoom.category,
       );
-      if (this.lobby && data.mode === 'custom') {
-        try {
-          await this.lobby.change(
-            newRoom.name,
-            userId,
-            { mode: 'custom', deckId: Number(data.deckId) },
-            0,
-          );
-        } catch (e) {
-          await this.roomService.remove(newRoom.id);
-          throw e;
-        }
+      if (oldRoom.mode === 'custom') {
+        if (!this.lobby || !oldRoom.deck_id)
+          throw new Error('Le deck de cette partie n’est plus disponible.');
+        await this.lobby.change(
+          newRoom.name,
+          userId,
+          { mode: 'custom', deckId: oldRoom.deck_id },
+          0,
+        );
         newRoom.category = 'custom';
         newRoom.mode = 'custom';
-        newRoom.deck_id = Number(data.deckId);
+        newRoom.deck_id = oldRoom.deck_id;
       }
-
-      // The invitation must be emitted while the host is still in the old room.
-      socket.to(previousSession.roomName).emit('rematch invitation', {
-        newRoomName: data.newRoomName,
-        category: newRoom.category,
-        mode: newRoom.mode,
-        deckId: newRoom.deck_id,
-        hostId: userId,
-        roomId: newRoom.id,
-      });
-
+      // A quit during the database work must not resurrect an abandoned room.
+      if (
+        this.rematches.get(previous.roomName) !== state ||
+        socket.data.roomSession?.roomName !== previous.roomName ||
+        !socket.connected
+      ) {
+        throw new Error('La revanche a été interrompue.');
+      }
+      state.target = newRoom;
       await this.bindSocketToRoom(socket, newRoom, userId, 'host');
       await this.notifyRoomCreation(socket, newRoom, userId);
-
-      console.log('✅ Rematch room created successfully:', {
-        newRoomName: data.newRoomName,
-        category: data.category,
-        hostId: data.hostId,
-      });
+      state.hostReady = true;
+      // Host membership and acknowledgement precede the guest's invitation.
+      this.wss
+        .to(previous.roomName)
+        .emit('rematch invitation', this.rematchInvitation(state));
     } catch (error) {
-      console.error('Error creating rematch room:', error);
-      socket.emit('error', { message: 'Failed to create rematch room' });
+      if (newRoom && socket.data.roomSession?.roomName !== newRoom.name) {
+        await this.roomImageService.removeRoomImage(newRoom.id);
+        await this.roomService.remove(newRoom.id);
+        state.target = undefined;
+      }
+      if (!state.target) {
+        state.phase = 'waiting';
+        state.requested.clear();
+        this.publishRematch(state);
+      }
+      socket.emit('error', {
+        action: 'rematch',
+        roomName: data.oldRoomName,
+        message: error?.message || 'Impossible de préparer la revanche.',
+      });
     }
   }
 
   @SubscribeMessage('join rematch')
   async joinRematch(socket: Socket, data: any) {
-    console.log('🔄 Event: join rematch', {
-      socketId: socket.id,
-      roomName: data?.newRoomName,
-      timestamp: new Date().toISOString(),
-    });
-
+    const userId = this.authenticatedUserId(socket, data?.guestId);
+    if (!userId || !this.validRoomName(socket, data?.newRoomName)) return;
+    const previous = socket.data.roomSession as RoomSocketSession | undefined;
+    const state = [...this.rematches.values()].find(
+      (candidate) => candidate.target?.name === data.newRoomName,
+    );
+    if (
+      !state ||
+      !state.hostReady ||
+      state.guestId !== userId ||
+      previous?.role !== 'guest' ||
+      (previous.roomName !== state.roomName &&
+        previous.roomName !== state.target.name)
+    ) {
+      this.emitError(
+        socket,
+        'FORBIDDEN',
+        'Cette revanche est réservée à l’adversaire invité.',
+      );
+      return;
+    }
+    if (state.joining) return;
+    state.joining = true;
     try {
-      const previousSession = socket.data.roomSession as
-        | RoomSocketSession
-        | undefined;
-      const userId = this.authenticatedUserId(socket, data?.guestId);
-      if (!userId || !this.validRoomName(socket, data?.newRoomName)) return;
-      if (!previousSession || previousSession.role !== 'guest') {
-        this.emitError(
-          socket,
-          'FORBIDDEN',
-          'Only the guest from the previous game can join a rematch',
-        );
-        return;
-      }
-
-      const joinedRoom = await this.addGuestToRoom(data.newRoomName, userId);
+      const target = await this.roomService.findByName(state.target.name);
+      if (this.rematches.get(state.roomName) !== state || !socket.connected)
+        throw new Error('La revanche a été interrompue.');
+      if (!target || target.hostplayerid !== state.hostId)
+        throw new Error('Le salon de revanche est fermé.');
+      const joinedRoom =
+        target.guestplayerid === userId
+          ? target
+          : await this.addGuestToRoom(target.name, userId);
+      if (
+        this.rematches.get(state.roomName) !== state ||
+        socket.data.roomSession?.roomName !== previous.roomName ||
+        !socket.connected
+      )
+        throw new Error('La revanche a été interrompue.');
       await this.bindSocketToRoom(socket, joinedRoom, userId, 'guest');
       await this.notifyGuestJoined(socket, joinedRoom);
-
-      // Both players have moved: the previous game no longer needs persistence.
-      const previousRoom = await this.roomService.findByName(
-        previousSession.roomName,
-      );
-      if (previousRoom?.id === previousSession.roomId) {
-        await this.roomImageService.removeRoomImage(previousRoom.id);
-        await this.roomService.remove(previousRoom.id);
-        this.turns.delete(previousRoom.name);
+      // Keep the original entry until both clients received the join. It also
+      // makes a repeated join idempotent while the acknowledgement is in flight.
+      try {
+        const previousRoom = await this.roomService.findByName(state.roomName);
+        if (previousRoom?.id === state.roomId) {
+          await this.roomImageService.removeRoomImage(previousRoom.id);
+          await this.roomService.remove(previousRoom.id);
+          this.turns.delete(previousRoom.name);
+        }
+      } catch (cleanupError) {
+        this.logger.warn(
+          `Rematch joined; old-room cleanup failed: ${cleanupError.message}`,
+        );
       }
-
-      console.log('✅ Guest joined rematch room successfully:', {
-        newRoomName: data.newRoomName,
-        guestId: data.guestId,
-      });
     } catch (error) {
-      console.error('Error joining rematch room:', error);
-      socket.emit('error', { message: 'Failed to join rematch room' });
+      socket.emit('error', {
+        action: 'rematch',
+        roomName: data.newRoomName,
+        message: error?.message || 'Impossible de rejoindre la revanche.',
+      });
+    } finally {
+      state.joining = false;
     }
   }
 
@@ -1795,7 +1971,26 @@ export class RoomGateway
       const userId = this.authenticatedUserId(socket);
       if (!userId || !this.validRoomName(socket, data?.name)) return;
 
-      const room = await this.roomService.findByName(data.name);
+      let room = await this.roomService.findByName(data.name);
+      const transition = this.rematches.get(data.name);
+      let previousRoomName: string | undefined;
+      if (
+        transition?.target &&
+        transition.hostReady &&
+        [transition.hostId, transition.guestId].includes(userId)
+      ) {
+        const target = await this.roomService.findByName(
+          transition.target.name,
+        );
+        if (
+          target &&
+          (target.hostplayerid === userId || target.guestplayerid === userId)
+        ) {
+          // The move committed, but its acknowledgement may have been lost.
+          previousRoomName = data.name;
+          room = target;
+        }
+      }
       if (!room) {
         this.emitError(
           socket,
@@ -1841,6 +2036,16 @@ export class RoomGateway
         return;
       }
 
+      if (previousRoomName && transition) {
+        this.clearPendingDisconnect(
+          this.sessionKey({
+            roomId: transition.roomId,
+            roomName: previousRoomName,
+            userId,
+            role,
+          }),
+        );
+      }
       await this.bindSocketToRoom(socket, room, userId, role);
       socket.emit('room resumed', {
         ...(this.lobby ? await this.lobby.snapshot(room.name, userId) : {}),
@@ -1849,6 +2054,10 @@ export class RoomGateway
           : {}),
         roomId: room.id,
         roomName: room.name,
+        ...(previousRoomName ? { previousRoomName } : {}),
+        category: room.category,
+        mode: room.mode,
+        deckId: room.deck_id,
         role,
         status: room.status,
         hostCharacterChosen: room.hostcharacterid !== null,
@@ -1882,7 +2091,15 @@ export class RoomGateway
       if (!userId || !this.validRoomName(socket, data?.name)) return;
 
       const session = socket.data.roomSession as RoomSocketSession | undefined;
-      if (!session || session.roomName !== data.name) {
+      const transition = this.rematches.get(data.name);
+      const movedFromRequestedRoom =
+        session &&
+        transition?.target?.name === session.roomName &&
+        [transition.hostId, transition.guestId].includes(userId);
+      if (
+        !session ||
+        (session.roomName !== data.name && !movedFromRequestedRoom)
+      ) {
         await socket.leave(data.name);
         socket.emit('room left', { roomName: data.name });
         return { ok: true };
@@ -1917,6 +2134,7 @@ export class RoomGateway
             session.userId,
           ));
         if (reopened) {
+          this.releaseRematchReservation(room.name);
           this.wss.to(room.name).emit('guestLeftBeforeStart', {
             roomId: room.id,
             roomName: room.name,

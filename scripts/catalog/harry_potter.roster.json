@@ -1,0 +1,270 @@
+{
+  "slug": "harry_potter",
+  "label": "Harry Potter",
+  "characters": [
+    {
+      "id": "harry-potter",
+      "name": "Harry Potter",
+      "universe": "Harry Potter",
+      "details": "messy black hair, round black glasses, lightning-bolt forehead scar, Gryffindor school uniform with burgundy and gold tie",
+      "file": "01-harry-potter.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/harry-potter/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/c5d4991232bd443e89be2c9a46fbfa63/Harry%20Potter%201.jpg"
+      }
+    },
+    {
+      "id": "hermione-granger",
+      "name": "Hermione Granger",
+      "universe": "Harry Potter",
+      "details": "voluminous wavy brown hair, brown eyes, Gryffindor school uniform with burgundy and gold tie",
+      "file": "02-hermione-granger.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/hermione-granger/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/46d636f7eb1f4ca787080360296d91b8/Hermoine%20Granger%201.jpg"
+      }
+    },
+    {
+      "id": "ron-weasley",
+      "name": "Ron Weasley",
+      "universe": "Harry Potter",
+      "details": "ginger hair, freckles, blue eyes, Gryffindor school uniform",
+      "file": "03-ron-weasley.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/ron-weasley/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/145a09df14fd4f708f9f82efc25a83a1/Ron%20Weasley%201.jpg"
+      }
+    },
+    {
+      "id": "albus-dumbledore",
+      "name": "Albus Dumbledore",
+      "universe": "Harry Potter",
+      "details": "elderly wizard, long white hair and very long white beard, half-moon glasses, embroidered wizard cap and robes",
+      "file": "04-albus-dumbledore.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/albus-dumbledore/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/d1009fddcf324abe8f3147519e41ddb0/Albus%20Dumbledore%201.jpg"
+      }
+    },
+    {
+      "id": "rubeus-hagrid",
+      "name": "Rubeus Hagrid",
+      "universe": "Harry Potter",
+      "details": "huge broad shoulders, enormous bushy dark brown beard and long wild brown hair, warm face, brown coat",
+      "file": "05-rubeus-hagrid.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/rubeus-hagrid/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/5439d1be9ecb403ab1d2331ce22b99e2/%E3%83%AB%E3%83%92%E3%82%99%E3%82%A6%E3%82%B9%E3%83%BB%E3%83%8F%E3%82%AF%E3%82%99%E3%83%AA%E3%83%83%E3%83%88%E3%82%99_1.jpg"
+      }
+    },
+    {
+      "id": "severus-snape",
+      "name": "Severus Rogue",
+      "universe": "Harry Potter",
+      "details": "pale angular face, shoulder-length straight black hair, prominent nose, high-collared black robes, reserved expression",
+      "file": "06-severus-snape.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/severus-snape/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/23c06c0ba10d4f9b8e007965fd274668/%E3%82%BB%E3%83%95%E3%82%99%E3%83%AB%E3%82%B9%E3%83%BB%E3%82%B9%E3%83%8D%E3%82%A4%E3%83%95%E3%82%9A_1.jpg"
+      }
+    },
+    {
+      "id": "minerva-mcgonagall",
+      "name": "Minerva McGonagall",
+      "universe": "Harry Potter",
+      "details": "elderly woman, gray hair in tight bun, pointed black witch hat, green robes, dignified expression",
+      "file": "07-minerva-mcgonagall.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/minerva-mcgonagall/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/c1da09e921224b07b3795b8f3028e45a/%E3%83%9E%E3%82%AF%E3%82%B3%E3%82%99%E3%83%8A%E3%82%AB%E3%82%99%E3%83%AB%E5%85%88%E7%94%9F_1.jpg"
+      }
+    },
+    {
+      "id": "draco-malfoy",
+      "name": "Drago Malefoy",
+      "universe": "Harry Potter",
+      "details": "platinum blond neatly parted short hair, pale face, Slytherin school uniform with green and silver tie",
+      "file": "08-draco-malfoy.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/draco-malfoy/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/5484ded618b24426942dae90360ba84b/%E3%83%88%E3%82%99%E3%83%A9%E3%82%B3%E3%83%BB%E3%83%9E%E3%83%AB%E3%83%95%E3%82%A9%E3%82%A4_1.jpg"
+      }
+    },
+    {
+      "id": "luna-lovegood",
+      "name": "Luna Lovegood",
+      "universe": "Harry Potter",
+      "details": "very long light blond wavy hair, large pale eyes, whimsical gentle expression, pink decorative Spectrespecs resting above her forehead, plum tweed jacket as in reference",
+      "file": "09-luna-lovegood.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/luna-lovegood/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/19e59259f04340bb84be974f191bf101/%E3%83%AB%E3%83%BC%E3%83%8A%E3%83%BB%E3%83%A9%E3%83%95%E3%82%99%E3%82%AF%E3%82%99%E3%83%83%E3%83%88%E3%82%99_1.jpg"
+      }
+    },
+    {
+      "id": "neville-longbottom",
+      "name": "Neville Londubat",
+      "universe": "Harry Potter",
+      "details": "short dark brown hair, rounded face, Gryffindor uniform, shy warm smile",
+      "file": "10-neville-longbottom.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/neville-longbottom/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/03c7f65d132d49ef905fe6f2119a755f/%E3%83%8D%E3%83%92%E3%82%99%E3%83%AB%E3%83%BB%E3%83%AD%E3%83%B3%E3%82%AF%E3%82%99%E3%83%9B%E3%82%99%E3%83%88%E3%83%A0_1.jpg"
+      }
+    },
+    {
+      "id": "ginny-weasley",
+      "name": "Ginny Weasley",
+      "universe": "Harry Potter",
+      "details": "long straight red hair, brown eyes, freckles, Gryffindor uniform",
+      "file": "11-ginny-weasley.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/ginny-weasley/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/03e3ea1c49074443858a8fa0c4a9abec/GinnyWeasley.jpg"
+      }
+    },
+    {
+      "id": "dobby",
+      "name": "Dobby",
+      "universe": "Harry Potter",
+      "details": "house elf with enormous pointed ears, bald head, huge green eyes, long thin nose, simple beige tunic, sweet expression",
+      "file": "12-dobby.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/dobby/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/642eb01726e746a3bf53ddf66dc8f465/Dobby.jpg"
+      }
+    },
+    {
+      "id": "lord-voldemort",
+      "name": "Voldemort",
+      "universe": "Harry Potter",
+      "details": "bald pale head, flat snake-like nose with slits, dark green-black robes, restrained stern expression",
+      "file": "13-lord-voldemort.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/lord-voldemort/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/a804317058c043b69cb17b0ce2a935b1/Voldemort_1.jpg"
+      }
+    },
+    {
+      "id": "bellatrix-lestrange",
+      "name": "Bellatrix Lestrange",
+      "universe": "Harry Potter",
+      "details": "wild voluminous black curls, pale face, black gothic high-neck outfit, mischievous smile",
+      "file": "14-bellatrix-lestrange.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/bellatrix-lestrange/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/fae5dd064c564d25a546e40d4aa92bad/%E3%83%99%E3%83%A9%E3%83%88%E3%83%AA%E3%83%83%E3%82%AF%E3%82%B9%E3%83%BB%E3%83%AC%E3%82%B9%E3%83%88%E3%83%AC%E3%83%B3%E3%82%B8.jpg"
+      }
+    },
+    {
+      "id": "lucius-malfoy",
+      "name": "Lucius Malefoy",
+      "universe": "Harry Potter",
+      "details": "long straight platinum blond hair, pale angular face, black high-collared aristocratic robes",
+      "file": "15-lucius-malfoy.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/lucius-malfoy/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/050689bb645344bfb671d5fa37255f18/LuciusMalfoy.jpg"
+      }
+    },
+    {
+      "id": "sirius-black",
+      "name": "Sirius Black",
+      "universe": "Harry Potter",
+      "details": "shoulder-length wavy dark brown hair, mustache and short beard, dark jacket over patterned waistcoat",
+      "file": "16-sirius-black.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/sirius-black/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/316108ccbcfd4ae0a91b2ebf45732073/Sirius%20Black_1.jpg"
+      }
+    },
+    {
+      "id": "remus-lupin",
+      "name": "Remus Lupin",
+      "universe": "Harry Potter",
+      "details": "short light brown hair with gray streaks, thin mustache, subtle healed facial scars, worn brown tweed jacket and tie",
+      "file": "17-remus-lupin.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/remus-lupin/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/06d08d8299b34afd90d52c1b57923fce/%E3%83%AA%E3%83%BC%E3%83%9E%E3%82%B9%E3%83%BB%E3%83%AB%E3%83%BC%E3%83%92%E3%82%9A%E3%83%B3_1.jpg"
+      }
+    },
+    {
+      "id": "nymphadora-tonks",
+      "name": "Nymphadora Tonks",
+      "universe": "Harry Potter",
+      "details": "layered shoulder-length purple hair, youthful adult face, dark brown leather jacket over gray ruched shirt",
+      "file": "18-nymphadora-tonks.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/nymphadora-tonks/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/5a1334cd0d7d4d0284bf47838ce40a32/nqqgcdfc.png"
+      }
+    },
+    {
+      "id": "alastor-moody",
+      "name": "Alastor Maugrey",
+      "universe": "Harry Potter",
+      "details": "weathered face, shoulder-length gray-blond hair, one enlarged blue magical eye strapped in a leather eye harness, brown leather coat",
+      "file": "19-alastor-moody.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/alastor-moody/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/d5bdb43b6f78469da123306795a16942/Alastor%20Moody.jpg"
+      }
+    },
+    {
+      "id": "dolores-umbridge",
+      "name": "Dolores Ombrage",
+      "universe": "Harry Potter",
+      "details": "middle-aged woman with short curled brown hair, round face, pink hat and pink textured jacket, prim smile",
+      "file": "20-dolores-umbridge.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/dolores-umbridge/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/e76357466c2d40608ca24d79c68552e3/syxp05qb.png"
+      }
+    },
+    {
+      "id": "sybill-trelawney",
+      "name": "Sibylle Trelawney",
+      "universe": "Harry Potter",
+      "details": "huge round thick glasses, wild brown curls, patterned headband, layered scarves and beads, eccentric teacher",
+      "file": "21-sybill-trelawney.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/sybill-trelawney/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/d2cbb876a3e4414babb38ae3e2ccc385/SybillTrelawney.jpg"
+      }
+    },
+    {
+      "id": "molly-weasley",
+      "name": "Molly Weasley",
+      "universe": "Harry Potter",
+      "details": "middle-aged woman with wavy ginger hair, round warm face, patterned knitted cardigan",
+      "file": "22-molly-weasley.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/molly-weasley/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/8afd2a036ac64bc28f3da623d9db6470/guj0r8lh.png"
+      }
+    },
+    {
+      "id": "arthur-weasley",
+      "name": "Arthur Weasley",
+      "universe": "Harry Potter",
+      "details": "middle-aged man with receding ginger hair, kind face, brown suit and patterned tie",
+      "file": "23-arthur-weasley.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/arthur-weasley/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/e47c5337f82d4e359e5c6a80ad0f10cc/pu8toife.png"
+      }
+    },
+    {
+      "id": "cedric-diggory",
+      "name": "Cédric Diggory",
+      "universe": "Harry Potter",
+      "details": "young man with swept brown hair, strong eyebrows, Hufflepuff uniform with yellow and black tie",
+      "file": "24-cedric-diggory.png",
+      "reference": {
+        "pageUrl": "https://www.warnerbros.co.jp/harrypotter/character/cedric-diggory/",
+        "imageUrl": "https://images.microcms-assets.io/assets/0b14285f4439472096dc5edecad7e15f/d675088f021a405981a2957d34408150/%E3%82%BB%E3%83%89%E3%83%AA%E3%83%83%E3%82%AF%E3%83%BB%E3%83%87%E3%82%A3%E3%82%B4%E3%83%AA%E3%83%BC_1.jpg"
+      }
+    }
+  ]
+}

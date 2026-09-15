@@ -1,6 +1,6 @@
 import { Injectable, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectRepository, InjectDataSource } from '@nestjs/typeorm';
-import { Repository, IsNull, DataSource } from 'typeorm';
+import { Repository, IsNull, DataSource, EntityManager } from 'typeorm';
 import { Image as ImageEntity } from './entities/image.entity';
 import { Deck } from './entities/deck.entity';
 
@@ -243,11 +243,20 @@ export class ImageService {
    * Supprime un deck et toutes ses images (cascade)
    */
   async deleteDeck(deckId: number, userId: number): Promise<boolean> {
-    const result = await this.deckRepository.delete({
-      id: deckId,
-      user_id: userId,
+    return this.dataSource.transaction(async (tx) => {
+      const deck = await tx.getRepository(Deck).findOne({
+        where: { id: deckId, user_id: userId },
+        lock: { mode: 'pessimistic_write' },
+      });
+      if (!deck) return false;
+      const images = await tx.getRepository(ImageEntity).find({
+        select: { id: true },
+        where: { deck_id: deckId },
+      });
+      await this.detachFromRooms(tx, images.map((image) => image.id));
+      await tx.getRepository(Deck).delete({ id: deckId });
+      return true;
     });
-    return (result.affected ?? 0) > 0;
   }
 
   /**
@@ -324,24 +333,46 @@ export class ImageService {
   }
 
   async remove(id: number, userId: number): Promise<boolean> {
-    // Authorize BEFORE modifying any game's secret references.
-    if (!await this.imageRepository.findOne({ where: { id, user_id: userId } })) return false;
-    // D'abord, nettoyer les références FK dans la table room
-    // pour éviter les violations de contrainte
-    await this.dataSource.query(
-      `UPDATE room SET hostcharacterid = NULL WHERE hostcharacterid = $1`,
-      [id],
-    );
-    await this.dataSource.query(
-      `UPDATE room SET guestcharacterid = NULL WHERE guestcharacterid = $1`,
-      [id],
-    );
-
-    const result = await this.imageRepository.delete({ id, user_id: userId });
-    return (result.affected ?? 0) > 0;
+    return this.dataSource.transaction(async (tx) => {
+      // Authorize BEFORE modifying any game's secret references.
+      const repository = tx.getRepository(ImageEntity);
+      if (!(await repository.findOne({ where: { id, user_id: userId } })))
+        return false;
+      await this.detachFromRooms(tx, [id]);
+      const result = await repository.delete({ id, user_id: userId });
+      return (result.affected ?? 0) > 0;
+    });
   }
 
   async removeAllByUserId(userId: number): Promise<void> {
-    await this.imageRepository.delete({ user_id: userId });
+    await this.dataSource.transaction(async (tx) => {
+      const repository = tx.getRepository(ImageEntity);
+      const images = await repository.find({
+        select: { id: true },
+        where: { user_id: userId },
+      });
+      await this.detachFromRooms(tx, images.map((image) => image.id));
+      await repository.delete({ user_id: userId });
+    });
+  }
+
+  /**
+   * room.hostcharacterid, room.guestcharacterid et room_image.fk_image
+   * référencent image sans action ON DELETE : une carte déjà jouée bloquait la
+   * suppression de son deck. On détache ces références avant de supprimer.
+   */
+  private async detachFromRooms(tx: EntityManager, imageIds: number[]) {
+    if (!imageIds.length) return;
+    await tx.query(
+      'UPDATE room SET hostcharacterid = NULL WHERE hostcharacterid = ANY($1::int[])',
+      [imageIds],
+    );
+    await tx.query(
+      'UPDATE room SET guestcharacterid = NULL WHERE guestcharacterid = ANY($1::int[])',
+      [imageIds],
+    );
+    await tx.query('DELETE FROM room_image WHERE fk_image = ANY($1::int[])', [
+      imageIds,
+    ]);
   }
 }

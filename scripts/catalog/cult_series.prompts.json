@@ -1,0 +1,265 @@
+{
+  "slug": "cult_series",
+  "generationMode": "built-in image_gen",
+  "characters": [
+    {
+      "id": "juliette-nichols",
+      "name": "Juliette Nichols",
+      "file": "01-juliette-nichols-v2.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Juliette Nichols from Silo; Juliette Nichols wearing her exterior protective suit and helmet, exactly the costume shown in the user-provided image 2. Pale gray-green rigid rounded helmet, broad rectangular transparent face visor with dark edging, thick circular neck seal and pale protective suit shoulders. Her face is clearly visible through the glass, blue-gray eyes and determined neutral expression. Keep the entire helmet inside the frame with margin. The user explicitly selected this helmeted protective suit. Recreate the head and shoulders as a rounded 3D avatar with large expressive eyes, not as a live-action photograph. The visor must remain clear enough to recognize her face. Fully opaque pale lavender background.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/juliette-suit-user.png"
+      ]
+    },
+    {
+      "id": "jesse-pinkman",
+      "name": "Jesse Pinkman",
+      "file": "02-jesse-pinkman.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Jesse Pinkman from Breaking Bad; young adult man, blue eyes, light stubble, knit beanie and loose hoodie.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/jesse-pinkman.jpg"
+      ]
+    },
+    {
+      "id": "saul-goodman",
+      "name": "Saul Goodman",
+      "file": "03-saul-goodman.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Saul Goodman from Better Call Saul; middle-aged man, neatly combed brown hair, colorful suit and tie, confident smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/saul-goodman.jpg"
+      ]
+    },
+    {
+      "id": "thomas-shelby",
+      "name": "Thomas Shelby",
+      "file": "04-thomas-shelby.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Thomas Shelby from Peaky Blinders; blue eyes, dark undercut hair, tweed flat cap, dark three-piece suit with white shirt and tie.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/thomas-shelby.jpg"
+      ]
+    },
+    {
+      "id": "mercredi-addams",
+      "name": "Mercredi Addams",
+      "file": "05-mercredi-addams.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Mercredi Addams from Mercredi; pale girl, straight black bangs and two long black braids, black dress with sharp white collar, deadpan expression; Netflix series appearance.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/mercredi-netflix.jpg"
+      ]
+    },
+    {
+      "id": "eleven",
+      "name": "Eleven",
+      "file": "06-eleven.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Eleven from Stranger Things; girl with very short buzz-cut brown hair, large brown eyes, pale pink dress and blue jacket; first-season appearance.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/eleven.jpg"
+      ]
+    },
+    {
+      "id": "dustin-henderson",
+      "name": "Dustin Henderson",
+      "file": "07-dustin-henderson.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Dustin Henderson from Stranger Things; curly brown hair, red white blue trucker cap, round face, cheerful smile and casual T-shirt.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/dustin-henderson.jpg"
+      ]
+    },
+    {
+      "id": "le-professeur",
+      "name": "Le Professeur",
+      "file": "08-le-professeur.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Le Professeur from La Casa de Papel; wavy dark brown hair, beard, large dark rectangular glasses, dark suit and tie.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/le-professeur.jpg"
+      ]
+    },
+    {
+      "id": "tokyo",
+      "name": "Tokyo",
+      "file": "09-tokyo.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Tokyo from La Casa de Papel; short straight dark bob with bangs, red zip-front jumpsuit, confident expression.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/tokyo.jpg"
+      ]
+    },
+    {
+      "id": "berlin",
+      "name": "Berlin",
+      "file": "10-berlin.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Berlin from La Casa de Papel; slicked back short dark hair, sharp features, red jumpsuit, confident composed expression.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/berlin.jpg"
+      ]
+    },
+    {
+      "id": "dexter-morgan",
+      "name": "Dexter Morgan",
+      "file": "11-dexter-morgan.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Dexter Morgan from Dexter; short side-parted reddish brown hair, green-hazel eyes, olive green henley shirt, reserved slight smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/dexter-morgan.jpg"
+      ]
+    },
+    {
+      "id": "rick-grimes",
+      "name": "Rick Grimes",
+      "file": "12-rick-grimes.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Rick Grimes from The Walking Dead; wavy dark brown hair, short beard, tan sheriff uniform, serious expression; use the live-action person on the left of image 2, only one person.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/rick-grimes.jpg"
+      ]
+    },
+    {
+      "id": "daryl-dixon",
+      "name": "Daryl Dixon",
+      "file": "13-daryl-dixon.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Daryl Dixon from The Walking Dead; shaggy shoulder-length brown hair, light stubble, black sleeveless vest, reserved expression.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/daryl-dixon.jpg"
+      ]
+    },
+    {
+      "id": "jon-snow",
+      "name": "Jon Snow",
+      "file": "14-jon-snow.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Jon Snow from Game of Thrones; long curly black hair, short dark beard, heavy dark fur cloak.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/jon-snow.jpg"
+      ]
+    },
+    {
+      "id": "daenerys-targaryen",
+      "name": "Daenerys Targaryen",
+      "file": "15-daenerys-targaryen.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Daenerys Targaryen from Game of Thrones; long platinum blond hair in intricate braids, purple-blue eyes, blue high-neck dress.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/daenerys-targaryen.jpg"
+      ]
+    },
+    {
+      "id": "tyrion-lannister",
+      "name": "Tyrion Lannister",
+      "file": "16-tyrion-lannister.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Tyrion Lannister from Game of Thrones; adult man with dwarfism, wavy light brown hair, short beard, burgundy leather doublet, wry expression.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/tyrion-lannister.jpg"
+      ]
+    },
+    {
+      "id": "sheldon-cooper",
+      "name": "Sheldon Cooper",
+      "file": "17-sheldon-cooper.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Sheldon Cooper from The Big Bang Theory; short neatly combed dark hair, narrow face, red T-shirt over long-sleeve undershirt, slightly raised eyebrow; use only the adult on the left in image 2.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/sheldon-cooper.jpg"
+      ]
+    },
+    {
+      "id": "penny",
+      "name": "Penny",
+      "file": "18-penny.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Penny from The Big Bang Theory; young adult woman, long blond hair, green eyes, colorful casual top, bright smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/penny.jpg"
+      ]
+    },
+    {
+      "id": "phoebe-buffay",
+      "name": "Phoebe Buffay",
+      "file": "19-phoebe-buffay.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Phoebe Buffay from Friends; adult woman, long straight blond hair, blue eyes, colorful bohemian blouse and layered necklaces.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/phoebe-buffay.jpg"
+      ]
+    },
+    {
+      "id": "joey-tribbiani",
+      "name": "Joey Tribbiani",
+      "file": "20-joey-tribbiani.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Joey Tribbiani from Friends; adult man, short thick dark hair, strong brows, friendly broad smile, black leather jacket over plain shirt.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/joey-tribbiani.jpg"
+      ]
+    },
+    {
+      "id": "michael-scofield",
+      "name": "Michael Scofield",
+      "file": "21-michael-scofield.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Michael Scofield from Prison Break; very short dark buzz cut, blue eyes, serious face, blue prison work shirt over white T-shirt.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/michael-scofield.jpg"
+      ]
+    },
+    {
+      "id": "gregory-house",
+      "name": "Dr House",
+      "file": "22-gregory-house.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Dr House from Dr House; middle-aged man, short tousled brown-gray hair, blue eyes, stubble, navy blazer over dark T-shirt, skeptical expression.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/gregory-house.jpg"
+      ]
+    },
+    {
+      "id": "sherlock-holmes",
+      "name": "Sherlock Holmes",
+      "file": "23-sherlock-holmes.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Sherlock Holmes from Sherlock; BBC Sherlock appearance, curly dark hair, pale angular face, blue eyes, dark high-collared coat and blue scarf.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/sherlock-holmes.jpg"
+      ]
+    },
+    {
+      "id": "mr-bean",
+      "name": "Mr Bean",
+      "file": "24-mr-bean.png",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Mr Bean from Mr Bean; short neatly combed dark hair, thick eyebrows, large expressive brown eyes, tweed jacket, white shirt, red tie, mischievous smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/mr-bean.jpg"
+      ]
+    }
+  ],
+  "excludedAttempts": [
+    {
+      "id": "walter-white",
+      "status": "moderation_blocked",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Walter White from Breaking Bad; bald head, brown goatee, wire-frame glasses, black pork-pie hat, dark jacket over muted green shirt."
+    }
+  ],
+  "discardedVariants": [
+    {
+      "id": "juliette-nichols",
+      "file": "01-juliette-nichols.png",
+      "reason": "Replaced after user selected exterior suit with helmet",
+      "prompt": "Use case: stylized-concept. Create one square portrait for a character guessing game. Image 1 is the reference for friendly rounded 3D avatar rendering, sculpted hair, large expressive eyes, soft studio lighting and plain pale lavender background. Image 2 is the reference for character identity. Depict the named television character in that 3D avatar style, retaining distinctive facial features, age, hair and outfit. One character only, centered facing viewer, head and shoulders, all hair, ears and hat inside frame with clear margin. Fully opaque pale lavender background; no transparency, text, watermark, border or scenery. Hands out of frame. Character: Juliette Nichols from Silo; adult woman with dark blond hair pulled back into a practical ponytail, blue-gray eyes, focused determined expression, wearing her worn gray mechanic's coveralls with fold-over collar, front fastening and chest pockets over a light undershirt; the gray work jumpsuit shown in image 2. Show head and upper torso so the mechanic jumpsuit is identifiable. Her face is uncovered.",
+      "referencedImagePaths": [
+        "assets/catalog/cult_series/style-reference.png",
+        "assets/catalog/cult_series/references/juliette-nichols.jpg"
+      ]
+    }
+  ]
+}

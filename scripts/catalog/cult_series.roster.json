@@ -1,0 +1,295 @@
+{
+  "slug": "cult_series",
+  "label": "Séries cultes",
+  "characters": [
+    {
+      "id": "juliette-nichols",
+      "name": "Juliette Nichols",
+      "universe": "Silo",
+      "details": "Juliette Nichols wearing her exterior protective suit and helmet, exactly the costume shown in the user-provided image 2. Pale gray-green rigid rounded helmet, broad rectangular transparent face visor with dark edging, thick circular neck seal and pale protective suit shoulders. Her face is clearly visible through the glass, blue-gray eyes and determined neutral expression. Keep the entire helmet inside the frame with margin",
+      "file": "01-juliette-nichols-v2.png",
+      "reference": {
+        "pageUrl": "https://www.esquire.com/entertainment/tv/a44466554/silo-season-1-ending-finale-recap/",
+        "file": "juliette-suit-user.png",
+        "source": "User-provided screenshot, 2026-09-15; exact costume reference"
+      }
+    },
+    {
+      "id": "jesse-pinkman",
+      "name": "Jesse Pinkman",
+      "universe": "Breaking Bad",
+      "wiki": "Jesse_Pinkman",
+      "details": "young adult man, blue eyes, light stubble, knit beanie and loose hoodie",
+      "file": "02-jesse-pinkman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Jesse_Pinkman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/c/c6/Jesse_Pinkman_S5B.png"
+      }
+    },
+    {
+      "id": "saul-goodman",
+      "name": "Saul Goodman",
+      "universe": "Better Call Saul",
+      "wiki": "Saul_Goodman",
+      "details": "middle-aged man, neatly combed brown hair, colorful suit and tie, confident smile",
+      "file": "03-saul-goodman.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Saul_Goodman",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/3/34/Jimmy_McGill_BCS_S3.png"
+      }
+    },
+    {
+      "id": "thomas-shelby",
+      "name": "Thomas Shelby",
+      "universe": "Peaky Blinders",
+      "wiki": "Tommy_Shelby",
+      "details": "blue eyes, dark undercut hair, tweed flat cap, dark three-piece suit with white shirt and tie",
+      "file": "04-thomas-shelby.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Tommy_Shelby",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/fd/Tommy_Shelby.jpg"
+      }
+    },
+    {
+      "id": "mercredi-addams",
+      "name": "Mercredi Addams",
+      "universe": "Mercredi",
+      "wiki": "Wednesday_Addams",
+      "details": "pale girl, straight black bangs and two long black braids, black dress with sharp white collar, deadpan expression; Netflix series appearance",
+      "file": "05-mercredi-addams.png",
+      "reference": {
+        "pageUrl": "https://www.digitalspy.com/tv/ustv/a42050261/wednesday-ending-explained-netflix/",
+        "imageUrl": "https://hips.hearstapps.com/hmg-prod/images/wednesday-jenna-ortega-1660718014.jpg",
+        "file": "mercredi-netflix.jpg"
+      }
+    },
+    {
+      "id": "eleven",
+      "name": "Eleven",
+      "universe": "Stranger Things",
+      "wiki": "Eleven_(Stranger_Things)",
+      "details": "girl with very short buzz-cut brown hair, large brown eyes, pale pink dress and blue jacket; first-season appearance",
+      "file": "06-eleven.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Eleven_(Stranger_Things)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/3/3f/Eleven_%28Stranger_Things_5%29.png"
+      }
+    },
+    {
+      "id": "dustin-henderson",
+      "name": "Dustin Henderson",
+      "universe": "Stranger Things",
+      "wiki": "Dustin_Henderson",
+      "details": "curly brown hair, red white blue trucker cap, round face, cheerful smile and casual T-shirt",
+      "file": "07-dustin-henderson.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Dustin_Henderson",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/b/b3/Dustin_Season_4.webp"
+      }
+    },
+    {
+      "id": "le-professeur",
+      "name": "Le Professeur",
+      "universe": "La Casa de Papel",
+      "wiki": "Professor_(Money_Heist)",
+      "details": "wavy dark brown hair, beard, large dark rectangular glasses, dark suit and tie",
+      "file": "08-le-professeur.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Professor_(Money_Heist)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/d5/Professor_%28Money_Heist%29.jpg"
+      }
+    },
+    {
+      "id": "tokyo",
+      "name": "Tokyo",
+      "universe": "La Casa de Papel",
+      "wiki": "Tokyo_(Money_Heist)",
+      "details": "short straight dark bob with bangs, red zip-front jumpsuit, confident expression",
+      "file": "09-tokyo.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Tokyo_(Money_Heist)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/dc/Tokyo_%28Money_Heist%29.jpg"
+      }
+    },
+    {
+      "id": "berlin",
+      "name": "Berlin",
+      "universe": "La Casa de Papel",
+      "wiki": "Berlin_(Money_Heist)",
+      "details": "slicked back short dark hair, sharp features, red jumpsuit, confident composed expression",
+      "file": "10-berlin.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Berlin_(Money_Heist)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/45/Berlin_%28Money_Heist%29.jpg"
+      }
+    },
+    {
+      "id": "dexter-morgan",
+      "name": "Dexter Morgan",
+      "universe": "Dexter",
+      "wiki": "Dexter_Morgan",
+      "details": "short side-parted reddish brown hair, green-hazel eyes, olive green henley shirt, reserved slight smile",
+      "file": "11-dexter-morgan.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Dexter_Morgan",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/56/Michael_C._Hall_as_Dexter_Morgan_publicity_photo%2C_2012.webp"
+      }
+    },
+    {
+      "id": "rick-grimes",
+      "name": "Rick Grimes",
+      "universe": "The Walking Dead",
+      "wiki": "Rick_Grimes",
+      "details": "wavy dark brown hair, short beard, tan sheriff uniform, serious expression; use the live-action person on the left of image 2, only one person",
+      "file": "12-rick-grimes.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Rick_Grimes",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/a/a9/Rickgrimes.jpg"
+      }
+    },
+    {
+      "id": "daryl-dixon",
+      "name": "Daryl Dixon",
+      "universe": "The Walking Dead",
+      "wiki": "Daryl_Dixon",
+      "details": "shaggy shoulder-length brown hair, light stubble, black sleeveless vest, reserved expression",
+      "file": "13-daryl-dixon.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Daryl_Dixon",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/db/Daryl_Dixon_Norman_Reedus.png"
+      }
+    },
+    {
+      "id": "jon-snow",
+      "name": "Jon Snow",
+      "universe": "Game of Thrones",
+      "wiki": "Jon_Snow_(character)",
+      "details": "long curly black hair, short dark beard, heavy dark fur cloak",
+      "file": "14-jon-snow.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Jon_Snow_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/3/30/Jon_Snow_Season_8.png"
+      }
+    },
+    {
+      "id": "daenerys-targaryen",
+      "name": "Daenerys Targaryen",
+      "universe": "Game of Thrones",
+      "wiki": "Daenerys_Targaryen",
+      "details": "long platinum blond hair in intricate braids, purple-blue eyes, blue high-neck dress",
+      "file": "15-daenerys-targaryen.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Daenerys_Targaryen",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/0d/Daenerys_Targaryen_with_Dragon-Emilia_Clarke.jpg"
+      }
+    },
+    {
+      "id": "tyrion-lannister",
+      "name": "Tyrion Lannister",
+      "universe": "Game of Thrones",
+      "wiki": "Tyrion_Lannister",
+      "details": "adult man with dwarfism, wavy light brown hair, short beard, burgundy leather doublet, wry expression",
+      "file": "16-tyrion-lannister.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Tyrion_Lannister",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/50/Tyrion_Lannister-Peter_Dinklage.jpg"
+      }
+    },
+    {
+      "id": "sheldon-cooper",
+      "name": "Sheldon Cooper",
+      "universe": "The Big Bang Theory",
+      "wiki": "Sheldon_Cooper",
+      "details": "short neatly combed dark hair, narrow face, red T-shirt over long-sleeve undershirt, slightly raised eyebrow; use only the adult on the left in image 2",
+      "file": "17-sheldon-cooper.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Sheldon_Cooper",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f7/Sheldon_and_Young_Sheldon.jpg"
+      }
+    },
+    {
+      "id": "penny",
+      "name": "Penny",
+      "universe": "The Big Bang Theory",
+      "wiki": "Penny_(The_Big_Bang_Theory)",
+      "details": "young adult woman, long blond hair, green eyes, colorful casual top, bright smile",
+      "file": "18-penny.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Penny_(The_Big_Bang_Theory)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/41/Penny_bigbangtheory.jpg"
+      }
+    },
+    {
+      "id": "phoebe-buffay",
+      "name": "Phoebe Buffay",
+      "universe": "Friends",
+      "wiki": "Phoebe_Buffay",
+      "details": "adult woman, long straight blond hair, blue eyes, colorful bohemian blouse and layered necklaces",
+      "file": "19-phoebe-buffay.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Phoebe_Buffay",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/f/f6/Friendsphoebe.jpg"
+      }
+    },
+    {
+      "id": "joey-tribbiani",
+      "name": "Joey Tribbiani",
+      "universe": "Friends",
+      "wiki": "Joey_Tribbiani",
+      "details": "adult man, short thick dark hair, strong brows, friendly broad smile, black leather jacket over plain shirt",
+      "file": "20-joey-tribbiani.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Joey_Tribbiani",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/d/da/Matt_LeBlanc_as_Joey_Tribbiani.jpg"
+      }
+    },
+    {
+      "id": "michael-scofield",
+      "name": "Michael Scofield",
+      "universe": "Prison Break",
+      "wiki": "Michael_Scofield",
+      "details": "very short dark buzz cut, blue eyes, serious face, blue prison work shirt over white T-shirt",
+      "file": "21-michael-scofield.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Michael_Scofield",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e2/MichaelScofieldPrisonBreakSeason2.jpg"
+      }
+    },
+    {
+      "id": "gregory-house",
+      "name": "Dr House",
+      "universe": "Dr House",
+      "wiki": "Gregory_House",
+      "details": "middle-aged man, short tousled brown-gray hair, blue eyes, stubble, navy blazer over dark T-shirt, skeptical expression",
+      "file": "22-gregory-house.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Gregory_House",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/0/0b/HouseGregoryHouse.png"
+      }
+    },
+    {
+      "id": "sherlock-holmes",
+      "name": "Sherlock Holmes",
+      "universe": "Sherlock",
+      "wiki": "Sherlock_Holmes_(Sherlock)",
+      "details": "BBC Sherlock appearance, curly dark hair, pale angular face, blue eyes, dark high-collared coat and blue scarf",
+      "file": "23-sherlock-holmes.png",
+      "reference": {
+        "pageUrl": "https://x.com/Sherlockology/status/811820108159000576",
+        "imageUrl": "https://pbs.twimg.com/media/C0Qp2TrW8AUOGiN.jpg"
+      }
+    },
+    {
+      "id": "mr-bean",
+      "name": "Mr Bean",
+      "universe": "Mr Bean",
+      "wiki": "Mr._Bean_(character)",
+      "details": "short neatly combed dark hair, thick eyebrows, large expressive brown eyes, tweed jacket, white shirt, red tie, mischievous smile",
+      "file": "24-mr-bean.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Mr._Bean_(character)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Atkinson_Rowan_crop.jpg"
+      }
+    }
+  ]
+}

@@ -1,0 +1,261 @@
+{
+  "slug": "cartoons",
+  "generationMode": "built-in image_gen",
+  "styleReference": "assets/catalog/cartoons/style-reference.png",
+  "characters": [
+    {
+      "id": "djok",
+      "name": "D’Jok",
+      "file": "01-djok-v2.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: D'Jok; young man with red spiky hair and blue eyes, white sports jacket over dark top, goggles around neck.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/djok.jpg"
+      ],
+      "edit": {
+        "prompt": "Edit image 1, the 3D portrait of D'Jok from Galactik Football. Preserve his face, red spiky hair, goggles around neck, jacket and colors. Replace the transparent or black background outside the character with a fully opaque pale lavender background matching image 2. Frame the head and shoulders with the entire hair visible and at least 5 percent clear background margin above the tallest spike. Keep the same soft 3D rendering. No text, border or watermark.",
+        "referencedImagePaths": [
+          "assets/catalog/cartoons/01-djok.png",
+          "assets/catalog/cartoons/style-reference.png"
+        ]
+      }
+    },
+    {
+      "id": "micro-ice",
+      "name": "Micro-Ice",
+      "file": "02-micro-ice.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Micro-Ice from Galactik Football; young football player with dark teal-black hair swept across forehead, light blue eyes, warm tan skin, white and blue Snow Kids football jersey and futuristic small silver-blue earpiece as in reference.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/micro-ice.jpg"
+      ]
+    },
+    {
+      "id": "marsupilami",
+      "name": "Marsupilami",
+      "file": "03-marsupilami.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Marsupilami; yellow fur with irregular black spots, oval black nose, long drooping ears, large white eyes, friendly grin, extremely long thin spotted tail curling beside upper body.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/marsupilami.jpg"
+      ]
+    },
+    {
+      "id": "sammy",
+      "name": "Sammy",
+      "file": "04-sammy.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Shaggy Rogers; lanky young man, shaggy light brown hair, sparse chin whiskers, loose green V-neck shirt.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/sammy.jpg"
+      ]
+    },
+    {
+      "id": "gumball",
+      "name": "Gumball",
+      "file": "05-gumball.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: blue anthropomorphic cat, big oval white eyes black pupils, round cheek tufts, tiny black nose, beige sweater with brown cuffs and collar. In image 2 portray only the small blue cat at upper left wearing beige, not the blue mother in the middle.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/gumball.jpg"
+      ]
+    },
+    {
+      "id": "darwin",
+      "name": "Darwin",
+      "file": "06-darwin.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: orange anthropomorphic goldfish, huge oval eyes, small side fins, orange cheek outlines, cheerful expression; retain fish anatomy without human nose. In image 2 portray only the orange fish at lower left.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/darwin.jpg"
+      ]
+    },
+    {
+      "id": "ben",
+      "name": "Ben 10",
+      "file": "07-ben.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Ben Tennyson original series design; brown short spiky hair, green eyes, white T-shirt with black central vertical stripe and sleeves, friendly confident face. In image 2 portray only the original boy at the far left.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/ben.jpg"
+      ]
+    },
+    {
+      "id": "ladybug",
+      "name": "Ladybug",
+      "file": "08-ladybug.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Ladybug superhero costume; dark blue hair in two low pigtails with red ribbons, blue eyes, red mask with black spots, red suit with black spots. Image 2 is a group reference; portray only the character on the left, with red spotted costume.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/miraculous.jpg"
+      ]
+    },
+    {
+      "id": "chat-noir",
+      "name": "Chat Noir",
+      "file": "09-chat-noir.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Cat Noir superhero costume; blond tousled hair, green cat eyes, black eye mask and black cat ears, black catsuit high collar with small golden bell. Image 2 is a group reference; portray only the character on the right, with blond hair and black costume.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/miraculous.jpg"
+      ]
+    },
+    {
+      "id": "sam",
+      "name": "Sam",
+      "file": "10-sam.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Sam; long orange red hair, green eyes, emerald green high-neck spy bodysuit, classic animated version. Image 2 is a group reference; portray only the character on the middle, with red hair and green suit.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/totally-spies.jpg"
+      ]
+    },
+    {
+      "id": "clover",
+      "name": "Clover",
+      "file": "11-clover.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Clover; short blond bob with swept bangs, blue eyes, red high-neck spy bodysuit, classic animated version. Image 2 is a group reference; portray only the character on the left, with blond hair and red suit.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/totally-spies.jpg"
+      ]
+    },
+    {
+      "id": "alex",
+      "name": "Alex",
+      "file": "12-alex.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Alex; warm tan skin, short straight black bob with bangs, brown eyes, yellow high-neck spy bodysuit, classic animated version. Image 2 is a group reference; portray only the character on the right, with dark hair and yellow suit.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/totally-spies.jpg"
+      ]
+    },
+    {
+      "id": "tag",
+      "name": "Tag",
+      "file": "13-tag.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Tag; teenage boy with spiky black hair and amber eyes, teal blue hoodie, classic first series appearance.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/tag.jpg"
+      ]
+    },
+    {
+      "id": "corneil",
+      "name": "Corneil",
+      "file": "14-corneil.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Corneil from Corneil et Bernie; the yellow dog at lower right in image 2, golden cream fur, very large rounded navy blue nose, floppy brown ears, prominent white eyes, long curved muzzle, brown collar. Portray the dog alone.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/corneil.jpg"
+      ]
+    },
+    {
+      "id": "bernie",
+      "name": "Bernie",
+      "file": "15-bernie.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Bernie from Corneil et Bernie; the human at left in image 2. Short vivid blue spiky hair, long oval face, prominent ears, enormous friendly toothy grin with pink lips, blue long-sleeve shirt and orange vest. Portray the human alone.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/bernie.jpg"
+      ]
+    },
+    {
+      "id": "dora",
+      "name": "Dora",
+      "file": "16-dora.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Dora the Explorer classic animated version; little Latina girl with warm brown skin, straight dark brown bob haircut with short bangs, large brown eyes, pink T-shirt and purple backpack straps, cheerful smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/dora.jpg"
+      ]
+    },
+    {
+      "id": "aang",
+      "name": "Aang",
+      "file": "17-aang.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Aang; bald boy with blue arrow tattoo on forehead pointing down, large gray eyes, orange and yellow air nomad outfit, gentle smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/aang.jpg"
+      ]
+    },
+    {
+      "id": "katara",
+      "name": "Katara",
+      "file": "18-katara.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Katara; brown skin, blue eyes, dark brown hair with two looped strands framing cheeks, blue water tribe outfit, blue choker with pale circular pendant.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/katara.jpg"
+      ]
+    },
+    {
+      "id": "finn",
+      "name": "Finn",
+      "file": "19-finn.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Finn the Human; round face inside white bear-eared hood, simple black eyes, cheerful smile, blue shirt, green backpack straps.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/finn.jpg"
+      ]
+    },
+    {
+      "id": "jake",
+      "name": "Jake",
+      "file": "20-jake-v2.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Jake the Dog; golden yellow round dog with large white eyes and black rims, tiny black nose inside drooping jowls, small floppy ears.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/jake.jpg"
+      ],
+      "edit": {
+        "prompt": "Edit image 1, the 3D portrait of Jake from Adventure Time. Keep his anatomy, white eyes with black rims, yellow body, expression and colors. Replace all transparent or black background outside Jake with a fully opaque pale lavender background matching image 2. Use a head-and-upper-body portrait framing similar to image 2, entire top of head and both ears fully visible with some margin. No text or border.",
+        "referencedImagePaths": [
+          "assets/catalog/cartoons/20-jake.png",
+          "assets/catalog/cartoons/style-reference.png"
+        ]
+      }
+    },
+    {
+      "id": "boom",
+      "name": "Boom",
+      "file": "21-boom.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Boom from Linus et Boom; the huge red alien at the back of image 2. Broad powerful shoulders, large rectangular red face, bright yellow eyes with black pupils, pink wide mouth, small black spiky tuft atop the head, brownish burgundy chest patch. Preserve this alien's specific design and friendly smile, no invented horns.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/boom.jpg"
+      ]
+    },
+    {
+      "id": "titeuf",
+      "name": "Titeuf",
+      "file": "22-titeuf.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Titeuf; boy with extremely tall yellow blond hair tuft above otherwise almost bald head, round nose, purple T-shirt.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/titeuf-character.jpg"
+      ]
+    },
+    {
+      "id": "oggy",
+      "name": "Oggy",
+      "file": "23-oggy.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Oggy; blue cat with light blue belly, large red oval nose, white eyes, black pointed ears and whiskers, friendly clumsy face.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/oggy-character.jpg"
+      ]
+    },
+    {
+      "id": "garfield",
+      "name": "Garfield",
+      "file": "24-garfield.png",
+      "prompt": "Create one square portrait of the following cartoon character as a friendly stylized 3D avatar. Use image 1 only as the reference for soft volumetric rendering, rounded sculpted forms, expressive eyes and soft studio lighting. Use image 2 for character identity. Show only one character facing the viewer, head and shoulders or upper body for nonhuman characters. Preserve the character's own species, distinctive anatomy, colors and outfit. Entire head, ears, hair and hat must be visible with 5 percent clear background margin. Fully opaque plain pale lavender background matching image 1. No text, watermark, border, weapons or scenery. Character: Garfield; chubby orange tabby cat, black stripes, half-lidded eyes, small pink nose, cream muzzle, small rounded ears, wry friendly smile.",
+      "referencedImagePaths": [
+        "assets/catalog/cartoons/style-reference.png",
+        "assets/catalog/cartoons/references/garfield.jpg"
+      ]
+    }
+  ]
+}
