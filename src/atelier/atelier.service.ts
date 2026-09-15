@@ -1,3 +1,4 @@
+import { configureLevels, progressionForScore } from './level-progression';
 import {
   ConflictException,
   ForbiddenException,
@@ -30,7 +31,7 @@ import {
 } from './catalog';
 import { PortraitService } from './portrait.service';
 import { MixedCard, MixedPhoto } from './mixed-deck';
-import { LOUPE_PRICES, RANKS, rankForScore } from './loupe-economy';
+import { LOUPE_PRICES, rankCatalog, rankForScore } from './loupe-economy';
 
 @Injectable()
 export class AtelierService implements OnModuleInit {
@@ -52,6 +53,7 @@ export class AtelierService implements OnModuleInit {
   async onModuleInit() {
     if (!this.enabled) return;
     this.portraitUrl('0'.repeat(64));
+    configureLevels(await this.db.query('SELECT id,score FROM level ORDER BY score,id'));
     const configTable = await this.db.query("SELECT to_regclass('game_economy_config') AS name");
     if (configTable[0]?.name) this.loupeActive = (await this.db.query('SELECT enabled FROM game_economy_config WHERE id=1 AND version=1'))[0]?.enabled === true;
     for (const [key, fallback] of Object.entries({
@@ -155,7 +157,7 @@ export class AtelierService implements OnModuleInit {
       const account = await this.snapshot(tx,userId);
       const [{ score }] = await tx.query('SELECT score FROM "user" WHERE id=$1', [userId]);
       const rewards = this.loupeActive ? await tx.query('SELECT id::text AS id,payload FROM loupe_reward WHERE user_id=$1 AND acknowledged_at IS NULL ORDER BY id LIMIT 50',[userId]) : [];
-      return { ...account, currency: 'loupes', enabled: this.loupeEconomyEnabled, rank: rankForScore(Number(score)), ranks: RANKS, rewards };
+      return { ...account, currency: 'loupes', enabled: this.loupeEconomyEnabled, rank: rankForScore(Number(score)), ranks: rankCatalog(), progression: progressionForScore(Number(score)), rewards };
     });
   }
   async acknowledgeReward(userId: number, id: string) {

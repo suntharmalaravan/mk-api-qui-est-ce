@@ -1,3 +1,4 @@
+import { LoupeOverview } from '@/components/loupe-tracking';
 import type { Metadata, Route } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -28,6 +29,7 @@ export default function OverviewPage() {
         <Suspense fallback={<MetricsSkeleton />}>
           <Metrics />
         </Suspense>
+        <Suspense fallback={null}><LoupeOverview /></Suspense>
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <Suspense fallback={<ListCardSkeleton title="Derniers inscrits" />}>
             <RecentUsers />

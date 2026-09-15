@@ -29,6 +29,7 @@ export async function setCategoryVisibility(slug: string, visible: boolean): Pro
   if (!row) return { ok: false, error: 'Cette catégorie n’existe plus au catalogue.' };
 
   revalidatePath('/categories');
+  revalidatePath(`/categories/${encodeURIComponent(parsed.data.slug)}`);
   revalidatePath('/');
   return { ok: true };
 }

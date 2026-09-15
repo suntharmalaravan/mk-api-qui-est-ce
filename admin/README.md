@@ -10,6 +10,7 @@ chargement de données côté navigateur.
 | `/` | KPI 7 jours, parties terminées par jour, derniers inscrits et decks |
 | `/users` | Joueurs : recherche (`/`), tri par colonne, pagination, statistiques |
 | `/users/[id]` | Fiche joueur : score, parties, taux de victoire, decks, dernières parties |
+| `/loupes`, `/loupes/export` | Soldes, gains/dépenses, journal, attributions de duel et export CSV de la page filtrée |
 | `/decks`, `/decks/[id]` | Tous les decks créés et leurs cartes |
 | `/categories` | Visibilité des catégories du catalogue dans l'app |
 
@@ -91,3 +92,19 @@ GRANT INSERT, UPDATE ON category_setting TO mk_admin;
 - Recherche et tri portés par l'URL, en transition : les résultats précédents
   restent affichés pendant le chargement, sans flash.
 - Pool de connexions unique par processus, `statement_timeout` de 10 s.
+
+## Suivi des loupes
+
+La rubrique Loupes et les fiches joueurs lisent les soldes et les opérations validées dans `atelier_account`, `atelier_ledger` et `loupe_reward`. La monnaie reste calculée par le serveur du jeu : le back-office ne crédite et ne débite rien.
+
+- Soldes actuels pour tous les joueurs, y compris ceux sans portefeuille (0). Tri par solde, gains ou dépenses.
+- Filtres de joueur, période glissante de 7/30 jours ou historique complet ; filtre de type dans le journal.
+- Les dépenses d’atelier sont séparées de l’initialisation et des autres ajustements négatifs.
+- Journal paginé par identifiant bigint, sans conversion JavaScript en nombre. La lecture des pages suivantes reste stable si de nouvelles opérations arrivent.
+- Attributions de duel, y compris à zéro : rapidité, précision, niveau, réduction, plafond et acquittement. Elles expliquent les crédits et ne doivent pas être additionnées une seconde fois au journal.
+- CSV limité à la page filtrée (50 lignes), accessible uniquement à l’admin, sans cache, avec neutralisation des formules dans les champs texte.
+- L’historique porte sur les écritures conservées en base. Les tentatives d’achat refusées ne créent pas d’écriture financière ; les suppressions de compte suivent les cascades existantes.
+
+Appliquer `migrations/admin_loupes_v1.sql` : trois index de lecture et, si le rôle `mk_admin` existe, lecture des deux tables de suivi. Aucun solde, XP, inventaire ou reçu n’est réinitialisé. Les grades utilisent désormais les niveaux 1, 3, 5, 8, 11, 14, 16 et 18, avec les paliers XP existants de la base.
+
+L’asset monétaire est une copie de celui du mobile dans `public/images/loupe.png`. Les requêtes et exports contrôlent systématiquement `requireAdmin()`. Test : `LOUPE_ADMIN_TEST_DATABASE_URL=... LOUPE_ADMIN_TEST_SSL=true node scripts/test-loupes.cjs` ; les fixtures et index de test sont créés dans un schéma isolé puis annulés.

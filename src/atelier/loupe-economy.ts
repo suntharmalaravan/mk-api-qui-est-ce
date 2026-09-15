@@ -1,3 +1,4 @@
+import { levelThresholds, progressionForScore } from './level-progression';
 import { EntityManager } from "typeorm";
 
 export const LOUPE_PRICES: Readonly<Record<string, number>> = {
@@ -6,18 +7,23 @@ export const LOUPE_PRICES: Readonly<Record<string, number>> = {
   "glasses-rectangular": 140,
   "neckwear-bowtie": 180,
 };
-export const RANKS = [
-  { id: "recrue", title: "Recrue", score: 0 },
-  { id: "observateur", title: "Observateur", score: 40 },
-  { id: "pisteur", title: "Pisteur", score: 120 },
-  { id: "enqueteur", title: "Enquêteur", score: 280 },
-  { id: "inspecteur", title: "Inspecteur", score: 560 },
-  { id: "commissaire", title: "Commissaire", score: 1000 },
-  { id: "maitre", title: "Maître enquêteur", score: 1800 },
-  { id: "legende", title: "Légende du Bureau", score: 3000 },
+const GRADE_LEVELS = [
+  { id: 'recrue', title: 'Recrue', minLevel: 1 },
+  { id: 'observateur', title: 'Observateur', minLevel: 3 },
+  { id: 'pisteur', title: 'Pisteur', minLevel: 5 },
+  { id: 'enqueteur', title: 'Enquêteur', minLevel: 8 },
+  { id: 'inspecteur', title: 'Inspecteur', minLevel: 11 },
+  { id: 'commissaire', title: 'Commissaire', minLevel: 14 },
+  { id: 'maitre', title: 'Maître enquêteur', minLevel: 16 },
+  { id: 'legende', title: 'Légende du Bureau', minLevel: 18 },
 ] as const;
+export function rankCatalog() {
+  const thresholds=levelThresholds();
+  return GRADE_LEVELS.filter(grade=>thresholds.some(l=>l.id===grade.minLevel)).map(grade=>({...grade,score:thresholds.find(l=>l.id===grade.minLevel)!.score}));
+}
 export function rankForScore(score: number) {
-  return [...RANKS].reverse().find((rank) => score >= rank.score) ?? RANKS[0];
+  const level=progressionForScore(score).level;
+  return rankCatalog().reverse().find(rank=>level>=rank.minLevel)!;
 }
 export const DAILY_LOUPE_LIMIT = 120;
 /** All inputs come from the locked room and durable server history. */

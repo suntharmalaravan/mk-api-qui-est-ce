@@ -1,5 +1,7 @@
 'use client';
 
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
 import { useOptimistic, useTransition } from 'react';
 import { toast } from 'sonner';
 import { Badge } from '@/components/ui/badge';
@@ -35,11 +37,15 @@ export function CategoryRow({ category }: { category: CategoryRowData }) {
 
   return (
     <li className="flex items-center gap-4 px-4 py-3">
-      <div className={cn('flex min-w-0 flex-1 items-center gap-4 transition-opacity duration-150', !visible && 'opacity-50')}>
+      <Link
+        href={`/categories/${encodeURIComponent(category.slug)}`}
+        aria-label={`Voir les personnages de ${category.label}`}
+        className={cn('group flex min-w-0 flex-1 items-center gap-4 rounded-md transition-opacity duration-150 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent', !visible && 'opacity-50')}
+      >
         <ThumbStack urls={category.previews} size={32} ringClassName="ring-panel" />
-        <div className="min-w-0">
-          <div className="flex items-center gap-2">
-            <span className="truncate text-sm font-medium text-fg">{category.label}</span>
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+            <span className="truncate text-sm font-medium text-fg group-hover:text-accent-fg">{category.label}</span>
             {category.playable ? null : <Badge tone="warning">Non jouable</Badge>}
           </div>
           <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 text-xs text-subtle">
@@ -54,7 +60,8 @@ export function CategoryRow({ category }: { category: CategoryRowData }) {
             ) : null}
           </div>
         </div>
-      </div>
+        <ChevronRight className="size-4 shrink-0 text-subtle transition-transform motion-safe:group-hover:translate-x-0.5" aria-hidden />
+      </Link>
       <span className={cn('hidden w-14 text-right text-xs sm:inline', visible ? 'text-muted' : 'text-subtle')}>
         {visible ? 'Visible' : 'Masquée'}
       </span>

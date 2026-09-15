@@ -1,3 +1,4 @@
+import { LoupeAmount } from '@/components/ui/loupe';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
@@ -69,6 +70,7 @@ async function UsersTable({ q, sort, page, offset }: ListParams<UserSort>) {
             {sortable('name', 'Joueur')}
             <th className={thClass}>Niveau</th>
             {sortable('score', 'Score', 'right')}
+            {sortable('loupes', 'Loupes', 'right')}
             {sortable('decks', 'Decks', 'right')}
             {sortable('wins', 'Victoires', 'right')}
             <th className={cn(thClass, 'text-right')}>Défaites</th>
@@ -87,6 +89,7 @@ async function UsersTable({ q, sort, page, offset }: ListParams<UserSort>) {
               </td>
               <td className={cn(tdClass, 'text-muted')}>{user.level ? humanize(user.level) : '—'}</td>
               <NumberCell value={user.score} />
+              <td className={`${tdClass} text-right`}><LoupeAmount amount={user.loupes} /></td>
               <NumberCell value={user.decks} />
               <NumberCell value={user.wins} />
               <NumberCell value={user.losses} />

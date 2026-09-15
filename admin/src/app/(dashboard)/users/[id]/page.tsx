@@ -1,3 +1,7 @@
+import { LoupeAmount } from '@/components/ui/loupe';
+import { LoupeMetrics, LoupeLedger } from '@/components/loupe-tracking';
+import { readLoupeFilters, loupeHref } from '@/lib/loupes';
+import { listLoupeLedger } from '@/lib/queries/loupes';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -73,9 +77,13 @@ export default async function UserPage({ params }: Props) {
           <Stat label="Decks" value={formatNumber(user.decks)} detail={`${formatNumber(user.cards)} cartes importées`} />
           <Stat label="Personnages" value={formatNumber(user.characters)} detail="créés dans l’atelier" />
           <Stat label="Badges" value={formatNumber(user.badges)} />
-          <Stat label="Pièces" value={user.coins === null ? '—' : formatNumber(user.coins)} detail="solde de l’atelier" />
+          <Stat label="Loupes" value={<LoupeAmount amount={user.coins ?? 0} />} detail="solde actuel" />
           <Stat label="Identifiant" value={`#${user.id}`} />
         </dl>
+
+        <Section title="Loupes · historique du joueur">
+          <Suspense fallback={<RowsSkeleton />}><UserLoupes userId={user.id} /></Suspense>
+        </Section>
 
         <Section title="Decks">
           <Suspense fallback={<RowsSkeleton />}>
@@ -100,7 +108,7 @@ function Stat({
   children,
 }: {
   label: string;
-  value: string;
+  value: React.ReactNode;
   detail?: string;
   children?: React.ReactNode;
 }) {
@@ -203,4 +211,10 @@ function RowsSkeleton() {
       ))}
     </div>
   );
+}
+
+async function UserLoupes({ userId }: { userId: number }) {
+  const filters=readLoupeFilters({user:String(userId),days:'all',view:'journal'});
+  const rows=await listLoupeLedger(filters);
+  return <div className="space-y-4"><LoupeMetrics filters={filters} /><div className="overflow-hidden rounded-lg border border-line"><LoupeLedger rows={rows.slice(0,8)} /></div><Link href={loupeHref(filters)} className="inline-flex text-sm text-accent-fg hover:text-fg">Tout le journal et les attributions de duel →</Link></div>;
 }

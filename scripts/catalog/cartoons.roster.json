@@ -3,39 +3,36 @@
   "label": "Dessins animés",
   "characters": [
     {
-      "id": "bob",
-      "name": "Bob l’éponge",
-      "universe": "Bob l’éponge",
-      "wiki": "SpongeBob_SquarePants_(character)",
-      "details": "SpongeBob SquarePants; yellow rectangular sea sponge with pores, huge blue eyes, two buck teeth, white shirt and red tie",
-      "file": "01-bob.png",
+      "id": "djok",
+      "name": "D’Jok",
+      "universe": "Galactik Football",
+      "details": "D'Jok; young man with red spiky hair and blue eyes, white sports jacket over dark top, goggles around neck",
+      "file": "01-djok.png",
       "reference": {
-        "pageUrl": "https://en.wikipedia.org/wiki/SpongeBob_SquarePants_(character)",
-        "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a2/SpongeBob_character.svg/960px-SpongeBob_character.svg.png"
+        "pageUrl": "https://editthis.info/akillian/D%27Jok",
+        "imageUrl": "https://editthis.info/images/akillian/f/f9/Vlcsnap-10816.jpg"
       }
     },
     {
-      "id": "patrick",
-      "name": "Patrick",
-      "universe": "Bob l’éponge",
-      "wiki": "Patrick_Star",
-      "details": "Patrick Star; pink starfish, pointed head, large eyes, small brows, friendly goofy smile, lime green shorts with purple flowers if visible",
-      "file": "02-patrick.png",
+      "id": "micro-ice",
+      "name": "Micro-Ice",
+      "universe": "Galactik Football",
+      "details": "Micro-Ice; short young football player, tousled dark hair, Snow Kids white and blue football jersey with red number three",
+      "file": "02-micro-ice.png",
       "reference": {
-        "pageUrl": "https://en.wikipedia.org/wiki/Patrick_Star",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/2/28/Patrick_Star_character.png"
+        "pageUrl": "https://galactikfootball.fandom.com/wiki/Micro-Ice",
+        "imageUrl": "https://vignette.wikia.nocookie.net/galactikfootball/images/f/f3/Micro-Ice.png/revision/latest?cb=20150228162415"
       }
     },
     {
-      "id": "scooby",
-      "name": "Scooby-Doo",
-      "universe": "Scooby-Doo",
-      "wiki": "Scooby-Doo_(character)",
-      "details": "brown Great Dane, long muzzle, black nose, asymmetric floppy ears, teal collar with gold diamond tag",
-      "file": "03-scooby.png",
+      "id": "marsupilami",
+      "name": "Marsupilami",
+      "universe": "Marsupilami",
+      "details": "Marsupilami; yellow fur with irregular black spots, oval black nose, long drooping ears, large white eyes, friendly grin, extremely long thin spotted tail curling beside upper body",
+      "file": "03-marsupilami.png",
       "reference": {
-        "pageUrl": "https://en.wikipedia.org/wiki/Scooby-Doo_(character)",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/5/53/Scooby-Doo.png"
+        "pageUrl": "https://commons.wikimedia.org/wiki/File:Marsupilami_smiling.jpg",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Marsupilami_smiling.jpg/960px-Marsupilami_smiling.jpg"
       }
     },
     {
@@ -94,8 +91,9 @@
       "details": "Ladybug superhero costume; dark blue hair in two low pigtails with red ribbons, blue eyes, red mask with black spots, red suit with black spots",
       "file": "08-ladybug.png",
       "reference": {
-        "pageUrl": "https://en.wikipedia.org/wiki/Marinette_Dupain-Cheng",
-        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/4/4f/Marinette_Dupain-Cheng.png"
+        "pageUrl": "https://news.nate.com/view/20210402n04108",
+        "imageUrl": "https://news.nateimg.co.kr/orgImg/mw/2021/04/02/2021040117318017092_1.jpg",
+        "file": "miraculous.jpg"
       }
     },
     {
@@ -104,7 +102,12 @@
       "universe": "Miraculous",
       "wiki": "Adrien_Agreste",
       "details": "Cat Noir superhero costume; blond tousled hair, green cat eyes, black eye mask and black cat ears, black catsuit high collar with small golden bell",
-      "file": "09-chat-noir.png"
+      "file": "09-chat-noir.png",
+      "reference": {
+        "pageUrl": "https://news.nate.com/view/20210402n04108",
+        "imageUrl": "https://news.nateimg.co.kr/orgImg/mw/2021/04/02/2021040117318017092_1.jpg",
+        "file": "miraculous.jpg"
+      }
     },
     {
       "id": "sam",
@@ -112,7 +115,12 @@
       "universe": "Totally Spies!",
       "wiki": "Sam_(Totally_Spies!)",
       "details": "Sam; long orange red hair, green eyes, emerald green high-neck spy bodysuit, classic animated version",
-      "file": "10-sam.png"
+      "file": "10-sam.png",
+      "reference": {
+        "pageUrl": "https://thetvdb.com/series/totally-spies",
+        "imageUrl": "https://artworks.thetvdb.com/banners/posters/77625-6.jpg",
+        "file": "totally-spies.jpg"
+      }
     },
     {
       "id": "clover",
@@ -120,7 +128,12 @@
       "universe": "Totally Spies!",
       "wiki": "Clover_(Totally_Spies!)",
       "details": "Clover; short blond bob with swept bangs, blue eyes, red high-neck spy bodysuit, classic animated version",
-      "file": "11-clover.png"
+      "file": "11-clover.png",
+      "reference": {
+        "pageUrl": "https://thetvdb.com/series/totally-spies",
+        "imageUrl": "https://artworks.thetvdb.com/banners/posters/77625-6.jpg",
+        "file": "totally-spies.jpg"
+      }
     },
     {
       "id": "alex",
@@ -128,39 +141,56 @@
       "universe": "Totally Spies!",
       "wiki": "Alex_(Totally_Spies!)",
       "details": "Alex; warm tan skin, short straight black bob with bangs, brown eyes, yellow high-neck spy bodysuit, classic animated version",
-      "file": "12-alex.png"
+      "file": "12-alex.png",
+      "reference": {
+        "pageUrl": "https://thetvdb.com/series/totally-spies",
+        "imageUrl": "https://artworks.thetvdb.com/banners/posters/77625-6.jpg",
+        "file": "totally-spies.jpg"
+      }
     },
     {
-      "id": "kim",
-      "name": "Kim Possible",
-      "universe": "Kim Possible",
-      "wiki": "Kim_Possible_(character)",
-      "details": "Kim Possible; long orange red hair swept sideways, green eyes, black high-neck long-sleeved top, confident friendly smile",
-      "file": "13-kim.png"
+      "id": "tag",
+      "name": "Tag",
+      "universe": "Foot 2 Rue",
+      "details": "Tag; teenage boy with spiky black hair and amber eyes, teal blue hoodie, classic first series appearance",
+      "file": "13-tag.png",
+      "reference": {
+        "pageUrl": "https://foot-2-rue.fandom.com/fr/wiki/Tag",
+        "imageUrl": "https://static.wikia.nocookie.net/foot-2-rue/images/d/df/4465_render_foot_2_rue_Tag.png/revision/latest?cb=20120617162207&path-prefix=fr"
+      }
     },
     {
-      "id": "phineas",
-      "name": "Phinéas",
-      "universe": "Phinéas et Ferb",
-      "wiki": "Phineas_Flynn",
-      "details": "Phineas Flynn; triangular head and long pointed nose, small tuft of red hair, orange and cream striped T-shirt, large white eyes",
-      "file": "14-phineas.png"
+      "id": "corneil",
+      "name": "Corneil",
+      "universe": "Corneil et Bernie",
+      "details": "Corneil; intelligent golden yellow dog with big expressive eyes, drooping navy blue ears, broad dark blue nose and muzzle, small red bow tie",
+      "file": "14-corneil.png",
+      "reference": {
+        "pageUrl": "https://www.primevideo.com/-/es/detail/Corneil-Bernie/0ILQVCM85KZH4HCZ9Q4LHBMJEF",
+        "imageUrl": "https://m.media-amazon.com/images/S/pv-target-images/69e7d5f7abe61a5e09128eaefffc17ec08abb598b3456b8597992b196ec82f84.jpg"
+      }
     },
     {
-      "id": "ferb",
-      "name": "Ferb",
-      "universe": "Phinéas et Ferb",
-      "wiki": "Ferb_Fletcher",
-      "details": "Ferb Fletcher; tall rectangular head, long rounded nose, vivid green tousled hair, white collared shirt with purple overalls",
-      "file": "15-ferb.png"
+      "id": "bernie",
+      "name": "Bernie",
+      "universe": "Corneil et Bernie",
+      "details": "Bernie; lanky young man with wild dark navy spiky hair, long oval nose, prominent ears, pale skin, wide toothy grin, brown jacket over blue T-shirt",
+      "file": "15-bernie.png",
+      "reference": {
+        "pageUrl": "https://www.primevideo.com/-/es/detail/Corneil-Bernie/0ILQVCM85KZH4HCZ9Q4LHBMJEF",
+        "imageUrl": "https://m.media-amazon.com/images/S/pv-target-images/69e7d5f7abe61a5e09128eaefffc17ec08abb598b3456b8597992b196ec82f84.jpg"
+      }
     },
     {
-      "id": "perry",
-      "name": "Perry",
-      "universe": "Phinéas et Ferb",
-      "wiki": "Perry_the_Platypus",
-      "details": "Perry the Platypus agent design; teal platypus, wide orange flat bill, brown fedora hat with dark band, alert eyes",
-      "file": "16-perry.png"
+      "id": "dora",
+      "name": "Dora",
+      "universe": "Dora l’exploratrice",
+      "details": "Dora the Explorer classic animated version; little Latina girl with warm brown skin, straight dark brown bob haircut with short bangs, large brown eyes, pink T-shirt and purple backpack straps, cheerful smile",
+      "file": "16-dora.png",
+      "reference": {
+        "pageUrl": "https://nickjrcharacters.blogspot.com/2013/09/dora-explorer-volume-1.html",
+        "imageUrl": "https://2.bp.blogspot.com/-OBYabxeohXQ/UkdwYcLfOsI/AAAAAAAAVjQ/mI2xuvsk83E/s1600/dora-image.png"
+      }
     },
     {
       "id": "aang",
@@ -168,7 +198,11 @@
       "universe": "Avatar, le dernier maître de l’air",
       "wiki": "Aang",
       "details": "Aang; bald boy with blue arrow tattoo on forehead pointing down, large gray eyes, orange and yellow air nomad outfit, gentle smile",
-      "file": "17-aang.png"
+      "file": "17-aang.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Aang",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/en/8/86/Avatar_Aang.png"
+      }
     },
     {
       "id": "katara",
@@ -176,7 +210,11 @@
       "universe": "Avatar, le dernier maître de l’air",
       "wiki": "Katara_(Avatar:_The_Last_Airbender)",
       "details": "Katara; brown skin, blue eyes, dark brown hair with two looped strands framing cheeks, blue water tribe outfit, blue choker with pale circular pendant",
-      "file": "18-katara.png"
+      "file": "18-katara.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Katara_(Avatar:_The_Last_Airbender)",
+        "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/5/57/Katara_character.png"
+      }
     },
     {
       "id": "finn",
@@ -184,7 +222,11 @@
       "universe": "Adventure Time",
       "wiki": "Finn_the_Human",
       "details": "Finn the Human; round face inside white bear-eared hood, simple black eyes, cheerful smile, blue shirt, green backpack straps",
-      "file": "19-finn.png"
+      "file": "19-finn.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Finn_the_Human",
+        "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/a/a6/Finn_the_Human_character.svg/960px-Finn_the_Human_character.svg.png"
+      }
     },
     {
       "id": "jake",
@@ -192,15 +234,22 @@
       "universe": "Adventure Time",
       "wiki": "Jake_the_Dog",
       "details": "Jake the Dog; golden yellow round dog with large white eyes and black rims, tiny black nose inside drooping jowls, small floppy ears",
-      "file": "20-jake.png"
+      "file": "20-jake.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Jake_the_Dog",
+        "imageUrl": "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d8/Jake_the_Dog_character.svg/960px-Jake_the_Dog_character.svg.png"
+      }
     },
     {
-      "id": "stitch",
-      "name": "Stitch",
-      "universe": "Lilo et Stitch",
-      "wiki": "Stitch_(Lilo_%26_Stitch)",
-      "details": "Stitch; blue alien koala-like creature, huge ears with pink inner ears, large dark eyes, navy rounded nose, pale blue chest, friendly smile; two arms only",
-      "file": "21-stitch.png"
+      "id": "boom",
+      "name": "Boom",
+      "universe": "Linus et Boom",
+      "details": "Boom from Linus and Boom; huge red dinosaur-like alien with yellow eyes, dark red facial markings, broad muzzle and small pale horns, distinctive alien anatomy, friendly strong expression",
+      "file": "21-boom.png",
+      "reference": {
+        "pageUrl": "https://www.senscritique.com/serie/linus_et_boom/439279",
+        "imageUrl": "https://media.senscritique.com/media/000018121474/0/linus_et_boom.jpg"
+      }
     },
     {
       "id": "titeuf",
@@ -208,7 +257,12 @@
       "universe": "Titeuf",
       "wiki": "Titeuf",
       "details": "Titeuf; boy with extremely tall yellow blond hair tuft above otherwise almost bald head, round nose, purple T-shirt",
-      "file": "22-titeuf.png"
+      "file": "22-titeuf.png",
+      "reference": {
+        "pageUrl": "https://serieously.ouest-france.fr/quiz-cest-juste-mission-impossible-de-relier-ces-10-personnages-a-leur-dessin-anime/",
+        "imageUrl": "https://serieously.ouest-france.fr/app/uploads/2023/01/titeuf.jpg",
+        "file": "titeuf-character.jpg"
+      }
     },
     {
       "id": "oggy",
@@ -216,7 +270,12 @@
       "universe": "Oggy et les Cafards",
       "wiki": "Oggy_and_the_Cockroaches",
       "details": "Oggy; blue cat with light blue belly, large red oval nose, white eyes, black pointed ears and whiskers, friendly clumsy face",
-      "file": "23-oggy.png"
+      "file": "23-oggy.png",
+      "reference": {
+        "pageUrl": "https://www.businesstoday.in/in-the-news/photo/top-10-kids-programmes-in-india-5340-2016-09-14",
+        "imageUrl": "https://akm-img-a-in.tosshub.com/businesstoday/images/photo_gallery/201609/oggy_091416041039.jpg",
+        "file": "oggy-character.jpg"
+      }
     },
     {
       "id": "garfield",
@@ -224,7 +283,11 @@
       "universe": "Garfield",
       "wiki": "Garfield_(character)",
       "details": "Garfield; chubby orange tabby cat, black stripes, half-lidded eyes, small pink nose, cream muzzle, small rounded ears, wry friendly smile",
-      "file": "24-garfield.png"
+      "file": "24-garfield.png",
+      "reference": {
+        "pageUrl": "https://en.wikipedia.org/wiki/Garfield_(character)",
+        "imageUrl": "https://thumb.wikimedia.org/wikipedia/en/thumb/b/bc/Garfield_the_Cat.svg/1280px-Garfield_the_Cat.svg.png"
+      }
     }
   ]
 }

@@ -11,10 +11,10 @@ async function main() {
   fs.mkdirSync(dir, { recursive: true });
   let failures = 0;
   for (const c of roster.characters) {
-    const target = path.join(dir, `${c.id}.jpg`);
+    const target = path.join(dir, c.reference?.file || `${c.id}.jpg`);
     if (fs.existsSync(target) && c.reference) continue;
     try {
-      const pageUrl = `https://en.wikipedia.org/wiki/${c.wiki}`;
+      const pageUrl = c.reference?.pageUrl || `https://en.wikipedia.org/wiki/${c.wiki}`;
       let url = c.reference?.imageUrl;
       if (!url) {
         const response = await fetch(pageUrl, { signal: AbortSignal.timeout(20000) });
@@ -26,7 +26,7 @@ async function main() {
         if (!url) throw new Error('No character image');
         url = url.replace(/&amp;/g, '&').split('?')[0];
       }
-      c.reference = { pageUrl, imageUrl: url };
+      c.reference = { ...c.reference, pageUrl, imageUrl: url };
       fs.writeFileSync(rosterPath, JSON.stringify(roster, null, 2) + '\n');
       await new Promise(resolve => setTimeout(resolve, 1500));
       const img = await fetch(url, { signal: AbortSignal.timeout(20000) });

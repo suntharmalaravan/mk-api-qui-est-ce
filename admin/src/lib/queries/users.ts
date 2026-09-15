@@ -4,10 +4,11 @@ import { requireAdmin } from '@/lib/auth/session';
 import { db, type Sql } from '@/lib/db';
 import { PAGE_SIZE, containsPattern, parseIdQuery } from '@/lib/params';
 
-export const USER_SORTS = ['recent', 'score', 'decks', 'wins', 'name'] as const;
+export const USER_SORTS = ['recent', 'score', 'decks', 'wins', 'name', 'loupes'] as const;
 export type UserSort = (typeof USER_SORTS)[number];
 
 export type UserListItem = {
+  loupes: number;
   id: number;
   username: string;
   score: number;
@@ -22,6 +23,8 @@ export type UserListItem = {
 
 function orderBy(sql: Sql, sort: UserSort) {
   switch (sort) {
+    case 'loupes':
+      return sql`coalesce((select balance from atelier_account a where a.user_id=u.id),0) desc,u.id desc`;
     case 'score':
       return sql`u.score desc, u.id desc`;
     case 'decks':
@@ -59,6 +62,7 @@ export async function listUsers({ q, sort, offset }: { q: string; sort: UserSort
       limit ${PAGE_SIZE} offset ${offset}
     )
     select u.id, u.username, u.score, u.image_url, u.created_at, p.total, lvl.title as level,
+      coalesce((select balance from atelier_account a where a.user_id=u.id),0) as loupes,
       (select count(*)::int from deck d where d.user_id = u.id) as decks,
       (select count(*)::int from atelier_match_result m where m.winner_id = u.id) as wins,
       (select count(*)::int from atelier_match_result m where m.loser_id = u.id) as losses
